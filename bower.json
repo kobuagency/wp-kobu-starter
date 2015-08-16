@@ -1,0 +1,8 @@
+{
+  "name": "mywptheme",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "~3.3.2",
+    "flexslider": "~2.5.0"
+  }
+}
