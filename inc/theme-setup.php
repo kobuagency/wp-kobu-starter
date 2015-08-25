@@ -13,6 +13,7 @@ function mywptheme_setup() {
 	load_theme_textdomain( 'mywptheme', MYWPTHEME_THEME_PATH . '/languages' );
 
 	add_theme_support( 'automatic-feed-links' );
+	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption' ) );
 
 	register_nav_menus( array(
