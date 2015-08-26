@@ -19,6 +19,9 @@ function mywptheme_setup() {
 	register_nav_menus( array(
 		'primary'		=> __( 'Main Menu', 'mywptheme' ),
 	) );
+	
+	// Hide admin bar at front-end
+	show_admin_bar( false );	
 }
 add_action( 'after_setup_theme', 'mywptheme_setup' );
 
