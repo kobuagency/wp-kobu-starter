@@ -13,10 +13,7 @@ function mywptheme_enqueue_scripts() {
 	wp_enqueue_script( 'mywptheme', MYWPTHEME_THEME_URL . '/assets/dist/mywptheme.min.js', $script_dependencies, MYWPTHEME_THEME_VERSION, true );
 
 	$script_vars = apply_filters( 'mywptheme_script_vars', array(
-		'load_fancybox'			=> false,
-		'load_tooltips'			=> false,
-		'load_popovers'			=> false,
-		'wrap_embeds'			=> true,
+		//e.g. 'load_nameofscript'			=> false,
 	) );
 
 	wp_localize_script( 'mywptheme', '_theme_config', $script_vars );

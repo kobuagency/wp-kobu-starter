@@ -24,8 +24,11 @@
 
 		<div class="container">
 
-			<h1><?php bloginfo( 'name' ); ?></h1>
-			<h2><?php bloginfo( 'description' ); ?></h2>
+			<div id="logo">
+				<a href="<?php echo home_url(); ?>">
+					<img src="<?php echo CPTHEME_THEME_URL?>/assets/images/main-logo.svg" />
+				</a>
+			</div>
 
 			<?php // Primary Menu ?>
 			<?php if( has_nav_menu( 'primary' ) ) : ?>
