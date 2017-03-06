@@ -5,6 +5,7 @@
 ############
 
 *.pydevproject
+*.komodoproject
 .project
 .metadata
 *.swp
