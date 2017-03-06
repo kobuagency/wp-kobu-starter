@@ -14,8 +14,7 @@ get_header(); ?>
 
 				<?php if( have_posts() ) : ?>
 					<?php while( have_posts() ) : the_post(); ?>
-						<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-							<?php edit_post_link( __( 'Edit Post', 'mywptheme' ), '<p class="text-right">', '</p>' ); ?>
+						<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>							
 							<h1><?php the_title(); ?></h1>
 							<?php the_content(); ?>
 						</article>

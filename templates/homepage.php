@@ -7,16 +7,16 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area clr">
+	<div id="primary" class="content-area clear">
 		<div id="content" class="site-content" role="main">
 			<?php while ( have_posts() ) : the_post(); ?>
-				<article class="homepage-wrap clr">
+				<article class="homepage-wrap clear">
 					<?php
 					/**
 						Post Content
 					**/ ?>
 					<?php if ( get_the_content() !== '' ) { ?>
-						<div id="homepage-content" class="entry clr">
+						<div id="homepage-content" class="entry clear">
 							<?php the_content(); ?>
 						</div><!-- .entry-content -->
 					<?php } ?>

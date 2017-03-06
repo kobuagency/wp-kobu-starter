@@ -7,8 +7,8 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area clr">
-		<div id="content" class="site-content left-content clr" role="main">
+	<div id="primary" class="content-area clear">
+		<div id="content" class="site-content clear" role="main">
 			<header class="page-header">
 				<h1 class="page-header-title"><?php
 					if ( is_day() ) :
@@ -22,7 +22,7 @@ get_header(); ?>
 					endif;
 				?></h1>
 				<?php if ( term_description() ) { ?>
-					<div id="archive-description" class="clr">
+					<div id="archive-description" class="clear">
 						<?php echo term_description(); ?>
 					</div><!-- #archive-description -->
 				<?php } ?>
@@ -33,7 +33,7 @@ get_header(); ?>
 						<?php get_template_part( 'content', get_post_format() ); ?>
 					<?php endwhile; ?>
 				</div><!-- #clr -->
-				<?php wpex_pagination(); ?>
+				<?php kobu_pagination(); ?>
 			<?php } else { ?>
 				<?php get_template_part( 'content', 'none' ); ?>
 			<?php } ?>

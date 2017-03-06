@@ -20,31 +20,52 @@
 
 <body <?php body_class(); ?>>
 
-	<header role="banner">
+	<header id="header" class="header clear">
 
 		<div class="container">
 
 			<div id="logo">
 				<a href="<?php echo home_url(); ?>">
-					<img src="<?php echo CPTHEME_THEME_URL?>/assets/images/main-logo.svg" />
+					<img src="<?php echo MYWPTHEME_THEME_URL?>/assets/images/main-logo.svg" />
 				</a>
 			</div>
 
-			<?php // Primary Menu ?>
+<?php // Primary Menu ?>
 			<?php if( has_nav_menu( 'primary' ) ) : ?>
-				<nav role="navigation">
+			<div id="navigation" class="navigation-wrapper">
+				<nav class="navigation" role="navigation">
 					<?php   wp_nav_menu( array(
-                                                    'theme_location'	=> 'main_menu',
-                                                    'sort_column'	=> 'menu_order',
-                                                    'menu_class'	=> 'dropdown-menu sf-menu',
-                                                    'fallback_cb'	=> false,
-                                                    'walker'		=> new Kobu_Dropdown_Walker_Nav_Menu()
-                                                ) ); ?>
+								'theme_location'	=> 'primary',
+								'sort_column'	=> 'menu_order',
+								'menu_class'	=> 'dropdown-menu sf-menu',
+								'fallback_cb'	=> false,
+								'walker'		=> new Kobu_Dropdown_Walker_Nav_Menu()
+							) ); ?>
 				</nav>
-			<?php endif; ?>
+				<div class="language-wrapper">
+					<?php language_selector_flags() ?>
+				</div>
+			</div><!-- #navigation -->
+			
+			<a class="toggle-menu" href="#navigation"></a>
+			
+			<div class="mobile-menu">				
+				<div id="mobile-nav" class="navigation mobile-navigation-menu">
+					<div class="navigation mobile-menu-wrapper">
+					<?php   wp_nav_menu( array(
+							'theme_location'	=> 'primary',
+							'sort_column'	=> 'menu_order',
+							'menu_class'	=> 'dropdown-menu sf-menu',
+							'fallback_cb'	=> false,
+							'walker'		=> new Kobu_Dropdown_Walker_Nav_Menu()
+						) ); ?>
+					</div>				
+				</div>
+			</div>			
+			<?php endif; ?>		
 
 		</div>
 
 	</header>
 
-	<div id="content">
+	<div id="main-content" class="clear">

@@ -8,9 +8,9 @@
  */
 ?>
 
-	</div><!-- #content -->
+	</div><!-- #main-content -->
 
-	<footer role="contentinfo">
+	<footer id="footer-wrap" class="site-footer clear" role="contentinfo">
 
 		<div class="container">
 			<div id="copyright" role="contentinfo" class="clr">&copy; <?php echo date('Y'); ?> <?php bloginfo( 'name' ); ?>.</div><!-- #copyright -->

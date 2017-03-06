@@ -36,14 +36,14 @@ else { ?>
 				</a>
 			</div><!-- .post-entry-thumbnail -->
 		<?php } ?>
-		<div class="loop-entry-text clr">
+		<div class="loop-entry-text clear">
 			<header>
 				<h2 class="loop-entry-title"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( the_title_attribute( 'echo=0' ) ); ?>"><?php the_title(); ?></a></h2>
 				<?php
 				// Display post meta details
 				kobu_post_meta() ;?>
 			</header>
-			<div class="loop-entry-content entry clr">
+			<div class="loop-entry-content entry clear">
 				<?php the_content(); ?>
 			</div><!-- .loop-entry-content -->
 		</div><!-- .loop-entry-text -->

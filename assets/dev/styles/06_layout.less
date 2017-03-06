@@ -1,0 +1,361 @@
+@import "01_settings.less";
+
+/* MAIN LAYOUT UI/UX
+================================================== */
+body {
+    background-color: @white;
+    padding: 0;
+    margin: 0;
+    font-family: @font-family-base;
+    font-size: @font-size-base;
+    line-height: @line-height-base;
+    font-weight: @font-weight-base;
+    letter-spacing: @letter-spacing;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    overflow-x: hidden;
+	color: @black;
+}
+
+a {
+    color: @black;
+    transition: all 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+	cursor: pointer;
+	text-decoration: none;
+	outline: none;		
+	
+	&:hover {
+		color: @black;
+		text-decoration: none;
+		outline: none;		
+	}
+	
+	&:focus {
+		color: @black;
+		text-decoration: none;
+		outline: none;		
+	}	
+}
+
+.clr:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+
+.clear {
+    float: left;
+    width: 100%;
+}
+
+.smallheight {
+	height: 250px;
+}
+
+.semiheight {
+	min-height: 75vh;
+}
+
+.fullheight {
+	min-height: 100vh;
+}
+
+.container {
+    width: 93.70%;
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 100;
+}
+
+.container.small {
+	max-width: 760px;
+}
+
+
+.aligncenter {
+	float: none;
+    margin: 0 auto 20px auto;
+    display: block;
+}
+
+.alignleft {
+	float: left;
+	margin-bottom: 20px;
+}
+
+.alignright {
+	float: right;
+	margin-bottom: 20px;
+}
+
+/* pagination */
+.page-numbers {
+	float: left;
+    padding: 0 30px;
+	
+	li {
+		float: left;
+		width: 20px;
+		height: 20px;
+		margin-right: 6px;
+		text-align: center;
+		line-height: 20px;
+		
+		.current {
+			display: block;
+			background-color: @blue;
+			padding: 0;
+			float: left;
+			width: 100%;
+			height: 100%;
+			color: @white;
+		}
+		
+		a {
+			float: left;
+			width: 100%;
+			height: 100%;
+			padding: 0;
+			background-color: #c3c3c3;
+			color: @white;
+			
+			&:hover {
+				background-color: @blue;
+			}
+		}
+		
+	}
+}
+
+/* slider */
+.content-slider {
+	width: 100%;
+	height: 100%;
+	position: relative;
+    text-align: center;	
+	
+	ul {
+		width: 100%;
+		padding: 2px;
+			
+		.slide {
+			float: left;
+			width: 100%;
+			height: 100%;
+			position: relative;
+			overflow: hidden;
+			background-position: center;
+			background-size: cover;
+			background-repeat: no-repeat;
+			
+			&__content {
+				height: calc(100% - 36px);
+				width: calc(100% - 36px);				
+				background-color: rgb(0,0,0);
+				background-color: rgba(0,0,0,0.85);
+				margin: 18px;
+				opacity: 0;
+				
+				&__info {
+					color: @white;
+					width: 395px;
+					margin: 0 auto;
+					padding: 170px 0;					
+					
+					h2 {
+						font-size: 24px;
+						margin-bottom: 5px;
+						text-align: left;	
+					}
+					
+					.description {
+						font-size: 14px;
+						line-height: 18px;						
+						margin-left: 20px;
+						text-align: left;
+					}
+					
+					.cta {
+						float: left;
+						width: 100%;
+						margin-top: 32px;
+					}
+				}									
+			}
+			
+			img {
+				opacity: 0;
+				visibility: hidden;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+		}
+		
+		.slide:hover .slide__content {			
+			opacity: 1;			
+		}
+	}
+	
+	.flex-control-paging {
+		position: relative;
+		display: inline-block;
+		text-align: center;
+		top: 18px;		
+		
+		li {
+			float: left;
+			width: 18px;
+			height: 18px;
+			margin-right: 18px;
+			overflow: hidden;
+			
+			a {
+				display: block;
+				width: 100%;
+				height: 100%;
+				color: transparent;
+				text-indent: -100px;
+			}
+			
+			a:hover,
+			a:focus,
+			a.flex-active {
+				background-color: transparent;
+			}
+		}
+		
+		li:last-child {
+			margin-right: 0;
+		}
+	}
+	
+	.flex-direction-nav {
+		position: absolute;
+		top: 50%;
+		z-index: 100;
+		margin-top: -22px;
+		
+		li {
+			width: 32px;
+			height: 25px;
+			
+			a {
+				svg {
+					width: 32px;
+					height: 25px;					
+				}	
+			}
+		}
+		
+		li.flex-nav-prev {
+			transform: rotate(180deg);
+			float: left;
+			margin-left: 38px;
+		}
+		
+		li.flex-nav-next {
+			float: right;
+			margin-right: 38px;
+		}
+	}
+	
+}
+
+.no-content {
+	text-align: center;
+}
+
+
+/* HEADER 
+================================================== */
+
+.header {	
+    
+    .logo {
+		float: left;
+		position: relative;
+		
+		a {
+			display: block;
+			font-size: 48px;
+			font-weight: 200;
+			letter-spacing: 20px;
+			color: @white;
+			
+			img {
+				float: left;
+			}
+		}
+		
+    }
+	
+	
+	.toggle-menu {
+		display: none;
+		float: right;
+		width: 25px;
+		height: 20px;
+		margin-top: 10px;
+		position: relative;
+		z-index: 10000;
+	}
+
+}
+
+.mobile-menu {
+	display: none;
+}
+
+/* HOMEPAGE
+================================================== */
+
+
+/* ERROR PAGE
+================================================== */
+#error-page {
+	padding: 12vh 0 120px 0;
+    text-align: center;
+}
+
+.error-alternatives-menu {
+	width: 280px;
+	margin: 0 auto;
+	
+	ul li {
+		float: left;
+		width: 100%;
+		text-align: center;
+		
+		a {
+			text-transform: uppercase;
+			color: @blue;
+			padding: 5px 0;
+		}
+		
+	}
+}
+
+/* FOOTER
+================================================== */
+footer {
+    width: 100%;
+	position: relative;
+
+    .copyright {
+		float: left;
+		font-size: 11px;			
+		color: @gray;
+		
+		a {
+			text-decoration: underline;
+		}
+    }
+
+
+}

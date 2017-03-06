@@ -8,8 +8,8 @@
 get_header(); ?>
 
 <?php while ( have_posts() ) : the_post(); ?>
-	<div id="primary" class="content-area clr">
-		<div id="content" class="site-content clr" role="main">
+	<div id="primary" class="content-area clear">
+		<div id="content" class="site-content clear" role="main">
 			<article class="news-item">
 
 				<div class="left">

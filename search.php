@@ -7,8 +7,8 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area clr">
-		<div id="content" class="site-content left-content clr" role="main">
+	<div id="primary" class="content-area clear">
+		<div id="content" class="site-content clear" role="main">
 			<header class="page-header">
 				<h1 class="page-header-title"><?php printf( __( 'Search Results for: %s', 'kobu' ), get_search_query() ); ?></h1>
 			</header>

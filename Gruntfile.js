@@ -79,7 +79,7 @@ module.exports = function( grunt ) {
 		    	strictMath: true
 		    },
 		    files: {
-		    	'assets/dist/<%= pkg.functionPrefix %>.css': 'assets/dev/style.less'
+		    	'assets/dist/<%= pkg.functionPrefix %>.css': 'assets/dev/styles/*.less'
 		    }
 		  }
 		},
@@ -201,7 +201,7 @@ module.exports = function( grunt ) {
 				}
 			},
 			stylesheets: {
-				files: ['assets/dev/style.less'],
+				files: ['assets/dev/styles/*.less'],
 				tasks: ['stylesheets'],
 				options: {
 					livereload: true

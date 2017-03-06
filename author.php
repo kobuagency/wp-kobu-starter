@@ -7,8 +7,8 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area clr">
-		<div id="content" class="site-content left-content clr" role="main">
+	<div id="primary" class="content-area clear">
+		<div id="content" class="site-content clear" role="main">
 			<?php if ( have_posts() ) : the_post(); ?>
 				<header class="page-header">
 					<h1 class="page-header-title"><?php _e( 'Articles Written By', 'wpex' ); ?>: <?php echo get_the_author() ?></h1>
@@ -18,7 +18,7 @@ get_header(); ?>
 					<?php while ( have_posts() ) : the_post(); ?>
 						<?php get_template_part( 'content', get_post_format() ); ?>
 					<?php endwhile;	 ?>
-					<?php wpex_pagination(); ?>
+					<?php kobu_pagination(); ?>
 				</div><!--/post -->
 			<?php endif; ?>
 		</div><!-- #content -->

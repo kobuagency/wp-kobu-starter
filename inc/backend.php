@@ -12,7 +12,7 @@ function kobu_login_logo() { ?>
 	    background-color: #1F1F1F;
 	}
         body.login div#login h1 a {
-	    background-image: url(images/main-logo.svg);
+	    background-image: url(<?php echo MYWPTHEME_THEME_URL; ?>/main-logo.svg);
 	    background-size: 200px 180px;
 	    height: 190px;
 	    width: 200px;
@@ -77,3 +77,18 @@ function login_website_title() {
 	return get_bloginfo('name');
 }
 add_filter( 'login_headertitle', 'login_website_title' );
+
+/**
+ * Enable Options Page
+ */
+if( function_exists('acf_add_options_page') ) {
+	
+	acf_add_options_page(array(
+		'page_title' 	=> 'Site Settings',
+		'menu_title'	=> 'Site Settings',
+		'menu_slug' 	=> 'site-settings',
+		'capability'	=> 'edit_posts',
+		'redirect'		=> false
+	));
+	
+}
