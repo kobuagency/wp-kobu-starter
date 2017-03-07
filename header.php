@@ -37,7 +37,7 @@
 					<?php   wp_nav_menu( array(
 								'theme_location'	=> 'primary',
 								'sort_column'	=> 'menu_order',
-								'menu_class'	=> 'dropdown-menu sf-menu',
+								'menu_class'	=> 'dropdown-menu menu',
 								'fallback_cb'	=> false,
 								'walker'		=> new Kobu_Dropdown_Walker_Nav_Menu()
 							) ); ?>
@@ -55,7 +55,7 @@
 					<?php   wp_nav_menu( array(
 							'theme_location'	=> 'primary',
 							'sort_column'	=> 'menu_order',
-							'menu_class'	=> 'dropdown-menu sf-menu',
+							'menu_class'	=> 'dropdown-menu menu',
 							'fallback_cb'	=> false,
 							'walker'		=> new Kobu_Dropdown_Walker_Nav_Menu()
 						) ); ?>
