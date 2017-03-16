@@ -12,7 +12,7 @@ function kobu_login_logo() { ?>
 	    background-color: #1F1F1F;
 	}
         body.login div#login h1 a {
-	    background-image: url(<?php echo MYWPTHEME_THEME_URL; ?>/main-logo.svg);
+	    background-image: url(<?php echo MYWPTHEME_THEME_URL; ?>/assets/images/main-logo.svg);
 	    background-size: 200px 180px;
 	    height: 190px;
 	    width: 200px;

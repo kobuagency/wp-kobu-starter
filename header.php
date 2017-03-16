@@ -24,13 +24,13 @@
 
 		<div class="container">
 
-			<div id="logo">
+			<div id="logo-wrapper" class="logo">
 				<a href="<?php echo home_url(); ?>">
 					<img src="<?php echo MYWPTHEME_THEME_URL?>/assets/images/main-logo.svg" />
 				</a>
 			</div>
 
-<?php // Primary Menu ?>
+			<?php // Primary Menu ?>
 			<?php if( has_nav_menu( 'primary' ) ) : ?>
 			<div id="navigation" class="navigation-wrapper">
 				<nav class="navigation" role="navigation">
