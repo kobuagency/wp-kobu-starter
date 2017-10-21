@@ -16,7 +16,7 @@ if ( ! function_exists( 'kobu_get_featured_img_url' ) ) {
 			$post_id = $post->ID;
 			$post_type = get_post_type( $post_id );
 			$attachment_id = $attachment_id ? $attachment_id : get_post_thumbnail_id( $post_id );
-			$attachment_url = wp_get_attachment_url( $attachment_id );
+			$attachment_url = wp_get_attachment_image_src( $attachment_id );
 			
 			// Resizing Vars
 			$width = 9999;
