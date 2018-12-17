@@ -21,31 +21,102 @@ module.exports = function( grunt ) {
 						'Tags:\n' +
 						'*/',
 
+		// Watches for changes and runs tasks
+		watch : {
+			sass : { // watch sass files
+				files : ['assets/dev/styles/*.scss'],
+				tasks : ['css_task']
+			},
+			css : { // livereload with min css update
+				files : ['assets/dist/<%= pkg.functionPrefix %>.min.css'],
+				options : {
+					livereload : true
+				}
+			},
+			js : { // watch js files
+				files : ['assets/dev/scripts.js', 'assets/dev/ajax_filters.js'],
+				tasks : ['js_task']
+			},
+			js_min : { // livereload with min js update
+				files : ['assets/dist/<%= pkg.functionPrefix %>.min.js'],
+				options : {
+					livereload : true
+				}
+			},
+			svg : {
+				files : ['assets/dev/svg/**/*.svg'],
+				tasks : ['svg_task']
+			}
+		},
+
+
+		// Clean minified css and js
 		clean: {
-			scripts: [
-				'assets/dist/<%= pkg.functionPrefix %>.js',
-				'assets/dist/<%= pkg.functionPrefix %>.min.js'
-			],
-			stylesheets: [
-				'assets/dist/<%= pkg.functionPrefix %>.css',
-				'assets/dist/<%= pkg.functionPrefix %>.min.css'
-			],
+			css: {
+				src: ['assets/dist/*.css', 'assets/dist/*.css.map']
+			},
+			js: {
+				src: ['assets/dist/<%= pkg.functionPrefix %>.js', 'assets/dist/<%= pkg.functionPrefix %>.min.js']
+			},
 			pot: [
 				'languages/<%= pkg.functionPrefix %>.pot'
 			]
-		},		
-
-		jshint: {
-			options: {
-				jshintrc: 'assets/dev/.jshintrc'
-			},
-			src: [
-				'assets/dev/bootstrap/js/collapse.js',
-				'assets/dev/bootstrap/js/dropdown.js',
-				'assets/dev/bootstrap/js/transition.js',
-				'assets/dev/scripts.js'
-			]
 		},
+
+
+		// Compile sass files into CSS
+
+		sass: {
+		    dist: {
+		    	options: {
+		    		sourcemap: 'none'
+		    	},
+			    files: {
+			        'assets/dist/<%= pkg.functionPrefix %>.css': 'assets/dev/styles/style.scss'
+			    }
+		    }
+		},
+
+
+
+		// Apply post-processors to CSS - pixrem, autoprefixer, css-mqpacker and minify
+		postcss: {
+		    options: {
+		    	map: false, // inline sourcemaps
+		    	processors: [
+		    		require('sort-css-media-queries'),
+		    		require('pixrem')(),
+			        require('autoprefixer')({browsers: [
+						'Android 2.3',
+						'Android >= 4',
+						'Chrome >= 20',
+						'Firefox >= 24',
+						'Explorer >= 8',
+						'iOS >= 6',
+						'Opera >= 12',
+						'Safari >= 6'
+					]}), // add vendor prefixes
+			        require('css-mqpacker')({sort: require('sort-css-media-queries').desktopFirst}), // Pack media queries
+			        require('cssnano')({preset: 'default'}) // minify the result
+		    	]
+		    },
+		    dist: {
+		     	src: 'assets/dist/<%= pkg.functionPrefix %>.css',
+				dest: 'assets/dist/<%= pkg.functionPrefix %>.min.css'
+		    }
+		},
+	
+
+		// JsHint your javascript
+		jshint : {
+			all : ['assets/dev/scripts.js', 'assets/dev/ajax_filters.js'],
+			options : {
+				jshintrc: 'assets/dev/.jshintrc'
+			}
+		},
+
+
+		// Uglify javascript
 
 		concat: {
 			options: {
@@ -53,14 +124,18 @@ module.exports = function( grunt ) {
 			},
 			dist: {
 				src: [
-					'assets/dev/bootstrap/js/collapse.js',
-					'assets/dev/bootstrap/js/dropdown.js',
-					'assets/dev/bootstrap/js/transition.js',
 					'assets/dev/scripts.js'
 				],
 				dest: 'assets/dist/<%= pkg.functionPrefix %>.js'
+			},
+			ajax_filters: {
+				src: [
+					'assets/dev/ajax_filters.js'
+				],
+				dest: 'assets/dist/ajax_filters.js'
 			}
 		},
+
 
 		uglify: {
 			options: {
@@ -70,50 +145,13 @@ module.exports = function( grunt ) {
 			dist: {
 				src: '<%= concat.dist.dest %>',
 				dest: 'assets/dist/<%= pkg.functionPrefix %>.min.js'
+			},
+			ajax_filters: {
+				src: '<%= concat.ajax_filters.dest %>',
+				dest: 'assets/dist/ajax_filters.min.js'
 			}
 		},
 
-		less: {
-		  dist: {
-		    options: {
-		    	strictMath: true
-		    },
-		    files: {
-		    	'assets/dist/<%= pkg.functionPrefix %>.css': 'assets/dev/styles/*.less'
-		    }
-		  }
-		},
-
-		autoprefixer: {
-			options: {
-				browsers: [
-					'Android 2.3',
-					'Android >= 4',
-					'Chrome >= 20',
-					'Firefox >= 24',
-					'Explorer >= 8',
-					'iOS >= 6',
-					'Opera >= 12',
-					'Safari >= 6'
-				]
-			},
-			dist: {
-				src: 'assets/dist/<%= pkg.functionPrefix %>.css'
-			}
-		},
-
-		cssmin: {
-			options: {
-				compatibility: 'ie8',
-				keepSpecialComments: '*',
-				noAdvanced: true
-			},
-			dist: {
-				files: {
-					'assets/dist/<%= pkg.functionPrefix %>.min.css': 'assets/dist/<%= pkg.functionPrefix %>.css'
-				}
-			},
-		},
 
 		usebanner: {
 			options: {
@@ -124,6 +162,35 @@ module.exports = function( grunt ) {
 				src: 'assets/dist/*.css'
 			}
 		},
+
+
+		// SVG min
+		svgmin: {
+			options: {
+	            plugins: [
+	            	{ convertPathData: false }, // breaks paths
+			    	{ mergePaths: false }, // breaks paths
+			    	{ removeUnknownsAndDefaults: false }, // breaks colors
+	                { removeViewBox: false },
+	                { removeUselessStrokeAndFill: false },
+	                { removeAttrs: { attrs: ['id', 'data-name'] } }
+	            ]
+	        },
+	        dist: {
+	            files: [
+		            {
+					    expand: true,
+					    cwd: 'assets/dev/svg/',
+					    src: '*.svg',
+					    dest: 'assets/images/', 
+					    ext: '.svg',
+					    extDot: 'first'
+					}
+				]
+	        }
+		},
+
+
 
 		replace: {
 			dist: {
@@ -191,52 +258,48 @@ module.exports = function( grunt ) {
 				}
 			}
 		},
-
-		watch: {
-			scripts: {
-				files: ['assets/dev/scripts.js'],
-				tasks: ['scripts'],
-				options: {
-					livereload: true
-				}
-			},
-			stylesheets: {
-				files: ['assets/dev/styles/*.less'],
-				tasks: ['stylesheets'],
-				options: {
-					livereload: true
-				}
-			},
-			
-		}
-
 	});
 
+
+
+
+	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
+	grunt.loadNpmTasks( 'grunt-contrib-sass' );
+	grunt.loadNpmTasks( 'grunt-postcss' );
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-contrib-concat' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
-	grunt.loadNpmTasks( 'grunt-contrib-less' );
-	grunt.loadNpmTasks( 'grunt-autoprefixer' );
-	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 	grunt.loadNpmTasks( 'grunt-banner' );
+	grunt.loadNpmTasks( 'grunt-svgmin' );
 	grunt.loadNpmTasks( 'grunt-text-replace' );
 	grunt.loadNpmTasks( 'grunt-wp-i18n' );
-	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 
-	grunt.registerTask( 'scripts', [
-		'clean:scripts',
+
+	// Default task
+	grunt.registerTask( 'default', [
+		'watch'
+	]);
+
+	// CSS task
+	grunt.registerTask( 'css_task', [
+		'clean:css',
+		'sass',
+		'postcss',
+		'usebanner'
+	]);
+
+	// JS task
+	grunt.registerTask( 'js_task', [
+		'clean:js',
 		'jshint',
 		'concat',
 		'uglify'
 	]);
 
-	grunt.registerTask( 'stylesheets', [
-		'clean:stylesheets',
-		'less',
-		'autoprefixer',
-		'cssmin',
-		'usebanner',
+	// SVG task
+	grunt.registerTask( 'svg_task', [
+		'svgmin:dist'
 	]);
 
 	grunt.registerTask( 'translations', [
@@ -244,17 +307,17 @@ module.exports = function( grunt ) {
 		'makepot'
 	]);
 
-	grunt.registerTask( 'default', [
-		'watch'
-	]);
 
+	// Build task
 	grunt.registerTask( 'build', [
-		'scripts',
-		'stylesheets',
+		'css_task',
+		'js_task',
 		'translations',
 		'replace:dist'
 	]);
 
+
+	// Template Setup Task
 	grunt.registerTask( 'setup', [
 		'replace:init',
 		'bower-install',
@@ -274,3 +337,4 @@ module.exports = function( grunt ) {
 		});
 	});
 };
+

@@ -16,7 +16,7 @@ if ( ! function_exists( 'kobu_get_featured_img_url' ) ) {
 			$post_id = $post->ID;
 			$post_type = get_post_type( $post_id );
 			$attachment_id = $attachment_id ? $attachment_id : get_post_thumbnail_id( $post_id );
-			$attachment_url = wp_get_attachment_image_src( $attachment_id );
+			$attachment_url = wp_get_attachment_url( $attachment_id );
 			
 			// Resizing Vars
 			$width = 9999;
@@ -64,7 +64,7 @@ if ( ! function_exists( 'kobu_get_featured_img_url' ) ) {
 			$height = apply_filters('kobu_featured_image_height', $height );
 			$crop = ( $height == '9999' ) ? false : true;
 			$cropped_image = aq_resize( $attachment_url, $width, $height, $crop );
-			$cropped_image = apply_filters( 'kobu_get_featured_img_url', $cropped_image );
+			$cropped_image = aq_resize( $attachment_url, $width, $height, $crop, true, true );
 			return $cropped_image;
 			
 			

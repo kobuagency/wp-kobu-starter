@@ -7,61 +7,97 @@
 
  /* Change the Login Admin Screen */
 function kobu_login_logo() { ?>
-    <style type="text/css">
+	<style type="text/css">
 	body.login {
-	    background-color: #1F1F1F;
+	    background-color: #ffffff;
+	    display: table;
+    	height: 100%;
+    	width: 100%;
 	}
-        body.login div#login h1 a {
-	    background-image: url(<?php echo MYWPTHEME_THEME_URL; ?>/assets/images/main-logo.svg);
-	    background-size: 200px 180px;
-	    height: 190px;
-	    width: 200px;
-	    margin: 0 auto;
-        }
+
+	body.login div#login {
+	    display: table-cell;
+	    vertical-align: middle;
+	    padding: 30px 0 30px 0;
+	    width: 100%;
+	}
+    
+
+	body.login div#login > p, #login_error, .login .message {
+	    width: 350px !important;
+	    margin: 20px auto !important;
+	    box-shadow: none !important;
+	}
+    
+    body.login div#login h1 a {
+	    background-image: url(<?php echo MYWPTHEME_THEME_URL; ?>/assets/images/cca-logo.svg);
+	    background-size: 100%;
+	    height: 144px;
+    	width: 280px;
+	    margin: 0 auto 30px auto;
+	    display: inline-block;
+    }
 	
-	body.login div#login form#loginform {
-	    margin-top: 10px;
-	    margin-left: 0;
-	    padding: 26px 24px 46px;
-	    background: #353535;
-	    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.13);
+	body.login div#login form#loginform, body.login div#login form#lostpasswordform {
+	    margin-top: 20px;
+	    padding: 30px;
+	    background: #F5F5F5;
+	    -webkit-box-shadow: none;
 	    box-shadow: none;
-	    border: 1px solid;
+	    border: 0px solid transparent;
 	    border-radius: 3px;
+	    width: 320px;
+	    margin: 0 auto;
 	}
 	
-	body.login div#login form#loginform input {
-	    background: #D4D4D4;
+	body.login div#login form#loginform input, body.login div#login form#lostpasswordform input {
+	    background: #ffffff;
 	    border-radius: 3px;
-	    padding: 3px 10px;	    
+	    padding: 8px 10px;	    
+	    font-size: 15px;
+	    box-shadow: none;
+	    text-shadow: none;
+	    border: 0px solid transparent;
 	}
 	
-	body.login div#login form#loginform p.submit input#wp-submit {
-	    background: #7D7D7D;
-	    border-color: #292929;
-	    padding: 0 12px 2px;
-	    -webkit-box-shadow: inset 0 1px 0 rgba(120,200,230,.5),0 1px 0 rgba(0,0,0,.15);
-	    box-shadow: inset 0 1px 0 #949494,0 1px 0 rgba(0,0,0,.15);
-	    color: #fff;
+	body.login div#login form#loginform input:focus, body.login div#login form#lostpasswordform input:focus {
+	    background: #ffffff;
+	}
+	
+	body.login div#login form#loginform p.submit input#wp-submit, body.login div#login form#lostpasswordform p.submit input#wp-submit {
+	    background: transparent;
+	    border-color: transparent;
+	    padding: 2px 15px;
+	    font-size: 13px;
+	    text-transform: uppercase;
+	    box-shadow: none;
+	    color: #80CCC1;
 	    text-decoration: none;
 	    transition: 0.4s ease;
 	    -moz-transition: 0.4s ease;
 	    -webkit-transition: 0.4s ease;	    
+	    height: auto;
+	    border: 1px solid #80CCC1;
 	}
 	
 	body.login div#login form#loginform p.submit input#wp-submit.focus,
 	body.login div#login form#loginform p.submit input#wp-submit.hover,
 	body.login div#login form#loginform p.submit input#wp-submit:focus,
-	body.login div#login form#loginform p.submit input#wp-submit:hover {
-	    background: #CE1616;
-	    border-color: #2D0000;
-	    -webkit-box-shadow: inset 0 1px 0 rgba(120,200,230,.6);
-	    box-shadow: inset 0 1px 0 #FB6565;
-	    color: #fff;
+	body.login div#login form#loginform p.submit input#wp-submit:hover,
+	body.login div#login form#lostpasswordform p.submit input#wp-submit.focus,
+	body.login div#login form#lostpasswordform p.submit input#wp-submit.hover,
+	body.login div#login form#lostpasswordform p.submit input#wp-submit:focus,
+	body.login div#login form#lostpasswordform p.submit input#wp-submit:hover {
+	    background: #80CCC1;
+	    color: #ffffff;
 	}
 	
 	body.login div#login p#nav,
 	body.login div#login p#backtoblog { text-align: center; }
+
+	body.login #backtoblog a:hover, body.login #nav a:hover {
+	    color: #80CCC1;
+	}
     </style>
 <?php }
 add_action( 'login_enqueue_scripts', 'kobu_login_logo' );

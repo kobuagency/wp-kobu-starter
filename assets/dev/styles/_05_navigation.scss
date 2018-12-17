@@ -1,5 +1,3 @@
-@import "01_settings.less";
-
 /* NAVIGATION
 ================================================== */
     
@@ -86,15 +84,15 @@
     height: 100%;
 	font-size: 15px;	
     zoom: 1;	
-	color: @white;
+	color: $white;
 }
 
 .menu a:hover {
-	color: @white;	
+	color: $white;	
 }
 
 .menu li.active a {
-	color: @white;
+	color: $white;
 }
 
 .menu > li:last-child:after {
@@ -115,7 +113,7 @@
 
 .menu .sub-menu li {
 	width: 100%;
-	background-color: @blue;
+	background-color: $blue;
 	margin-bottom: 2px;
 }
 
@@ -123,7 +121,7 @@
 .menu .sub-menu li:focus,
 .menu .sub-menu li a:hover,
 .menu .sub-menu li a:focus {	
-	background-color: @blue;
+	background-color: $blue;
 }
 
 

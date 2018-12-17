@@ -3,40 +3,54 @@
 
 	$( document ).ready(function( $ ) {
 
-		if( _theme_config.load_fancybox && $.fn.fancybox ) {
-			$( 'a[href$=".jpg"],a[href$=".jpeg"],a[href$=".png"],a[href$=".gif"]' ).each(function() {
-				var $this = $( this );
-				var $wrap = $this.parents( '.gallery' );
-				if( $wrap.length !== 0 ) {
-					$this.attr( 'rel', $wrap.attr( 'id' ) );
-				}
-			}).fancybox({
-				type: 			'image',
-				maxWidth: 		'90%',
-				maxHeight: 		'90%',
-				openEffect: 	'elastic',
-				closeEffect: 	'elastic',
-				nextEffect: 	'elastic',
-				prevEffect: 	'elastic'
-			});
+		function scrollTo(elementSelector) {
+			var $destination = $(elementSelector);
+
+			$("html, body").animate({
+				scrollTop: $destination.offset().top - 20
+			}, 500);
 		}
 
-		if( _theme_config.load_tooltips && $.fn.tooltip ) {
-			$( '[rel="tooltip"]' ).tooltip();
+		// Scroll Action on Anchor Links 
+		$(document).on('click','.anchorlink', function(event) {
+			event.preventDefault();
+			var section = $(this).attr('href');
+
+			scrollTo(section);
+		});
+
+
+
+		/* COOKIES */
+
+		function setCookie(cname, cvalue, exdays) {
+		    var d = new Date();
+		    d.setTime(d.getTime() + (24*60*60*1000 * exdays));
+		    var expires = "expires="+d.toUTCString();
+		    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 		}
 
-		if( _theme_config.load_popovers && $.fn.popover ) {
-			$( '[rel="popover"]' ).popover();
-		}
+		$(document.body).on('click', '#accept-cookies', function () {
+			$('#cookies-notification').addClass('hidden');
 
-		if( _theme_config.wrap_embeds ) {
-			$( 'iframe, embed, object' ).each(function() {
-				var $this = $( this );
-				if( $this.parents( '.embed-responsive' ).length === 0) {
-					$this.wrap( '<div class="embed-responsive embed-responsive-16by9"></div>' );
-				}
-			});
-		}
+			setTimeout(function() {
+	           setCookie('privacy_acceptance',1,90)
+	        }, 500);
+	    });
+
+
+
+	    // Slick gallery
+
+	    $('.gallery').slick({
+			dots: false,
+			arrows: true,
+			infinite: true,
+			speed: 600,
+			slidesToScroll: 1,
+			fade: true,
+			cssEase: 'linear'
+		});
 
 	});
 

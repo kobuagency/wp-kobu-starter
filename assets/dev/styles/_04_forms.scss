@@ -1,0 +1,164 @@
+/* FORMS: INPUT, SELECT, ETC
+================================================== */
+
+@-webkit-keyframes autofill {
+    to {
+        color: $white;
+        background: $blue;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}
+
+input, textarea, select, button {
+    background-color: $inputbgcolor;
+    border: 0;
+	border-radius: 0;
+    width: 100%;
+    padding: 0px 12px;
+    font-family: $font-family-base;
+    font-size: 12px;
+	height: 35px;
+    line-height: 35px;
+    letter-spacing: 0px;
+    color: $gray;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: 0;
+}
+
+%btn {
+    width: auto;       
+    cursor: pointer;    
+    padding: 10px 20px;
+    display: inline-block;
+    text-align: center;
+    color: $blue;
+    background: transparent;
+    border: 1px solid $blue;
+    letter-spacing: 1.2px;
+    margin-bottom: 0;
+    margin-top: 0;
+    line-height: 1.8;
+    border-radius: 0;
+
+    &:hover {
+        background-color: $blue;
+        color: $white;
+    }
+    
+    &:focus,
+    &.disabled,
+    &:disabled,
+    &:disabled[disabled] {
+        color: $blue;
+        background: transparent;
+
+        &:hover {
+            background-color: $blue;
+            color: $white;
+        }
+    }
+}
+
+%light_btn {
+    border: 1px solid $white;
+    color: $white;
+
+    &:hover {
+        background-color: $white;
+        color: $blue;
+    }
+
+    &:focus,
+    &.disabled,
+    &:disabled,
+    &:disabled[disabled] {
+        background: transparent;
+        color: $white;
+
+        &:hover {
+            background-color: $white;
+            color: $blue;
+        }
+    }
+}
+
+input[type=submit], button, .btn {
+    @extend %btn;
+
+    &.light-btn {
+        @extend %light_btn;
+    }
+}
+
+%checkbox {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    padding: 0;
+    background-color: transparent;  
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    top: 3px;
+    position: relative;
+    margin-bottom: 0;
+    margin-top: 0;
+    border: 1px solid $blue;
+    margin-left: 0;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+input[type=checkbox],
+input[type=radio] {
+    @extend %checkbox;
+}
+
+input[type=checkbox]:hover,
+input[type=radio]:hover,
+input[type=checkbox]:checked,
+input[type=radio]:checked {
+    background-color: $blue;
+}
+
+
+textarea {
+    height: 180px;
+    line-height: 22px;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+}
+
+select {
+    option {
+        color: #000;
+    }
+}
+
+::-webkit-input-placeholder {
+   color: $red;
+   opacity: 1;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: $red;
+   opacity: 1;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: $red;
+   opacity: 1;
+}
+
+:-ms-input-placeholder {  
+   color: $red;
+   opacity: 1;
+}

@@ -1,0 +1,443 @@
+/* MAIN LAYOUT UI/UX
+================================================== */
+
+body, html {
+    background-color: $white;
+    padding: 0;
+    margin: 0;
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    font-weight: $font-weight-base;
+    letter-spacing: $letter-spacing;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    //overflow-x: hidden;
+	color: $black;
+
+    @include min-mq(1600) {
+        font-size: 18px;
+    }
+
+    @include xl {
+        font-size: 20px;
+    }
+
+    @include xxl {
+        font-size: 22px;
+    }
+}
+
+a {
+    color: $black;
+    -webkit-tap-highlight-color: transparent;
+	cursor: pointer;
+	text-decoration: none;
+	outline: none;
+
+	&:hover {
+		color: $black;
+		text-decoration: none;
+		outline: none;
+	}
+
+	&:focus {
+		color: $black;
+		text-decoration: none;
+		outline: none;
+	}
+}
+
+img {
+	width: 100%;
+	height: auto;
+}
+
+p + .btn {
+	margin-top: 40px;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+.oh {
+	overflow: hidden;
+}
+
+// Margin and padding
+
+.mb40 {
+	margin-bottom: 40px;
+}
+
+.mb60 {
+	margin-bottom: 60px;
+}
+
+%ptb80 {
+	padding-top: 80px;
+	padding-bottom: 80px;
+
+	@include sm {
+        padding-top: 60px;
+		padding-bottom: 60px;
+    }
+
+	@include xs {
+        padding-top: 40px;
+		padding-bottom: 40px;
+    }
+}
+
+.ptb80 {
+	@extend %ptb80;
+}
+
+
+// Clear float
+
+%clear {
+	&:after {
+	    clear: both;
+	    content: " ";
+	    display: block;
+	    height: 0;
+	    line-height: 0;
+	    visibility: hidden;
+	}
+}
+
+.clr {
+	@extend %clear;
+}
+
+
+
+// Table structure
+
+.dt {
+	display: table;
+	width: 100%;
+
+	&.fullheight {
+		height: 100%;
+	}
+
+	.dtc {
+		display: table-cell;
+
+		&.align-middle {
+			vertical-align: middle;
+		}
+		&.align-top {
+			vertical-align: top;
+		}
+		&.align-bottom {
+			vertical-align: bottom;
+		}
+	}
+}
+
+// TABLE LAYOUT
+
+#tablesite-content {
+	display: table;
+	height: 100%;
+	width: 100%;
+	table-layout:fixed;
+	position: relative;
+	//z-index: 1;
+
+	&.autoheight {
+		height: auto;
+	}
+
+	#footer-wrap {
+		display: table-row;
+		height: 1px;
+		//z-index: 2;
+	}
+
+	#main-content {
+		display: table-row;
+		overflow: hidden;
+	}
+}
+
+
+// Container
+
+.container {
+	width: 59.7%;
+	margin-left: auto;
+	margin-right: auto;
+
+    @include sm {
+        width: 100%;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+	&.small {
+	}
+
+	&.medium {
+	}
+
+	&.large {
+
+	}
+}
+
+
+.white-container {
+	@extend %ptb80;
+}
+
+
+//Text align
+
+.text-left {
+	text-align: left;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+
+// Flex div
+
+%flex {
+	display: flex;
+	flex-wrap: wrap;
+
+	// Clear float when flex is not supported
+	@extend %clear;
+
+	& > div {
+		float: left;
+	}
+}
+
+%flex_top {
+	align-items: flex-start;
+}
+%flex_center {
+	align-items: center;
+}
+%flex_bottom {
+	align-items: flex-end;
+}
+
+
+// Columns
+
+.row {
+	@extend %flex;
+	margin-left: -1.58rem;
+	margin-right: -1.58rem;
+
+	@include sm {
+        margin-left: -30px;
+		margin-right: -30px;
+    }
+
+	&.align-middle {
+		@extend %flex_center;
+	}
+
+	&.reverse {
+		flex-direction: row-reverse;
+	}
+
+	%col {
+		padding: 1.58rem;
+
+		@include sm {
+	        padding: 30px;
+	    }
+	}
+
+	@mixin colSize($size) {
+	    @if $size == 33 {
+	        width: 33.33%;
+		} @else {
+			width: $size * 1%;
+	    }
+
+	    @if $size == 33 {
+	    	@include md {
+				width: 50%;
+		    }
+	    	@include sm {
+				width: 100%;
+		    }
+		} @if $size == 50 {
+
+			@include sm {
+				width: 100%;
+		    }
+	    }
+	}
+
+	@each $colsize in 33, 50, 100 {
+		.col#{$colsize} {
+			@extend %col !optional;
+		    @include colSize($colsize);
+	  	}
+	}
+}
+
+
+// Text formats
+
+%italic_bold {
+	font-weight: 700;
+	font-style: italic;
+}
+
+
+
+/* pagination */
+.page-numbers {
+	float: left;
+    padding: 0 30px;
+
+	li {
+		float: left;
+		width: 20px;
+		height: 20px;
+		margin-right: 6px;
+		text-align: center;
+		line-height: 20px;
+
+		.current {
+			display: block;
+			background-color: $blue;
+			padding: 0;
+			float: left;
+			width: 100%;
+			height: 100%;
+			color: $white;
+		}
+
+		a {
+			float: left;
+			width: 100%;
+			height: 100%;
+			padding: 0;
+			background-color: #c3c3c3;
+			color: $white;
+
+			&:hover {
+				background-color: $blue;
+			}
+		}
+
+	}
+}
+
+
+
+
+
+
+/* HEADER
+================================================== */
+
+.header {
+
+    .logo {
+		float: left;
+		position: relative;
+
+		a {
+			display: block;
+			font-size: 48px;
+			font-weight: 200;
+			letter-spacing: 20px;
+			color: $white;
+
+			img {
+				float: left;
+			}
+		}
+
+    }
+
+
+	.toggle-menu {
+		display: none;
+		float: right;
+		width: 25px;
+		height: 20px;
+		margin-top: 10px;
+		position: relative;
+		z-index: 10000;
+	}
+
+}
+
+.mobile-menu {
+	display: none;
+}
+
+/* HOMEPAGE
+================================================== */
+
+/* DEFAULT PAGE
+================================================== */
+
+/* OTHER TEMPLATES
+================================================== */
+
+
+/* ERROR PAGE
+================================================== */
+#error-page {
+	padding: 12vh 0 120px 0;
+    text-align: center;
+}
+
+.error-alternatives-menu {
+	width: 280px;
+	margin: 0 auto;
+
+	ul li {
+		float: left;
+		width: 100%;
+		text-align: center;
+
+		a {
+			text-transform: uppercase;
+			color: $blue;
+			padding: 5px 0;
+		}
+
+	}
+}
+
+/* FOOTER
+================================================== */
+footer {
+    width: 100%;
+	position: relative;
+
+    .copyright {
+		float: left;
+		font-size: 11px;
+		color: $gray;
+
+		a {
+			text-decoration: underline;
+		}
+    }
+
+
+}
