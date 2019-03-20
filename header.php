@@ -68,4 +68,9 @@
 
 	</header>
 
-	<div id="main-content" class="clear">
+	<?php if (!is_front_page()) { ?>
+	
+	<div id="tablesite-content">
+		<div id="main-content">
+			<div class="dtc">
+	<?php } ?>

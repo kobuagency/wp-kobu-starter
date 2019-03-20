@@ -53,7 +53,7 @@ module.exports = function( grunt ) {
 		// Clean minified css and js
 		clean: {
 			css: {
-				src: ['assets/dist/*.css', 'assets/dist/*.css.map']
+				src: ['assets/dist/<%= pkg.functionPrefix %>.css', 'assets/dist/<%= pkg.functionPrefix %>.min.css', 'assets/dist/<%= pkg.functionPrefix %>.css.map']
 			},
 			js: {
 				src: ['assets/dist/<%= pkg.functionPrefix %>.js', 'assets/dist/<%= pkg.functionPrefix %>.min.js']

@@ -8,17 +8,19 @@
  */
 ?>
 
-	</div><!-- #main-content -->
+		</div> <!-- dtc -->
+		</div><!-- #main-content -->
 
-	<footer id="footer-wrap" class="site-footer clear" role="contentinfo">
+		<div id="footer-wrap">
+			<div class="dtc align-middle">
+				<footer id="footer">
+					<div id="copyright" role="contentinfo" class="clr">&copy; <?php echo date('Y'); ?> <?php bloginfo( 'name' ); ?>.</div><!-- #copyright -->
+					<div id="developedby"><?php _e('developed by')?> <a href="http://www.kobu.pt" target="_blank"></a></div>
+				</footer>
+			</div>
+		</div> <!-- footer-wrap -->
 
-		<div class="container">
-			<div id="copyright" role="contentinfo" class="clr">&copy; <?php echo date('Y'); ?> <?php bloginfo( 'name' ); ?>.</div><!-- #copyright -->
-
-			<div id="developedby"><?php _e('developed by')?> <a href="http://www.kobu.pt" target="_blank"></a></div>
-		</div>		
-
-	</footer>
+	</div> <!-- tablesite-content -->
 
 <?php wp_footer(); ?>
 

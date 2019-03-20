@@ -20,6 +20,75 @@ $lightestgray:		  #919191;
 $inputbgcolor:		  #d7d7d7;
 
 
+/* Mixins */
+
+@mixin sideMargin($val: auto) {
+    margin: { 
+        left: $val;
+        right: $val;
+    }
+}
+
+@mixin pseudo($display: block, $pos: absolute, $content: ''){
+    content: $content;
+    display: $display;
+    position: $pos;
+}
+
+@mixin responsive-ratio($x,$y, $pseudo: false) {
+    $padding: unquote( ( $y / $x ) * 100 + '%' );
+    @if $pseudo {
+        &:before {
+            @include pseudo($pos: relative);
+            width: 100%;
+            padding-top: $padding;
+        }
+    } @else {
+        padding-top: $padding;
+    }
+}
+
+@mixin input-placeholder {
+    &.placeholder { @content; }
+    &:-moz-placeholder { @content; }
+    &::-moz-placeholder { @content; }
+    &:-ms-input-placeholder { @content; }
+    &::-webkit-input-placeholder { @content; }
+}
+
+%sr-only {
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip: rect(0, 0, 0, 0);
+  position: absolute !important;
+  top: 0;
+  left: 0;
+}
+
+%cover-img {
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+// hidden / visible element
+
+@mixin hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@mixin visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
 
 /* Media queries */
 

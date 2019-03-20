@@ -68,23 +68,23 @@ class Kobu_Dropdown_Walker_Nav_Menu extends Walker_Nav_Menu {
 
 
 
-function kozii_nav_menu_args( $args = '' ) {
-	$kozii_nav_menu_args = array();
+function kobu_nav_menu_args( $args = '' ) {
+	$kobu_nav_menu_args = array();
 
-	$kozii_nav_menu_args['container'] = false;
+	$kobu_nav_menu_args['container'] = false;
 
 	if ( ! $args['items_wrap'] ) {
-		$kozii_nav_menu_args['items_wrap'] = '<ul class="%2$s">%3$s</ul>';
+		$kobu_nav_menu_args['items_wrap'] = '<ul class="%2$s">%3$s</ul>';
 	}
 
 	if ( ! $args['depth'] ) {
-		$kozii_nav_menu_args['depth'] = 2;
+		$kobu_nav_menu_args['depth'] = 2;
 	}
 
 	if ( ! $args['walker'] ) {
-		$kozii_nav_menu_args['walker'] = new Kozii_Nav_Walker();
+		$kobu_nav_menu_args['walker'] = new Kobu_Nav_Walker();
 	}
 
-	return array_merge( $args, $kozii_nav_menu_args );
+	return array_merge( $args, $kobu_nav_menu_args );
 }
-add_filter( 'wp_nav_menu_args', 'kozii_nav_menu_args' );
+add_filter( 'wp_nav_menu_args', 'kobu_nav_menu_args' );

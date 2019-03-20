@@ -12,7 +12,8 @@
   "jquery"    : true,
   "latedef"   : true,
   "nonbsp"    : true,
-  "predef"   : ["console", "wp", "_theme_config"],
+  "predef"    : ["console", "wp", "_theme_config"],
   "strict"    : true,
-  "esversion" : 5
+  "esversion" : 5,
+  "globals"   : { "ajaxfilters": true }
 }

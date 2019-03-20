@@ -30,7 +30,7 @@ function kobu_login_logo() { ?>
 	}
     
     body.login div#login h1 a {
-	    background-image: url(<?php echo MYWPTHEME_THEME_URL; ?>/assets/images/cca-logo.svg);
+	    background-image: url(<?php echo MYWPTHEME_THEME_URL; ?>/assets/images/main-logo.svg);
 	    background-size: 100%;
 	    height: 144px;
     	width: 280px;
@@ -38,7 +38,7 @@ function kobu_login_logo() { ?>
 	    display: inline-block;
     }
 	
-	body.login div#login form#loginform, body.login div#login form#lostpasswordform {
+	body.login div#login form {
 	    margin-top: 20px;
 	    padding: 30px;
 	    background: #F5F5F5;
@@ -97,6 +97,19 @@ function kobu_login_logo() { ?>
 
 	body.login #backtoblog a:hover, body.login #nav a:hover {
 	    color: #80CCC1;
+	}
+
+	body.login .privacy-policy-page-link {
+		margin-top: 30px;
+	}
+
+	body.login .privacy-policy-page-link a {
+		color: #80CCC1;
+		text-decoration: none;
+	}
+
+	body.login .privacy-policy-page-link a:hover {
+		color: #006580;
 	}
     </style>
 <?php }
