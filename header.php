@@ -14,11 +14,40 @@
 	<title><?php mywptheme_wp_title( '|' ); ?></title>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+
 	<link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/favicon.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_template_directory_uri(); ?>/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo get_template_directory_uri(); ?>/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="<?php echo get_template_directory_uri(); ?>/favicon-16x16.png">
+	<link rel="manifest" href="<?php echo get_template_directory_uri(); ?>/site.webmanifest">
+	<link rel="mask-icon" href="<?php echo get_template_directory_uri(); ?>/safari-pinned-tab.svg" color="#bbb5ad">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="theme-color" content="#ffffff">
+
 	<?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
+
+	<?php 
+		$hide_cookie = (isset($_COOKIE['privacy_acceptance']) && $_COOKIE['privacy_acceptance']==1) ? 1 : 0;
+
+		if ($hide_cookie == 0) { ?>
+		<div id="cookies-notification">
+			<div class="container medium">
+				<?php 
+				$cookie_text = get_field('cookie_text', 'options');
+				$button_text = get_field('cookie_button_text', 'options');
+				?>
+				<div class="message">
+					<p><?php echo $cookie_text; ?></p>
+				</div>
+				<div class="buttons">
+					<button class="btn" id="accept-cookies"><?php echo $button_text; ?></button>
+				</div>
+			</div>
+		</div>
+	<?php } ?>
 
 	<header id="header" class="header clear">
 
@@ -26,7 +55,7 @@
 
 			<div id="logo-wrapper" class="logo">
 				<a href="<?php echo home_url(); ?>">
-					<img src="<?php echo MYWPTHEME_THEME_URL?>/assets/images/main-logo.svg" />
+					<img src="<?php echo MYWPTHEME_THEME_URL?>/assets/images/main-logo.svg" alt="<?php bloginfo( 'name' ); ?>">
 				</a>
 			</div>
 

@@ -53,7 +53,7 @@ class Kobu_Dropdown_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$id_field = $this->db_fields['id'];
 		
 		if ( !empty( $children_elements[$element->$id_field] ) && ( $depth >= 0 ) ) {
-			$element->title .= ' <span class="arrow-down"></span>';
+			$element->title .= ' <button type="button" class="toggle-submenu" aria-expanded="false">' . __('Toggle submenu','kobu') . '</button>';
 		}
 		
 		Walker_Nav_Menu::display_element($element, $children_elements, $max_depth, $depth, $args, $output);

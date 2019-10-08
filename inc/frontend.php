@@ -45,3 +45,42 @@ function mywptheme_wp_title( $sep ) {
 		}
 	}
 }
+
+/* WPML Language Switcher */
+function language_selector_flags(){
+    if (function_exists('icl_get_languages')) {
+		
+		$langs = '';
+		$languages = icl_get_languages('skip_missing=0');
+		$languages['pt-pt']['language_code'] = 'pt';
+
+		echo '<div class="lang-selector-group">';
+
+		echo '<div class="current-lang">';
+			echo '<div class="current-lang-code">';
+			if (ICL_LANGUAGE_CODE == 'pt-pt') {
+				echo "pt";
+			} else {
+				echo ICL_LANGUAGE_CODE;
+			}
+			echo '</div>';
+			echo '<span class="arrow-down arrow-blue"></span>';
+		echo '</div>';
+		
+		echo '<div class="lang-selector">';
+		if(!empty($languages)){
+			foreach ($languages as $l) { 
+			    if ($l['active']) {
+			    	$class = ' class="active"';
+			    } else {
+			    	$class = NULL;
+			    }
+	           	$langs .=  '<a ' . $class . ' href="'.$l['url'].'">' . strtoupper ($l['language_code']). '</a>   ';   
+		    }
+			echo $langs;	    
+		}
+		echo '</div>';
+		echo '</div>';
+	        
+    }
+}

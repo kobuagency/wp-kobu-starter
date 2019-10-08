@@ -84,9 +84,8 @@ module.exports = function( grunt ) {
 		    options: {
 		    	map: false, // inline sourcemaps
 		    	processors: [
-		    		require('sort-css-media-queries'),
 		    		require('pixrem')(),
-			        require('autoprefixer')({browsers: [
+			        require('autoprefixer')({overrideBrowserslist: [
 						'Android 2.3',
 						'Android >= 4',
 						'Chrome >= 20',
@@ -220,6 +219,7 @@ module.exports = function( grunt ) {
 					'search-form.php',
 					'sidebar.php',
 					'single.php',
+					'page.php',
 					'templates/*.php',
 				],
 				overwrite: true,

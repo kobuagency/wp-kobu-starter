@@ -32,6 +32,7 @@ body, html {
 }
 
 a {
+	@include transition(color .5s ease);
     color: $black;
     -webkit-tap-highlight-color: transparent;
 	cursor: pointer;
@@ -39,12 +40,6 @@ a {
 	outline: none;
 
 	&:hover {
-		color: $black;
-		text-decoration: none;
-		outline: none;
-	}
-
-	&:focus {
 		color: $black;
 		text-decoration: none;
 		outline: none;
@@ -66,24 +61,6 @@ p:last-child {
 
 .oh {
 	overflow: hidden;
-}
-
-// Margin and padding
-
-// Margin-top
-
-@each $val in 20, 40, 60 {
-	.mt#{$val} {
-	    margin-top: #{$val}px;
-  	}
-}
-
-// Margin-bottom
-
-@each $val in 20, 40, 60 {
-	.mb#{$val} {
-	    margin-bottom: #{$val}px;
-  	}
 }
 
 
@@ -184,30 +161,90 @@ p:last-child {
 
 // Container
 
-.container {
+%container_default_mobile {
 	@include sideMargin;
-	width: 59.7%;
 
     @include sm {
-        width: 100%;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    @include xs {
         padding-left: 30px;
         padding-right: 30px;
     }
+}
+
+%container_default {
+	width: 50%;
+
+	@include md2 {
+        width: 65%;
+    }
+
+	@include md {
+        width: 75%;
+    }
+
+    @include max-mq(850) {
+        width: 82%;
+    }
+
+    @include sm {
+        width: 100%;
+    }
+}
+%container_small {
+	width: 65%;
+
+	@include md {
+        width: 75%;
+    }
+
+    @include max-mq(850) {
+        width: 82%;
+    }
+
+    @include sm {
+        width: 100%;
+    }
+}
+%container_medium {
+	width: 75%;
+
+    @include max-mq(850) {
+        width: 82%;
+    }
+
+    @include sm {
+        width: 100%;
+    }
+}
+
+%container_large {
+	width: 94.4%;
+
+    @include sm {
+        width: 100%;
+    }
+}
+
+.container {
+	@extend %container_default;
+	@extend %container_default_mobile;
 
 	&.small {
 	}
 
 	&.medium {
+		@extend %container_medium;
 	}
 
 	&.large {
-
+		@extend %container_large;
 	}
 }
 
-
-.white-container {
-}
 
 
 //Text align
@@ -224,90 +261,80 @@ p:last-child {
 	text-align: right;
 }
 
-
-// Flex div
-
-%flex {
-	// Clear float when flex is not supported
-	@extend %clear;
-
-	display: flex;
-	flex-wrap: wrap;
-
-	& > div, & > li {
-		float: left;
-	}
-}
-
-%flex_top {
-	align-items: flex-start;
-}
-%flex_center {
-	align-items: center;
-}
-%flex_bottom {
-	align-items: flex-end;
-}
-
-
 // Columns
 
-@mixin colSize($size) {
-    @if $size == 33 {
-        width: 33.33%;
-	} @else {
-		width: $size * 1%;
-    }
-
-    @if $size == 33 {
-    	@include md {
-			width: 50%;
-	    }
-    	@include sm {
-			width: 100%;
-	    }
-	} @if $size == 50 {
-
-		@include sm {
-			width: 100%;
-	    }
-    }
-}
-
-@mixin row($padding) {
-	@extend %flex;
-	@include sideMargin(-$padding);
-
-	@include sm {
-		@include sideMargin(-30px);
-    }
+.row,
+.wp-block-columns.has-2-columns {
+	&:not(.align-middle) {
+		@include flex();
+	}
 
 	&.align-middle {
-		@extend %flex_center;
+		@include flex($align: center);
 	}
 
 	&.reverse {
 		flex-direction: row-reverse;
 	}
 
-	%col {
-		padding: $padding;
+	.col50,
+	.wp-block-column {
+		margin-bottom: 0;
+		width: calc(50% - 25px);
+
+		&:nth-child(even) {
+			margin-left: 50px;
+		}
 
 		@include sm {
-	        padding: 30px;
-	    }
-	}
+			width: 100%;
+			margin-bottom: 1em;
 
-	@each $colsize in 33, 50, 100 {
-		.col#{$colsize} {
-			@extend %col !optional;
-		    @include colSize($colsize);
-	  	}
+			&:nth-child(even) {
+				margin-left: 0;
+			}
+
+			&:not(:first-child) {
+				margin-left: 0;
+				margin-top: 10px;
+			}
+		}
 	}
 }
 
-.row {
-	@include row(1.58rem);
+.wp-block-columns {
+	&.align-middle {
+		@include flex($align: center);
+	}
+}
+
+.wp-block-media-text {
+	.wp-block-media-text__content {
+		padding-left: 50px;
+		padding-right: 0;
+
+		@include xs {
+			padding-left: 0;
+			padding-top: 80px;
+		}
+	}
+
+	.wp-block-media-text__media {
+		@include xs {
+			grid-area: unset;
+
+			img {
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+			}
+		}
+	}
+
+	@include xs {
+		display: block;
+		grid-template-columns: unset !important;
+	}
 }
 
 
@@ -318,45 +345,83 @@ p:last-child {
 	font-style: italic;
 }
 
-/* pagination */
-.page-numbers {
-	float: left;
-    padding: 0 30px;
 
-	li {
-		float: left;
-		width: 20px;
-		height: 20px;
-		margin-right: 6px;
-		text-align: center;
-		line-height: 20px;
+// Recaptcha
 
-		.current {
-			display: block;
-			background-color: $blue;
-			padding: 0;
-			float: left;
-			width: 100%;
-			height: 100%;
-			color: $white;
-		}
-
-		a {
-			float: left;
-			width: 100%;
-			height: 100%;
-			padding: 0;
-			background-color: #c3c3c3;
-			color: $white;
-
-			&:hover {
-				background-color: $blue;
-			}
-		}
-
-	}
+.grecaptcha-badge {
+	opacity: 0 !important;
+	pointer-events: none !important;
 }
 
+
+/* Cookies 
+================================================== */
+
+#cookies-notification {
+	@include transition(opacity .5s ease-in-out, visibility .5s ease-in-out);
+	position: fixed;
+	z-index: 10000;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	background-color: $black;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	color: $white;
+	opacity: 1;
+	visibility: visible;
+
+	&.hidden {
+		opacity: 0;
+		visibility: hidden;
+	}
+
+	@include md2 {
+    	padding-top: 30px;
+		padding-bottom: 30px;
+    }
+
+	@include md {
+    	padding-top: 20px;
+		padding-bottom: 20px;
+    }
+
+	.container {
+		@include flex();
+	}
+
+	.message {
+		float: left;
+		width: calc(100% - 140px);
+		margin-bottom: 0;
+
+		@include sm {
+	    	width: 100%;
+	    }
+
+	    p {
+	    	max-width: 900px;
+	    	padding-right: 15px;
+	    }
+
+	    a {
+	    	color: $white;
+	    	text-decoration: underline;
+	    }
+	}
+
+	.buttons {
+		width: 140px;
+		float: left;
+		text-align: right;
+
+		@include sm {
+	    	width: 100%;
+	    	text-align: left;
+	    	margin-top: 20px;
+	    }
+	}
+}
 
 
 /* HEADER
@@ -405,34 +470,75 @@ p:last-child {
 /* DEFAULT PAGE
 ================================================== */
 
+/* highlight-text */
+
+.highlight-text {
+	background-color: #dcdeeb;
+	padding: 0.3em;
+}
+
+.site-content {
+	padding-top: 100px;
+	padding-bottom: 100px;
+	overflow: hidden;
+
+	> *:not(.kobu-section),
+	> .kobu-section > * {
+		@extend %container_default;
+		@extend %container_default_mobile;
+
+		&.alignwide:not(.alignmedium) {
+			@extend %container_medium;
+		}
+
+		&.alignmedium {
+			@extend %container_small;
+		}
+
+		&.alignfull {
+			width: 100%;
+
+			@include sm {
+				padding-left: 0;
+				padding-right: 0;
+			}
+		}
+	}
+
+	.home & {
+		
+	}
+
+	.kobu-section {
+		&:last-child {
+			margin-bottom: -100px;
+			padding-top: 100px;
+			padding-bottom: 100px;
+		}
+	}
+}
+
+.wp-block-kobu-custom-blocks-responsive-spacer {
+	&.size-large {
+		height: 100px;  // medium screen
+
+		@media screen and (min-width: 1900px) { // large screens
+	       height: 120px;
+		}
+		@media screen and (max-width: 768px) { // small screens
+	       height: 70px;
+		}
+	}
+}
+
+
 /* OTHER TEMPLATES
 ================================================== */
 
 
 /* ERROR PAGE
 ================================================== */
-#error-page {
-	padding: 12vh 0 120px 0;
-    text-align: center;
-}
 
-.error-alternatives-menu {
-	width: 280px;
-	margin: 0 auto;
-
-	ul li {
-		float: left;
-		width: 100%;
-		text-align: center;
-
-		a {
-			text-transform: uppercase;
-			color: $blue;
-			padding: 5px 0;
-		}
-
-	}
-}
 
 /* FOOTER
 ================================================== */

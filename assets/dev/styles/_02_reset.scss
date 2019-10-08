@@ -4,10 +4,6 @@
     box-sizing: border-box;
 }
 
-*:not(svg):not(g):not(path):not(.slick-track):not(.slick-list):not(.slick-slide) {
-    transition: all 0.5s ease, font-size 0s ease;
-}
-
 .slick-slide {
     -webkit-text-size-adjust: 100%;
 }

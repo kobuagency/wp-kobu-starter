@@ -125,7 +125,7 @@ add_filter( 'login_headerurl', 'logo_website_url' );
 function login_website_title() {
 	return get_bloginfo('name');
 }
-add_filter( 'login_headertitle', 'login_website_title' );
+add_filter( 'login_headertext', 'login_website_title' );
 
 /**
  * Enable Options Page
