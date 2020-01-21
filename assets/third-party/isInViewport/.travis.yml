@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "lts/*"
+script:
+  npm run build
+before_deploy:
+  - npm install --no-save now
+deploy:
+  provider: script
+  script: npm run deploy
+  skip_cleanup: true
+  on:
+    branch: master

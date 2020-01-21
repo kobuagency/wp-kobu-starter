@@ -59,6 +59,12 @@ if ( ! function_exists( 'kobu_get_featured_img_url' ) ) {
 				$height = 1500;
 			}
 
+			$filetype = wp_check_filetype($attachment_url);
+
+			if (isset($filetype['ext']) &&$filetype['ext'] == 'gif') {
+				return $attachment_url;
+			}
+
 		
 			// Return Dimensions & crop
 			$width = intval($width);

@@ -20,6 +20,7 @@ class Kobu_Dropdown_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$classes[] = 'menu-' . $slug;
 
 		$classes = array_unique( $classes );
+		$classes = array_filter( $classes, 'kobu_theme_is_element_empty' );
 
     	$output .= '<li class="' . implode(' ', $classes) . '">';
 
@@ -74,7 +75,7 @@ function kobu_nav_menu_args( $args = '' ) {
 	$kobu_nav_menu_args['container'] = false;
 
 	if ( ! $args['items_wrap'] ) {
-		$kobu_nav_menu_args['items_wrap'] = '<ul class="%2$s">%3$s</ul>';
+		$kobu_nav_menu_args['items_wrap'] = '<ul id="%1$s" class="%2$s">%3$s</ul>';
 	}
 
 	if ( ! $args['depth'] ) {

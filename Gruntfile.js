@@ -34,11 +34,11 @@ module.exports = function( grunt ) {
 				}
 			},
 			js : { // watch js files
-				files : ['assets/dev/scripts.js', 'assets/dev/ajax_filters.js'],
+				files : ['assets/dev/*.js'],
 				tasks : ['js_task']
 			},
 			js_min : { // livereload with min js update
-				files : ['assets/dist/<%= pkg.functionPrefix %>.min.js'],
+				files : ['assets/dist/<%= pkg.functionPrefix %>_scripts.min.js'],
 				options : {
 					livereload : true
 				}
@@ -50,13 +50,13 @@ module.exports = function( grunt ) {
 		},
 
 
-		// Clean minified css and js
+		// Clean dist files
 		clean: {
 			css: {
-				src: ['assets/dist/<%= pkg.functionPrefix %>.css', 'assets/dist/<%= pkg.functionPrefix %>.min.css', 'assets/dist/<%= pkg.functionPrefix %>.css.map']
+				src: ['assets/dist/*.css', 'assets/dist/*.css.map']
 			},
 			js: {
-				src: ['assets/dist/<%= pkg.functionPrefix %>.js', 'assets/dist/<%= pkg.functionPrefix %>.min.js']
+				src: ['assets/dist/*.min.js']
 			},
 			pot: [
 				'languages/<%= pkg.functionPrefix %>.pot'
@@ -76,7 +76,6 @@ module.exports = function( grunt ) {
 			    }
 		    }
 		},
-
 
 
 		// Apply post-processors to CSS - pixrem, autoprefixer, css-mqpacker and minify
@@ -108,7 +107,7 @@ module.exports = function( grunt ) {
 
 		// JsHint your javascript
 		jshint : {
-			all : ['assets/dev/scripts.js', 'assets/dev/ajax_filters.js'],
+			all : ['assets/dev/*.js'],
 			options : {
 				jshintrc: 'assets/dev/.jshintrc'
 			}
@@ -117,40 +116,31 @@ module.exports = function( grunt ) {
 
 		// Uglify javascript
 
-		concat: {
-			options: {
-				banner: '<%= banner %>'
-			},
-			dist: {
-				src: [
-					'assets/dev/scripts.js'
-				],
-				dest: 'assets/dist/<%= pkg.functionPrefix %>.js'
-			},
-			ajax_filters: {
-				src: [
-					'assets/dev/ajax_filters.js'
-				],
-				dest: 'assets/dist/ajax_filters.js'
-			}
-		},
-
-
 		uglify: {
 			options: {
 				preserveComments: 'some',
 				report: 'min'
 			},
 			dist: {
-				src: '<%= concat.dist.dest %>',
-				dest: 'assets/dist/<%= pkg.functionPrefix %>.min.js'
-			},
-			ajax_filters: {
-				src: '<%= concat.ajax_filters.dest %>',
-				dest: 'assets/dist/ajax_filters.min.js'
+				files: {
+					'assets/dist/video.min.js': ['assets/dev/video.js'],
+					//'assets/dist/ajax_filters.min.js': ['assets/dev/ajax_filters.js'],
+					'assets/dist/<%= pkg.functionPrefix %>.min.js': ['assets/dev/scripts.js'],
+				}
 			}
 		},
 
+		concat: {
+			options: {
+				banner: '<%= banner %>'
+			},
+			dist: {
+				src: [
+					'assets/dist/*.min.js'
+				],
+				dest: 'assets/dist/<%= pkg.functionPrefix %>_scripts.min.js'
+			}
+		},
 
 		usebanner: {
 			options: {
@@ -161,7 +151,6 @@ module.exports = function( grunt ) {
 				src: 'assets/dist/*.css'
 			}
 		},
-
 
 		// SVG min
 		svgmin: {
@@ -293,8 +282,8 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'js_task', [
 		'clean:js',
 		'jshint',
-		'concat',
-		'uglify'
+		'uglify',
+		'concat'
 	]);
 
 	// SVG task

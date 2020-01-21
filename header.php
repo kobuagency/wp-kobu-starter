@@ -24,6 +24,7 @@
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="theme-color" content="#ffffff">
 
+	<?php echo kobu_header_scripts(); ?>
 	<?php wp_head(); ?>
 </head>
 
@@ -97,9 +98,6 @@
 
 	</header>
 
-	<?php if (!is_front_page()) { ?>
-	
 	<div id="tablesite-content">
 		<div id="main-content">
 			<div class="dtc">
-	<?php } ?>

@@ -1,0 +1,27 @@
+{
+  "name": "isInViewport",
+  "version": 2,
+  "public": false,
+  "alias": ["isinviewport.mudit.xyz", "www.isinviewport.mudit.xyz"],
+  "builds": [
+    { "src": "examples/advanced-viewport.html", "use": "@now/static" },
+    { "src": "examples/advanced-viewport.js", "use": "@now/static" },
+    { "src": "examples/advanced.html", "use": "@now/static" },
+    { "src": "examples/advanced.js", "use": "@now/static" },
+    { "src": "examples/basic.html", "use": "@now/static" },
+    { "src": "examples/basic.js", "use": "@now/static" },
+    { "src": "examples/common.css", "use": "@now/static" },
+    { "src": "examples/index.html", "use": "@now/static" },
+    { "src": "examples/isInViewport.js", "use": "@now/static" },
+    { "src": "examples/isInViewport.js.map", "use": "@now/static" },
+    { "src": "tests/**/*", "use": "@now/static" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/examples/index.html"},
+    { "src": "/tests/(?<path>.*)", "dest": "/tests/$path"},
+    { "src": "/(?<path>.*)", "dest": "/examples/$path"}
+  ],
+  "github": {
+    "enabled": false
+  }
+}

@@ -1,23 +1,38 @@
 /* SETTINGS
 ================================================== */
 
-/* text */
+/* Font */
 $font-family-base:  Helvetica, Tahoma, sans-serif;
 $font-size-base:    16px;
 $font-weight-base:  400;
 $letter-spacing:    1px;
 $line-height-base:  1.3;
 
-
-
-/* color palette */
+/* Color palette */
 $blue:              #353946;
 $white:             #FDFDFD;
 $black:             #000;
 $gray:              #3c3b3b;
-$lightgray:			    #c8c7c9;
-$lightestgray:		  #919191;
-$inputbgcolor:		  #d7d7d7;
+$lightgray:			#c8c7c9;
+$lightestgray:		#919191;
+$inputbgcolor:		#d7d7d7;
+
+$colors: (
+  //'dark-gray': $darkgray,
+);
+
+@each $color, $color_code in $colors {
+  .has-#{$color}-color {
+    color: $color_code;
+  }
+  .has-#{$color}-background-color {
+    background-color: $color_code;
+  }
+  .wp-block-cover-image.has-background-dim .has-#{$color}-background-color:before,
+  .wp-block-cover.has-background-dim .has-#{$color}-background-color:before {
+    background-color: $color_code;
+  }
+}
 
 
 /* Mixins */
@@ -49,6 +64,12 @@ $inputbgcolor:		  #d7d7d7;
     -ms-transition: $args;
     -o-transition: $args;
     transition: $args;
+}
+
+@mixin flexWidth ($args...) {
+    width: $args;
+    max-width: $args;
+    flex-basis: $args;
 }
 
 @mixin sideMargin($val: auto) {

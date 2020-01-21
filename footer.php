@@ -22,6 +22,7 @@
 
 	</div> <!-- tablesite-content -->
 
+<?php echo kobu_footer_scripts(); ?>
 <?php wp_footer(); ?>
 
 </body>
