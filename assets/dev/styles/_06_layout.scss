@@ -241,8 +241,7 @@ p:last-child {
 
 // Columns and Gutenberg blocks
 
-.row,
-.wp-block-columns.has-2-columns {
+.row {
 	&:not(.align-middle) {
 		@include flex();
 	}
@@ -254,35 +253,67 @@ p:last-child {
 	&.reverse {
 		flex-direction: row-reverse;
 	}
-}
-
-.row .col50,
-.wp-block-columns.has-2-columns .wp-block-column {
-	@include flexWidth( calc(50% - 25px) );
-	margin-bottom: 0;
-
-	&:nth-child(even) {
-		margin-left: 50px;
-	}
-
-	@include sm {
-		@include flexWidth( 100% );
-		margin-bottom: 40px;
-
+	
+	.col50 {
+		@include flexWidth( calc(50% - 40px) );
+		margin-bottom: 0;
+	
 		&:nth-child(even) {
-			margin-left: 0;
+			margin-left: 80px;
 		}
-
-		&:not(:first-child) {
-			margin-left: 0;
-			margin-top: 10px;
+	
+		@include sm {
+			@include flexWidth( 100% );
+			margin-bottom: 40px;
+	
+			&:nth-child(even) {
+				margin-left: 0;
+			}
+	
+			&:not(:first-child) {
+				margin-left: 0;
+				margin-top: 10px;
+			}
 		}
 	}
 }
+
 
 .wp-block-columns {
-	&.align-middle {
-		@include flex($align: center);
+	&.is-style-reverse-columns {
+		flex-direction: row-reverse;
+	}
+
+	.wp-block-column {
+		flex-basis: calc(50% - 40px);
+
+		@include xs {
+			flex-basis: 50%;
+		}
+	}
+	
+	.wp-block-column:not(:first-child) {
+		margin-left: 80px;
+
+		@include xs {
+			margin-left: 0;
+			margin-top: 40px;
+		}
+	}
+
+	&.is-style-no-spacing {
+		.wp-block-column {
+			flex-basis: 50%;
+		}
+
+		.wp-block-column:not(:first-child) {
+			margin-left: 0;
+		}
+		.wp-block-column:not(:first-child) {
+			@include xs {
+				margin-top: 0;
+			}
+		}
 	}
 }
 
@@ -803,6 +834,54 @@ p:last-child {
 
 	&.valign-end {
 		@include flex($align: flex-end);
+	}
+
+	&.valign-stretch {
+		@include flex;
+
+		.media-col {
+			align-self: stretch;
+			position: relative;
+
+			> * {
+				height: 100%;
+			}
+
+			.img-wrapper {
+				background-position: center;
+				background-size: cover;
+				background-repeat: no-repeat;
+
+				img {
+					@extend %sr-only;
+				}
+			}
+
+			.kb-video {
+				position: relative;
+			}
+
+			.kb-video,
+			.video-wrapper {
+				width: 100%;
+				height: 100%;
+			}
+
+			.video-wrapper {
+				position: absolute !important;
+				top: 0;
+				left: 0;
+
+				video {
+					height: 100%;
+					width: 100%;
+					object-fit: cover;
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+			}
+		}
 	}
 
 	&.img-first.align-right,

@@ -19,7 +19,7 @@
 		if (videos.length > 0) {
 			var videosToPause = videos.filter(function() {
 				var video = $(this)[0];
-				if ( ( video.autoplay && video.muted ) || video.paused ) {
+				if ( ( $(this).attr('autoplay') && video.muted ) || video.paused ) {
 					return false;
 				} else {
 					return true;
@@ -678,7 +678,7 @@
 			var video = $(this)[0];
 			
 			if ( $(this).is(":in-viewport") ) {
-				if( !$(this).hasClass('no-autoplay') && video.autoplay && video.paused ) {
+				if( !$(this).hasClass('no-autoplay') && $(this).attr('autoplay') && video.paused ) {
 					video.play();
 				}
 			} else if( !video.paused && video.muted ) {
