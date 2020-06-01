@@ -12,7 +12,12 @@ class Kobu_Dropdown_Walker_Nav_Menu extends Walker_Nav_Menu {
     	$classes = $item->classes;
     	$target = $item->target;
     	$attr_title = $item->attr_title;
-    	$slug = sanitize_title($title);
+		$slug = sanitize_title($title);
+		$has_children = false;
+		
+		if( !empty($item->classes) && is_array($item->classes) && in_array('menu-item-has-children', $item->classes) ){
+			$has_children = true;
+		}
 
     	$classes = preg_replace( '/(current(-menu-|[-_]page[-_])(item|parent|ancestor))/', 'active', $classes );
 		$classes = preg_replace( '/^((menu|page)[-_\w+]+)+/', '', $classes );
@@ -20,7 +25,7 @@ class Kobu_Dropdown_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$classes[] = 'menu-' . $slug;
 
 		$classes = array_unique( $classes );
-		$classes = array_filter( $classes, 'kobu_theme_is_element_empty' );
+		$classes = array_filter( $classes, 'mywptheme_is_element_empty' );
 
     	$output .= '<li class="' . implode(' ', $classes) . '">';
 
@@ -41,33 +46,22 @@ class Kobu_Dropdown_Walker_Nav_Menu extends Walker_Nav_Menu {
 		}
 
 		$output .= $title;
-
+		
 		if( $permalink && $permalink != '#' ) {
 			$output .= '</a>';
 		} else {
 			$output .= '</span>';
 		}
-	}
 
-	function display_element($element, &$children_elements, $max_depth, $depth=0, $args, &$output) {
-		
-		$id_field = $this->db_fields['id'];
-		
-		if ( !empty( $children_elements[$element->$id_field] ) && ( $depth >= 0 ) ) {
-			$element->title .= ' <button type="button" class="toggle-submenu" aria-expanded="false">' . __('Toggle submenu','kobu') . '</button>';
+		if ( $has_children ) {
+			$output .= ' <button type="button" class="toggle-submenu" aria-expanded="false">' . __('Toggle submenu','kobu') . '</button>';
 		}
-		
-		Walker_Nav_Menu::display_element($element, $children_elements, $max_depth, $depth, $args, $output);
-
 	}
 
 	function end_el(&$output, $item, $depth=0, $args=array(), $id = 0) {
     	$output .= '</li>';
 	}
 }
-
-
-
 
 function kobu_nav_menu_args( $args = '' ) {
 	$kobu_nav_menu_args = array();

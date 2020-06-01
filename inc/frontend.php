@@ -80,12 +80,14 @@ function language_selector_flags(){
 		echo '<div class="lang-selector">';
 		if(!empty($languages)){
 			foreach ($languages as $l) { 
-			    if ($l['active']) {
-			    	$class = ' class="active"';
-			    } else {
-			    	$class = NULL;
-			    }
-	           	$langs .=  '<a ' . $class . ' href="'.$l['url'].'">' . strtoupper ($l['language_code']). '</a>   ';   
+				if (isset($l['url'])) {
+					if (isset($l['active']) && $l['active']) {
+						$class = ' class="active"';
+					} else {
+						$class = NULL;
+					}
+					   $langs .=  '<a ' . $class . ' href="'.$l['url'].'">' . strtoupper ($l['language_code']). '</a>   ';   
+				}
 		    }
 			echo $langs;	    
 		}

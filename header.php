@@ -77,7 +77,7 @@
 				</div>
 			</div><!-- #navigation -->
 			
-			<a class="toggle-menu" href="#navigation"></a>
+			<button class="toggle-menu"></button>
 			
 			<div class="mobile-menu">				
 				<div id="mobile-nav" class="navigation mobile-navigation-menu">

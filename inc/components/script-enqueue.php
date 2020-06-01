@@ -13,6 +13,9 @@ function mywptheme_enqueue_nameofscript_script() {
 	wp_enqueue_script( 'modernizr', MYWPTHEME_THEME_URL . '/assets/third-party/modernizr/modernizr-custom.js', array( 'jquery' ), '3.6.0', true );
 	wp_enqueue_script( 'isInViewport', MYWPTHEME_THEME_URL . '/assets/third-party/isInViewport/lib/isInViewport.js', array( 'jquery' ), '3.0.4', true );
 
+	// Vimeo player
+	wp_enqueue_script( 'vimeo', MYWPTHEME_THEME_URL . '/assets/third-party/vimeo/vimeo_player.min.js', array( 'jquery' ), '2.10.0', true );
+
 	/* wp_localize_script( 'mywptheme', 'ajaxfilters', array(
 		'ajaxurl' => admin_url( 'admin-ajax.php' )
 	)); */

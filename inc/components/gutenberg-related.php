@@ -35,12 +35,15 @@ function kobu_custom_format_script_register() {
         MYWPTHEME_THEME_URL . '/inc/gutenberg-files/kobu-custom-format.js',
         array(
 			'wp-element',
-			'wp-rich-text',
-			'wp-format-library',
-			'wp-i18n',
-			'wp-editor',
-			'wp-compose',
-			'wp-components',
+            'wp-rich-text',
+            'wp-format-library',
+            'wp-i18n',
+            'wp-editor',
+            'wp-compose',
+            'wp-components',
+            'wp-blocks',
+            'wp-dom-ready',
+            'wp-edit-post'
 		)
     );
 }

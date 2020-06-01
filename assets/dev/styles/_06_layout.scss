@@ -46,6 +46,10 @@ a {
 	}
 }
 
+.slick-slide {
+    outline: none
+}
+
 img {
 	width: 100%;
 	height: auto;
@@ -366,7 +370,7 @@ p:last-child {
 /* Fullheight top 
 ================================================== */
 
-.fullheight-top {
+#fullheight-top {
 	height: 100vh;
 	width: 100%;
 
@@ -608,7 +612,7 @@ p:last-child {
 }
 
 .embed-container.paused,
-.kb-video.video-loaded.video-wrapper.paused {
+.kb-video.video-loaded .video-wrapper.paused {
 	.video-placeholder {
 		opacity: 1;
 		visibility: visible;

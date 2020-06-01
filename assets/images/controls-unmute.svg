@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="21px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>icon/videoui/mute/normal</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon/videoui/mute/normal" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="mute" fill="#E6E6E6">
+            <polygon id="Fill-1" points="9.9999 0.0003 2.9999 4.9993 -0.0001 4.9993 -0.0001 15.9993 2.9999 15.9993 9.9999 21.0003"></polygon>
+            <polygon id="Fill-2" points="16.4997 9.5799 12.8957 3.2739 12.1037 3.7259 15.9737 10.4999 12.1037 17.2729 12.8957 17.7269 16.4997 11.4199 20.1037 17.7269 20.8957 17.2729 17.0267 10.4999 20.8957 3.7259 20.1037 3.2739"></polygon>
+        </g>
+    </g>
+</svg>

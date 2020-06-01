@@ -1,8 +1,10 @@
+// Reset
+@import "01_reset";
+
 // Utilities
-@import "01_settings";
+@import "02_settings";
 
 // Base Rules
-@import "02_reset";
 @import "03_headings";
 @import "04_forms";
 @import "05_navigation";

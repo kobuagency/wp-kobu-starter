@@ -205,7 +205,7 @@ module.exports = function( grunt ) {
 					'header.php',
 					'index.php',
 					'search.php',
-					'search-form.php',
+					'searchform.php',
 					'sidebar.php',
 					'single.php',
 					'page.php',

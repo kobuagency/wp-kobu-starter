@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="21px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>icon/videoui/sound/normal</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon/videoui/sound/normal" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="sound" fill="#E6E6E6">
+            <path d="M15,10.5 C15,7.229 12.816,6.1 12.724,6.053 L12.273,6.945 C12.344,6.982 14,7.87 14,10.5 C14,13.13 12.344,14.018 12.276,14.053 L12.724,14.947 C12.816,14.9 15,13.771 15,10.5" id="Fill-2"></path>
+            <path d="M18,10.5 C18,5.251 13.898,3.14 13.724,3.053 L13.276,3.947 C13.313,3.966 17,5.862 17,10.5 C17,15.115 13.428,16.977 13.275,17.054 L13.724,17.947 C13.898,17.86 18,15.749 18,10.5" id="Fill-4"></path>
+            <path d="M14.6582,0.0254 L14.3422,0.9744 C14.3982,0.9934 20.0002,2.9474 20.0002,10.5004 C20.0002,18.0224 14.5722,19.9484 14.3412,20.0264 L14.6582,20.9744 C14.7212,20.9534 21.0002,18.7644 21.0002,10.5004 C21.0002,2.2354 14.7212,0.0464 14.6582,0.0254" id="Fill-6"></path>
+            <polygon id="Fill-1" points="9.9999 0.0003 2.9999 4.9993 -0.0001 4.9993 -0.0001 15.9993 2.9999 15.9993 9.9999 21.0003"></polygon>
+        </g>
+    </g>
+</svg>

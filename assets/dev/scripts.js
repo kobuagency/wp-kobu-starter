@@ -2,6 +2,7 @@
 	'use strict';
 
 	var svgPlayButton = '<svg width="25" height="26" viewBox="0 0 25 26" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M24.1145,13.1885329 L1.5375,24.2894877 L1.5375,2.08757816 L24.1145,13.1885329 Z M21.9595,13.1885329 L2.5365,22.7387709 L2.5365,3.638295 L21.9595,13.1885329 Z" fill="#FDFBF8" stroke="none" stroke-width="1" fill-rule="evenodd"/></svg>';
+	var header_height;
 
 	// youtube videos
 
@@ -19,7 +20,7 @@
 	var onPlayerReady = function(event) {
 		event.target.pauseVideo();
 
-		var player_id = $(event.target.a).attr('id'),
+		var player_id = $(event.target.getIframe()).attr('id'),
 			wrapperid = youtubePlayers[player_id].wrapperid,
 			$wrapper = $('#'+wrapperid);
 
@@ -48,7 +49,7 @@
 	};
 
 	var onPlayerStateChange = function(event) {
-		var player_id = $(event.target.a).attr('id'),
+		var player_id = $(event.target.getIframe()).attr('id'),
 			wrapperid = youtubePlayers[player_id].wrapperid,
 			button = $('#'+wrapperid+' .play-video-btn');
 
@@ -62,7 +63,7 @@
 	};
 
 	var onPlayerError = function(event) {
-		var player_id = $(event.target.a).attr('id'),
+		var player_id = $(event.target.getIframe()).attr('id'),
 			wrapperid = youtubePlayers[player_id].wrapperid,
 			$wrapper = $('#'+wrapperid);
 
@@ -494,6 +495,9 @@
 
 	$(window).on('load', function() {
 		loadCustomVideos();
+
+		header_height = $('#header').outerHeight();
+        document.documentElement.style.setProperty('--header_height', header_height + 'px');
 	});
 
 }(jQuery);

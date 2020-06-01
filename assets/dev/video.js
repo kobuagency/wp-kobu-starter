@@ -506,7 +506,7 @@
 
 			setTimeout(function() {
 				if (_.$playPause) {
-					_.$playPause.focus();
+					_.$playPause[0].focus({preventScroll:true});
 				}
 	        }, 300);
         } else {
@@ -533,7 +533,7 @@
 			if ( focus == 'focus' ) {
 				setTimeout(function() {
 					if (_.$playPause) {
-						_.$playPause.focus();
+						_.$playPause[0].focus({preventScroll:true});
 					}
 				}, 300);
 			}
@@ -551,7 +551,7 @@
 
 		setTimeout(function() {
 			if (_.$playPause) {
-				_.$playPause.focus();
+				_.$playPause[0].focus({preventScroll:true});
 			}
         }, 300);
     };

@@ -163,11 +163,7 @@ add_action( 'add_meta_boxes', 'register_classes_info_metabox' );
 function kobu_classes_info_mb_callback( $post ) {
     echo 	'<p>Available classes to use with blocks:</p>';
     echo 	'<dl class="extra-classes-meta-box">
-			  <dt>dark-container</dt>
-			  <dd>Light menu when hover this section.</dd>
 			  <dt>larger-section</dt>
 			  <dd>Larger section (use with align wide).</dd>
-			  <dt>small-video</dt>
-			  <dd>Vídeo with max-width: 350px (default: 100%)</dd>
 			</dl>';
 }
