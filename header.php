@@ -100,4 +100,3 @@
 
 	<div id="tablesite-content">
 		<div id="main-content">
-			<div class="dtc">

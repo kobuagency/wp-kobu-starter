@@ -69,11 +69,13 @@ module.exports = function( grunt ) {
 		sass: {
 		    dist: {
 		    	options: {
+		    		implementation: require('node-sass'),
 		    		sourcemap: 'none'
 		    	},
 			    files: {
-			        'assets/dist/<%= pkg.functionPrefix %>.css': 'assets/dev/styles/style.scss'
-			    }
+					'assets/dist/<%= pkg.functionPrefix %>.css': 'assets/dev/styles/style.scss',
+					'assets/dist/<%= pkg.functionPrefix %>_nojs.css': 'assets/dev/styles/no_js.scss'
+				}
 		    }
 		},
 
@@ -99,9 +101,11 @@ module.exports = function( grunt ) {
 		    	]
 		    },
 		    dist: {
-		     	src: 'assets/dist/<%= pkg.functionPrefix %>.css',
-				dest: 'assets/dist/<%= pkg.functionPrefix %>.min.css'
-		    }
+				files: {
+					'assets/dist/<%= pkg.functionPrefix %>.min.css': 'assets/dist/<%= pkg.functionPrefix %>.css',
+					'assets/dist/<%= pkg.functionPrefix %>_nojs.min.css': 'assets/dist/<%= pkg.functionPrefix %>_nojs.css',
+				}
+			}
 		},
 	
 
@@ -254,7 +258,7 @@ module.exports = function( grunt ) {
 
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
-	grunt.loadNpmTasks( 'grunt-contrib-sass' );
+	grunt.loadNpmTasks( 'grunt-sass' );
 	grunt.loadNpmTasks( 'grunt-postcss' );
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-contrib-concat' );

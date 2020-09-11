@@ -10,14 +10,14 @@ if( ! isset( $content_width ) ) {
 }
 
 function mywptheme_setup() {
-	load_theme_textdomain( 'mywptheme', MYWPTHEME_THEME_PATH . '/languages' );
+	load_theme_textdomain( 'kobu', MYWPTHEME_THEME_PATH . '/languages' );
 
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption' ) );
 
 	register_nav_menus( array(
-		'primary'		=> __( 'Main Menu', 'mywptheme' ),
+		'primary'		=> __( 'Main Menu', 'kobu' ),
 	) );
 	
 	// Hide admin bar at front-end
@@ -27,9 +27,9 @@ add_action( 'after_setup_theme', 'mywptheme_setup' );
 
 function mywptheme_widgets_init() {
 	register_sidebar( array(
-		'name'			=> __( 'Primary Sidebar', 'mywptheme' ),
+		'name'			=> __( 'Primary Sidebar', 'kobu' ),
 		'id'			=> 'primary',
-		'description'	=> __( 'This sidebar is shown beside the main content.', 'mywptheme' ),
+		'description'	=> __( 'This sidebar is shown beside the main content.', 'kobu' ),
 		'before_widget'	=> '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'	=> '</aside>',
 		'before_title'	=> '<h1 class="widget-title">',

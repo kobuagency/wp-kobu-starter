@@ -67,6 +67,10 @@ p:last-child {
 	overflow: hidden;
 }
 
+.sr-only {
+	@extend %sr-only;
+}
+
 
 // Clear float
 
@@ -85,54 +89,28 @@ p:last-child {
 	@extend %clear;
 }
 
-
-// Table structure
-
-.dt {
-	display: table;
-	width: 100%;
-
-	&.fullheight {
-		height: 100%;
-	}
-}
-
-.dtc {
-	display: table-cell;
-
-	&.align-middle {
-		vertical-align: middle;
-	}
-	&.align-top {
-		vertical-align: top;
-	}
-	&.align-bottom {
-		vertical-align: bottom;
-	}
-}
-
-
 // TABLE LAYOUT
 
 #tablesite-content {
-	display: table;
-	height: 100%;
 	width: 100%;
-	table-layout:fixed;
 	position: relative;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 
-	&.autoheight {
-		height: auto;
-	}
-
-	#footer-wrap {
-		display: table-row;
-		height: 1px;
+	.js-loaded & {
+		min-height: 100vh;
+		min-height: calc(var(--vh, 1vh) * 100);
 	}
 
 	#main-content {
-		display: table-row;
+		flex: 1 0 auto;
 		overflow: hidden;
+	}
+
+	#footer-wrap {
+		flex-shrink: 0;
 	}
 }
 
@@ -779,6 +757,118 @@ p:last-child {
 
 	.home & {
 		
+	}
+
+	ul:not(.slick-dots):not(.page-numbers):not(.blocks-gallery-grid),
+	ol:not(.blocks-gallery-grid) {
+		margin-bottom: 20px;
+
+		li {
+			margin-bottom: 8px;
+			margin-left: 0;
+			padding-left: 25px;
+			position: relative;
+		}
+
+		ul,
+		ol {
+			margin-top: 10px;
+			margin-bottom: 20px;
+		}
+
+		ol {
+			counter-reset: item;
+
+			li {
+				display: block;
+				padding-left: 35px;
+
+				&:before {
+					content: counters(item, ".") " ";
+					counter-increment: item;
+				}
+			}
+		}
+
+		.ol-no-number {
+			li:before {
+				display: none;
+			}
+		}
+
+		table {
+			margin-top: 15px;
+			margin-bottom: 15px;
+			border-collapse: collapse;
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid $blue;
+		}
+
+		th,
+		td {
+			padding: 5px 10px;
+		}
+	}
+
+	ul:not(.slick-dots):not(.page-numbers):not(.blocks-gallery-grid) {
+		list-style: none;
+
+		li:before {
+			content: "\2022 ";
+			font-family: Arial, Helvetica, Tahoma, sans-serif;
+			font-size: 18px;
+			color: $blue;
+			margin-right: 5px;
+			font-weight: 900;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	}
+
+	ol {
+		counter-reset: item;
+
+		li:before {
+			content: counter(item) ". ";
+			counter-increment: item;
+			color: $blue;
+			margin-right: 5px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	}
+
+	ul.table-of-contents,
+	ol.table-of-contents,
+	.table-of-contents ol,
+	.table-of-contents ul {
+		margin-top: 0;
+		padding-left: 0;
+
+		&.no-bullet {
+			li {
+				padding-left: 0 !important;
+			}
+		}
+
+		li {
+			margin-bottom: 20px !important;
+
+			&::before {
+				color: $blue;
+				margin-right: 5px;
+				font-style: initial;
+				position: relative;
+				top: auto;
+				left: auto;
+			}
+		}
 	}
 }
 

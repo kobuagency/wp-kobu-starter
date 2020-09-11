@@ -57,11 +57,12 @@ function mywptheme_wp_title( $sep ) {
 }
 
 /* WPML Language Switcher */
-function language_selector_flags(){
-    if (function_exists('icl_get_languages')) {
-		
-		$langs = '';
-		$languages = icl_get_languages('skip_missing=0');
+function language_selector_flags()
+{
+	$langs = '';
+	$languages = apply_filters('wpml_active_languages', NULL, 'skip_missing=0');
+
+	if (!empty($languages)) {
 		$languages['pt-pt']['language_code'] = 'pt';
 
 		echo '<div class="lang-selector-group">';
@@ -78,33 +79,56 @@ function language_selector_flags(){
 		echo '</div>';
 		
 		echo '<div class="lang-selector">';
-		if(!empty($languages)){
-			foreach ($languages as $l) { 
-				if (isset($l['url'])) {
-					if (isset($l['active']) && $l['active']) {
-						$class = ' class="active"';
-					} else {
-						$class = NULL;
-					}
-					   $langs .=  '<a ' . $class . ' href="'.$l['url'].'">' . strtoupper ($l['language_code']). '</a>   ';   
+		foreach ($languages as $l) { 
+			if (isset($l['url'])) {
+				if (isset($l['active']) && $l['active']) {
+					$class = ' class="active"';
+				} else {
+					$class = NULL;
 				}
-		    }
-			echo $langs;	    
+				   $langs .=  '<a ' . $class . ' href="' . esc_url($l['url']) . '">' . strtoupper($l['language_code']) . '</a>   ';
+			}
 		}
+		echo $langs;
 		echo '</div>';
+
 		echo '</div>';
-	        
-    }
+	}
 }
+
+
+/**
+ * Return current path with language
+ *
+ */
+function kobu_get_current_path()
+{
+	global $wp;
+
+	$page_path = explode('/page', $wp->request);
+	$path_str = $page_path[0];
+
+	if (function_exists('icl_get_languages')) {
+		$default_lang = apply_filters('wpml_default_language', NULL);
+		$current_lang = ICL_LANGUAGE_CODE;
+
+		if ($default_lang != $current_lang) {
+			$path_str = $current_lang . '/' . $path_str;
+		}
+	}
+
+	return $path_str;
+}
+
 
 /**
  * Print CTA clone link
  *
  */
 
-function kobu_print_cta($cta, $classes = 'btn') {
+function kobu_print_cta($cta, $classes = 'btn', $withtarget = true) {
 	if ($cta && isset($cta['text']) && $cta['text'] && isset($cta['link']) && $cta['link']) {
-		if (isset($cta['target_blank']) && $cta['target_blank']) {
+		if ($withtarget && isset($cta['target_blank']) && $cta['target_blank']) {
 		 	$target = 'target="_blank"';
 		} else {
 			$target = '';
@@ -119,80 +143,92 @@ function kobu_print_cta($cta, $classes = 'btn') {
  *
  */
 
+function kobu_print_video_elem($media, $loadvideo = false, $echo = true, $imgsize = 'full', $blockAutoplay = false) {
+	$output = '';
+
+	if (wp_is_mobile() && $media['video_img_mobile']) {
+		if ( $imgsize == 'full' ) {
+			$video_img_mobile_url = $media['video_img_mobile']['url'];
+		} else {
+			$video_img_mobile_url = $media['video_img_mobile']['sizes'][$imgsize];
+		}
+
+		$output .= '<figure class="media-wrapper img" style="background-image: url(' . $video_img_mobile_url . ');"><div class="img-wrapper"><img src="' . $video_img_mobile_url . '" alt="' . $media['video_img_mobile']['alt'] . '"></div></figure>';
+	} else {
+		$videoPlaceholder = '';
+		$autoplay = $blockAutoplay ? false : $media['video_autoplay'];
+
+		if ($media['placeholder']) {
+			if ( $imgsize == 'full' ) {
+				$placeholder = $media['placeholder']['url'];
+			} else {
+				$placeholder = $media['placeholder']['sizes'][$imgsize];
+			}
+
+			$videoPlaceholder .= '<div class="video-placeholder" style="background-image: url(' . $placeholder . ')">';
+				$videoPlaceholder .= '<img src="' . $placeholder . '" alt="' . $media['placeholder']['alt'] . '">';
+			$videoPlaceholder .= '</div>';
+		}
+		
+		$videoOutput = '<video playsinline ' . ($autoplay ? ' autoplay' : '') . ($media['video_muted'] ? ' muted' : '') . ($media['video_loop'] ? ' loop' : '') . ($media['video_controls'] ? ' controls' : '') . '>';
+			$videoOutput .= '<source src="' . $media['media']['url'] . '" type="video/' . $media['video_format'] . '" />';
+			if ($media['video_format'] == 'webm' && $media['media_mp4']) {
+				$videoOutput .= '<source src="' . $media['media_mp4']['url'] . '" type="video/mp4" />';
+			}
+		$videoOutput .= '</video>';
+
+		if ($loadvideo) {
+			$output .= '<figure class="kb-video media-wrapper video-loaded">';
+				$output .= '<div class="video-wrapper">';
+					$output .= $videoPlaceholder;
+					$output .= $videoOutput;
+				$output .= '</div>';
+			$output .= '</figure>';
+		} else {
+			$videoSettings = [
+				'webm' => $media['video_format'] == 'webm' ? $media['media']['url'] : '',
+				'mp4' => $media['video_format'] == 'webm' && $media['media_mp4'] ? $media['media_mp4']['url'] : ($media['video_format'] == 'mp4' ? $media['media']['url'] : ''),
+				'ogg' => '',
+				'track' => '',
+				'trackKind' => '',
+				'trackSrclang' => '',
+				'autoplay' => $autoplay,
+				'loop' => $media['video_loop'],
+				'muted' => $media['video_muted'],
+				'controls' => $media['video_controls'],
+				'preload' => 'metadata',
+			];
+
+			$output .= '<figure class="kb-video media-wrapper pageload-video" data-settings="' . htmlspecialchars(json_encode($videoSettings)) . '">';
+				$output .= $videoPlaceholder;
+				$output .= '<noscript>';
+					$output .= $videoOutput;
+				$output .= '</noscript>';
+			$output .= '</figure>';
+		}
+	}
+
+	if ($echo) {
+		echo $output;
+	} else {
+		return $output;
+	}
+}
+
 function kobu_print_media_elem($media, $loadvideo = false, $echo = true, $imgsize = 'full', $blockAutoplay = false) {
 	$output = '';
 
-	if ($media && $media['media']) {
+	if ( $media && ( $media['media_video'] || $media['media_img'] ) ) {
 		if ($media['media_type'] == 'img') {
 			if ( $imgsize == 'full' ) {
-				$image = $media['media']['url'];
+				$image = $media['media_img']['url'];
 			} else {
-				$image = $media['media']['sizes'][$imgsize];
+				$image = $media['media_img']['sizes'][$imgsize];
 			}
 
-			$output .= '<figure class="media-wrapper img" style="background-image: url(' . $image . ');"><div class="img-wrapper"><img src="' . $image . '" alt="' . $media['media']['alt'] . '"></div></figure>';
-		} elseif ($media['media_type'] == 'video') {
-			if (wp_is_mobile() && $media['video_img_mobile']) {
-				if ( $imgsize == 'full' ) {
-					$video_img_mobile_url = $media['video_img_mobile']['url'];
-				} else {
-					$video_img_mobile_url = $media['video_img_mobile']['sizes'][$imgsize];
-				}
-
-				$output .= '<figure class="media-wrapper img" style="background-image: url(' . $video_img_mobile_url . ');"><div class="img-wrapper"><img src="' . $video_img_mobile_url . '" alt="' . $media['video_img_mobile']['alt'] . '"></div></figure>';
-			} else {
-				$videoPlaceholder = '';
-				$autoplay = $blockAutoplay ? false : $media['video_autoplay'];
-
-				if ($media['placeholder']) {
-					if ( $imgsize == 'full' ) {
-						$placeholder = $media['placeholder']['url'];
-					} else {
-						$placeholder = $media['placeholder']['sizes'][$imgsize];
-					}
-
-					$videoPlaceholder .= '<div class="video-placeholder" style="background-image: url(' . $placeholder . ')">';
-						$videoPlaceholder .= '<img src="' . $placeholder . '" alt="' . $media['placeholder']['alt'] . '">';
-					$videoPlaceholder .= '</div>';
-				}
-				
-				$videoOutput = '<video playsinline ' . ($autoplay ? ' autoplay' : '') . ($media['video_muted'] ? ' muted' : '') . ($media['video_loop'] ? ' loop' : '') . ($media['video_controls'] ? ' controls' : '') . '>';
-					$videoOutput .= '<source src="' . $media['media']['url'] . '" type="video/' . $media['video_format'] . '" />';
-					if ($media['video_format'] == 'webm' && $media['media_mp4']) {
-						$videoOutput .= '<source src="' . $media['media_mp4']['url'] . '" type="video/mp4" />';
-					}
-				$videoOutput .= '</video>';
-
-				if ($loadvideo) {
-					$output .= '<figure class="kb-video media-wrapper video-loaded">';
-						$output .= '<div class="video-wrapper">';
-							$output .= $videoPlaceholder;
-							$output .= $videoOutput;
-						$output .= '</div>';
-					$output .= '</figure>';
-				} else {
-					$videoSettings = [
-						'webm' => $media['video_format'] == 'webm' ? $media['media']['url'] : '',
-						'mp4' => $media['video_format'] == 'webm' && $media['media_mp4'] ? $media['media_mp4']['url'] : ($media['video_format'] == 'mp4' ? $media['media']['url'] : ''),
-						'ogg' => '',
-						'track' => '',
-						'trackKind' => '',
-						'trackSrclang' => '',
-						'autoplay' => $autoplay,
-						'loop' => $media['video_loop'],
-						'muted' => $media['video_muted'],
-						'controls' => $media['video_controls'],
-						'preload' => 'metadata',
-					];
-
-					$output .= '<figure class="kb-video media-wrapper pageload-video" data-settings="' . htmlspecialchars(json_encode($videoSettings)) . '">';
-						$output .= $videoPlaceholder;
-						$output .= '<noscript>';
-							$output .= $videoOutput;
-						$output .= '</noscript>';
-					$output .= '</figure>';
-				}
-			}
+			$output .= '<figure class="media-wrapper img" style="background-image: url(' . $image . ');"><div class="img-wrapper"><img src="' . $image . '" alt="' . $media['media_img']['alt'] . '"></div></figure>';
+		} elseif ($media['media_type'] == 'video' && $media['media_video']['video']) {
+			$output .= kobu_print_video_elem($media['media_video']['video'], $loadvideo, false, $imgsize, $blockAutoplay);
 		}
 	}
 

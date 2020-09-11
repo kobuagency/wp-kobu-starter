@@ -25,8 +25,8 @@ if ( ! function_exists( 'kobu_get_featured_img_url' ) ) {
 				return '';
 			}
 
-			if ($size == 'large') {
-				$attachment_url = wp_get_attachment_image_src( $attachment_id, 'large' )[0];
+			if ( $size == 'thumbnail' || $size == 'medium' || $size == 'large' ) {
+				$attachment_url = wp_get_attachment_image_src( $attachment_id, $size )[0];
 			} else {
 				$attachment_url = wp_get_attachment_image_src( $attachment_id, 'full' )[0];
 			}

@@ -35,8 +35,19 @@ if (!is_admin()) {
             if ($matches){
                 if (isset($matches[7][0])){
                     $video_id = $matches[7][0];
-
-                    $vimeo_file = @file_get_contents('http://vimeo.com/api/v2/video/'.$video_id.'.php');
+                    $url = 'http://vimeo.com/api/v2/video/'.$video_id.'.php';  
+                    
+                    // Initialize a CURL session.  
+                    $ch = curl_init();  
+                    
+                    // Get the response from cURL
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+                    
+                    // Grab URL and pass it to the variable  
+                    curl_setopt($ch, CURLOPT_URL, $url);  
+                    
+                    $vimeo_file = curl_exec($ch);
+                    curl_close($ch);
 
                     if ($vimeo_file !== FALSE) {
                         $hash = unserialize($vimeo_file);
@@ -122,7 +133,7 @@ if (!is_admin()) {
 
         if ($is_video && !is_admin()) {
             
-            $output = '<div class="' . esc_attr( implode( $classes, ' ' ) ) . '">';
+            $output = '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">';
                 if ($is_video && $video_id) {
                     $output .= '<div class="video-placeholder" style="background-image: url('.$thumbnail_url.');"></div>';
                 }

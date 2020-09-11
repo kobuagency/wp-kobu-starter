@@ -21,20 +21,6 @@ $colors: (
   //'dark-gray': $darkgray,
 );
 
-@each $color, $color_code in $colors {
-  .has-#{$color}-color {
-    color: $color_code;
-  }
-  .has-#{$color}-background-color {
-    background-color: $color_code;
-  }
-  .wp-block-cover-image.has-background-dim .has-#{$color}-background-color:before,
-  .wp-block-cover.has-background-dim .has-#{$color}-background-color:before {
-    background-color: $color_code;
-  }
-}
-
-
 /* Mixins */
 
 // align flex-start, center, flex-end
@@ -117,10 +103,6 @@ $colors: (
   position: absolute !important;
   top: 0;
   left: 0;
-}
-
-.sr-only {
-  @extend %sr-only;
 }
 
 %cover-img {
