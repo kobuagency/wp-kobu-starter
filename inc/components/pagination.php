@@ -42,28 +42,45 @@ if ( ! function_exists( 'kobu_pagination') ) {
 }
 
 
+
 /**
 	Next/Previous page style pagination
-**/
-if ( !function_exists( 'kobu_pagejump') ) {
-	function kobu_pagejump($pages = '', $range = 4) {
-		$showitems = ($range * 2)+1; 
-		global $paged;
-		if ( empty($paged) ) $paged = 1;
-		if ( $pages == '' ) {
+ **/
+if (!function_exists('kobu_jump_page')) {
+	function kobu_jump_page($direction = 'next', $current_page = '', $total = '', $base = '')
+	{
+		global $wp;
+
+		if ($current_page == '') {
+			$current_page = (get_query_var('paged')) ? get_query_var('paged') : 1;
+		}
+
+		if ($total == '') {
 			global $wp_query;
-			$pages = $wp_query->max_num_pages;
-			if (!$pages) {
-				$pages = 1;
+			$total = $wp_query->max_num_pages;
+
+			if (!$total || $total < 2) {
+				return;
 			}
 		}
-		if ( 1 != $pages ) {
-			echo '<div class="post-navigation clr"><div class="alignleft">';
-			previous_posts_link( '&larr; ' . __( 'Newer Posts', 'kobu' ) );
-			echo '</div><div class="alignright">';
-			next_posts_link( __( 'Older Posts', 'kobu' ) .' &rarr;' );
-			echo '</div></div>';
+
+		if (!$base) {
+			$current_url = home_url($wp->request);
+			$position = strpos($current_url, '/page');
+			$nopaging_url = ($position) ? substr($current_url, 0, $position) : $current_url;
+			parse_str($_SERVER['QUERY_STRING'], $arr_params);
+
+			$next_page_url = esc_url(add_query_arg($arr_params, $nopaging_url . '/page/' . ($current_page + 1) . '/'));
+			$prev_page_url = esc_url(add_query_arg($arr_params, $nopaging_url . (($current_page - 1) > 1 ? '/page/' . ($current_page - 1) . '/' : '')));
+		} else {
+			$next_page_url = str_replace('%#%', $current_page + 1, esc_url($base));
+			$prev_page_url = str_replace('%#%', $current_page - 1, esc_url($base));
 		}
-		
+
+		if ($direction == 'next' && $current_page < $total) {
+			printf('<div class="pagination-wrapper next container text-center"><a class="btn large next-posts" href="%s" data-page="%s">%s</a></div>', $next_page_url, $current_page + 1, __('carregar mais', 'kobu'));
+		} elseif ($direction == 'prev' && $current_page > 1) {
+			printf('<div class="pagination-wrapper previous container text-center"><a class="btn large previous-posts" href="%s" data-page="%s">%s</a></div>', $prev_page_url, $current_page - 1, __('carregar anteriores', 'kobu'));
+		}
 	}
 }

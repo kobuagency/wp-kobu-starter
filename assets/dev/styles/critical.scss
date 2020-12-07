@@ -1,0 +1,117 @@
+@import "01_reset";
+@import "02_settings";
+
+/* Global 
+================================================== */
+
+:root {
+	--vh: 1vh;
+}
+
+body,
+html {
+	background-color: $white;
+	padding: 0;
+	margin: 0;
+	font-family: $font-family-base;
+	font-size: $font-size-base;
+	line-height: $line-height-base;
+	font-weight: $font-weight-base;
+	letter-spacing: $letter-spacing;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	color: $blue;
+	width: 100%;
+	min-height: 100%;
+	height: 100%;
+
+	@include mq("xl") {
+		font-size: 16px;
+	}
+
+	@include mq("xxl") {
+		font-size: 20px;
+	}
+}
+
+button {
+	background-color: transparent;
+	border: 0;
+	border-radius: 0;
+	width: auto;
+	padding: 0;
+	height: auto;
+	outline: 0;
+	cursor: pointer;
+}
+
+a {
+	@include transition(color .5s ease);
+    color: $blue;
+    -webkit-tap-highlight-color: transparent;
+	cursor: pointer;
+	text-decoration: none;
+	outline: none;
+
+	&:hover {
+		color: $blue;
+		text-decoration: none;
+		outline: none;
+	}
+}
+
+// Recaptcha
+.grecaptcha-badge {
+	opacity: 0 !important;
+	pointer-events: none !important;
+}
+
+.oh {
+	overflow: hidden;
+}
+
+.sr-only {
+	@extend %sr-only;
+}
+
+img {
+	width: 100%;
+	height: auto;
+}
+
+.container {
+	@extend %container_common;
+
+	&:not(.small):not(.medium):not(.large):not(.wine-container) {
+		@extend %container_default;
+	}
+	&.medium {
+		@extend %container_medium;
+	}
+
+	&.large {
+		@extend %container_large;
+	}
+}
+
+/* Cookies 
+================================================== */
+
+#cookies-notification {
+	@include transition(opacity 0.5s ease-in-out, visibility 0.5s ease-in-out);
+	opacity: 0;
+	position: fixed;
+
+	.js-loaded & {
+		&:not(.hidden) {
+			opacity: 1;
+		}
+	}
+}
+
+/* Header 
+================================================== */
+@import "06_header";
+
+/* Homepage
+================================================== */

@@ -167,3 +167,17 @@ function kobu_classes_info_mb_callback( $post ) {
 			  <dd>Larger section (use with align wide).</dd>
 			</dl>';
 }
+
+
+/**
+ * GOOGLE MAPS
+ */
+
+/*
+function kobu_google_map_api($api)
+{
+	$api['key'] = '';
+	return $api;
+}
+add_filter('acf/fields/google_map/api', 'kobu_google_map_api');
+*/

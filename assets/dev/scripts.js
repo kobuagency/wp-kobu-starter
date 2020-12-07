@@ -2,7 +2,6 @@
 	'use strict';
 
 	var svgPlayButton = '<svg width="25" height="26" viewBox="0 0 25 26" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M24.1145,13.1885329 L1.5375,24.2894877 L1.5375,2.08757816 L24.1145,13.1885329 Z M21.9595,13.1885329 L2.5365,22.7387709 L2.5365,3.638295 L21.9595,13.1885329 Z" fill="#FDFBF8" stroke="none" stroke-width="1" fill-rule="evenodd"/></svg>';
-	var header_height;
 
 	// youtube videos
 
@@ -268,61 +267,61 @@
 	};
 
 	// Load custom videos
-	var loadCustomVideos = function() {
+	var loadCustomVideos = function () {
 		$('.pageload-video:not(.video-loaded)').each(function () {
 			var $this = $(this),
 				settings = $this.data('settings');
 
 			$this.addClass('video-loaded');
-			
+
 			var error = 0,
 				videoSrc,
 				videoFormat;
 
-	        if (settings.webm && supportsVideoType('vp9')) {
-        		videoSrc = settings.webm;
-        		videoFormat = 'webm';
-        	} else if (settings.mp4 && supportsVideoType('h264')) {
-        		videoSrc = settings.mp4;
-	        	videoFormat = 'mp4';
-	        } else if (settings.ogg && supportsVideoType('ogg')) {
-        		videoSrc = settings.ogg;
-        		videoFormat = 'ogg';
-        	} else {
-        		error++;
-        	}
+			if (settings.webm && supportsVideoType('vp9')) {
+				videoSrc = settings.webm;
+				videoFormat = 'webm';
+			} else if (settings.mp4 && supportsVideoType('h264')) {
+				videoSrc = settings.mp4;
+				videoFormat = 'mp4';
+			} else if (settings.ogg && supportsVideoType('ogg')) {
+				videoSrc = settings.ogg;
+				videoFormat = 'ogg';
+			} else {
+				error++;
+			}
 
-	        if (!error) {
-	        	var placeholder = $this.find('.video-placeholder');
+			var placeholder = $this.find('.video-placeholder');
 
-	        	if (placeholder.length) {
-	        		placeholder.wrap('<div class="video-wrapper"></div>');
-	        	} else {
-	        		$this.prepend('<div class="video-wrapper"></div>');
-	        	}
-	        	
-	        	var videoWrapper = $this.find('.video-wrapper');
+			if (placeholder.length) {
+				placeholder.wrap('<div class="video-wrapper"></div>');
+			} else {
+				$this.prepend('<div class="video-wrapper"></div>');
+			}
 
-	        	var video = document.createElement('video');
-					video.autoplay = settings.autoplay;
-					video.controls = settings.controls;
-					video.loop = settings.loop;
-					video.muted = settings.muted;
-					video.preload = settings.preload;
-					video.playsinline = true;
+			var videoWrapper = $this.find('.video-wrapper');
 
-					if (settings.autoplay) {
-						video.setAttribute('autoplay', '');
-					}
+			if (!error) {
+				var video = document.createElement('video');
+				video.autoplay = settings.autoplay;
+				video.controls = settings.controls;
+				video.loop = settings.loop;
+				video.muted = settings.muted;
+				video.preload = settings.preload;
+				video.playsinline = true;
 
-				var videoSource = document.createElement('source'); 
-				videoSource.type = 'video/'+videoFormat;
+				if (settings.autoplay) {
+					video.setAttribute('autoplay', '');
+				}
+
+				var videoSource = document.createElement('source');
+				videoSource.type = 'video/' + videoFormat;
 				videoSource.src = videoSrc;
 
 				video.appendChild(videoSource);
 
 				if (settings.track) {
-					var videoTrack = document.createElement('track'); 
+					var videoTrack = document.createElement('track');
 					videoTrack.kind = settings.trackKind;
 					videoTrack.srclang = settings.trackSrclang;
 					videoTrack.default = true;
@@ -330,27 +329,27 @@
 
 					video.appendChild(videoTrack);
 				}
-				
+
 				videoWrapper.append(video);
 				videoWrapper.find('video').get(0).load();
 
 				if (video.controls && !settings.autoplay) {
-					videoWrapper.kobuvideo({svgbutton: svgPlayButton, fullscreen: false});
+					videoWrapper.kobuvideo({ svgbutton: svgPlayButton, fullscreen: false });
 				} else {
 					var videoElem = videoWrapper.find('video').get(0);
-					
+
 					if (!videoElem.paused) {
 						if (placeholder.length) {
 							placeholder.remove();
 						}
 					} else {
-						videoWrapper.kobuvideo({svgbutton: svgPlayButton, fullscreen: false});
+						videoWrapper.kobuvideo({ svgbutton: svgPlayButton, fullscreen: false });
 					}
 				}
-	        } else {
-	        	$this.addClass('error'); // Your browser cannot play this video
-	        }
-	    });
+			} else {
+				videoWrapper.addClass('error'); // Your browser cannot play this video
+			}
+		});
 	};
 
 	$( document ).ready(function( $ ) {
@@ -360,9 +359,6 @@
 		var updateVh = function () {
             var vh = $(window).height() * 0.01;
             document.documentElement.style.setProperty('--vh', vh + 'px');
-
-            header_height = $('#header').outerHeight();
-            document.documentElement.style.setProperty('--header_height', header_height + 'px');
         }
         
 		updateVh();
@@ -376,7 +372,7 @@
 		}
 
 		// Scroll Action on Anchor Links 
-		$(document).on('click','.anchorlink', function(event) {
+		$(document).on('click', '.anchorlink:not(.wp-block-button), .anchorlink .wp-block-button__link ', function (event) {
 			event.preventDefault();
 			var section = $(this).attr('href');
 
@@ -495,9 +491,6 @@
 
 	$(window).on('load', function() {
 		loadCustomVideos();
-
-		header_height = $('#header').outerHeight();
-        document.documentElement.style.setProperty('--header_height', header_height + 'px');
 	});
 
 }(jQuery);

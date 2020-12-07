@@ -2,177 +2,171 @@
 ================================================== */
 
 @-webkit-keyframes autofill {
-    to {
-        color: $white;
-        background: $blue;
-    }
+	to {
+		color: $white;
+		background: $blue;
+	}
 }
 
 input:-webkit-autofill {
-    -webkit-animation-name: autofill;
-    -webkit-animation-fill-mode: both;
+	-webkit-animation-name: autofill;
+	-webkit-animation-fill-mode: both;
 }
 
-input, textarea, select {
-    background-color: $inputbgcolor;
-    border: 0;
+input,
+textarea,
+select {
+	background-color: transparent;
+	border: 0;
 	border-radius: 0;
-    width: 100%;
-    padding: 0px 12px;
-    font-family: $font-family-base;
-    letter-spacing: 0px;
-    color: $gray;
-    appearance: none;
-    -webkit-appearance: none;
-    outline: 0;
+	width: 100%;
+	padding: 10px 0 14px 0;
+	font-family: $font-family-base;
+	letter-spacing: 0px;
+	color: $blue;
+	appearance: none;
+	-webkit-appearance: none;
+	outline: 0;
+	font-size: 1.28rem;
 
-    @include input-placeholder {
-        color: $blue;
-        opacity: 1;
-    }
+	@include input-placeholder {
+		color: $blue;
+		opacity: 1;
+	}
 }
 
-button {
-    background-color: transparent;
-    border: 0;
-    border-radius: 0;
-    width: auto;
-    padding: 0;
-    height: auto;
-    outline: 0;
-    cursor: pointer;
-}
-
-@mixin btn(
-        $color: $blue, 
-        $colorhover: $white, 
-        $border: $blue,
-        $borderhover: $blue,
-        $background: transparent,
-        $backgroundhover: $blue,
-        $pathfill: $blue,
-        $pathfillhover: $white,
-        $borderradius: 33px, 
-        $padding: 12px 30px 10px 30px,
-        $fontsize: .84rem
-    ) {
-    @include transition(color .5s ease, background-color .5s ease, border .5s ease);
-    width: auto;       
-    cursor: pointer;    
-    padding: $padding;
-    display: inline-block;
-    text-align: center;
-    color: $color;
-    background: $background;
-    border: 1px solid $border;
-    margin-bottom: 0;
-    margin-top: 0;
-    line-height: 1;
-    border-radius: $borderradius;
-    font-weight: 600;
-    font-size: $fontsize;
-    text-decoration: none;
-
-    svg {
-        &:last-child {
-            margin-left: 10px;
-        }
-
-        path {
-            @include transition(fill .5s ease);
-            fill: $pathfill;
-        }
-    }
-
-    &:hover {
-        background-color: $backgroundhover;
-        color: $colorhover;
-        border: 1px solid $borderhover;
-
-        svg path {
-            fill: $pathfillhover;
-        }
-    }
-}
-
-input[type=submit],
+input[type="submit"],
 form button,
-.btn,
+.btn:not(.large):not(.whiteghost),
 .wp-block-button__link {
-    &:not(.btn-black) {
-        @include btn;
-    }
+	@include btn;
+
+	.site-content & {
+		text-decoration: none;
+	}
 }
 
-.btn-black {
-   @include btn(); 
+.btn.whiteghost {
+	@include btn(
+		$color: $white,
+		$colorhover: $blue,
+		$border: $white,
+		$borderhover: $white,
+		$background: transparent,
+		$backgroundhover: $white,
+		$pathfill: $white,
+		$pathfillhover: $blue,
+	);
+}
+
+.wp-block-button__link.has-background {
+	border-color: inherit;
 }
 
 %checkbox {
-    width: 18px;
-    height: 18px;
-    display: inline-block;
-    padding: 0;
-    background-color: transparent;  
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    top: 3px;
-    position: relative;
-    margin-bottom: 0;
-    margin-top: 0;
-    border: 1px solid $blue;
-    margin-left: 0;
-    margin-right: 15px;
-    cursor: pointer;
+	width: 18px;
+	height: 18px;
+	display: inline-block;
+	padding: 0;
+	background-color: transparent;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	top: 3px;
+	position: relative;
+	margin-bottom: 0;
+	margin-top: 0;
+	border: 1px solid $blue;
+	margin-left: 0;
+	margin-right: 15px;
+	cursor: pointer;
 }
 
-input[type=checkbox],
-input[type=radio] {
-    @extend %checkbox;
+input[type="checkbox"],
+input[type="radio"] {
+	@extend %checkbox;
 }
 
-input[type=checkbox]:hover,
-input[type=radio]:hover,
-input[type=checkbox]:checked,
-input[type=radio]:checked {
-    background-color: $blue;
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+	background-color: $blue;
 }
-
 
 textarea {
-    height: 180px;
-    line-height: 22px;
+	height: 180px;
+	line-height: 22px;
 }
 
 input:focus,
 textarea:focus {
-    outline: none;
+	outline: none;
 }
 
 select {
-    option {
-        color: #000;
-    }
+	option {
+		color: #000;
+	}
 }
 
-.mc4wp-response .mc4wp-alert,
-div.wpcf7-response-output,
-div.wpcf7-mail-sent-ok,
-div.wpcf7-mail-sent-ng,
-div.wpcf7-aborted,
-div.wpcf7-spam-blocked,
-div.wpcf7-validation-errors,
-div.wpcf7-acceptance-missing {
-    border: 0;
-    margin: 40px 0 0 0;
-    font-size: 0.78rem;
-    padding: 25px 40px 20px 40px;
-    border: 0;
+.input-group {
+	margin-bottom: 30px;
 
-    &.wpcf7-wpcf7-aborted,
-    &.wpcf7-spam-blocked,
-    &.wpcf7-validation-errors,
-    &.wpcf7-acceptance-missing {
-    }
+	label {
+		font-size: 0.85rem;
+		color: $red;
+	}
+
+	&.inline {
+		.wpcf7-list-item {
+			display: inline-block;
+			margin-right: 30px;
+		}
+	}
+}
+
+.wpcf7 span.wpcf7-list-item {
+	position: relative;
+	margin-bottom: 30px;
+	padding-left: 30px;
+	display: block;
+	margin-bottom: 10px;
+	margin-left: 0;
+
+	input[type="checkbox"],
+	input[type="radio"] {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+}
+
+div.wpcf7 .button-wrapper {
+	display: inline-block;
+	position: relative;
+
+	.ajax-loader {
+		position: absolute;
+		right: 100%;
+		margin-right: 10px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}
+
+.wpcf7 .wpcf7-not-valid-tip {
+	margin-top: 10px;
+	color: $red;
+	font-size: 0.85rem;
+}
+
+.wpcf7 textarea + .wpcf7-not-valid-tip {
+	margin-top: 5px;
+}
+
+div.wpcf7 form .wpcf7-response-output {
+	margin: 30px 0 0 0;
+	padding: 10px 20px;
+	background-color: $white;
+	border: 0;
+	font-size: 0.85rem;
 }

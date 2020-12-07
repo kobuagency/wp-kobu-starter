@@ -28,7 +28,7 @@ module.exports = function( grunt ) {
 				tasks : ['css_task']
 			},
 			css : { // livereload with min css update
-				files : ['assets/dist/<%= pkg.functionPrefix %>.min.css'],
+				files : ['assets/dist/<%= pkg.functionPrefix %>.min.css', 'assets/dist/<%= pkg.functionPrefix %>_critical.min.css'],
 				options : {
 					livereload : true
 				}
@@ -74,7 +74,8 @@ module.exports = function( grunt ) {
 		    	},
 			    files: {
 					'assets/dist/<%= pkg.functionPrefix %>.css': 'assets/dev/styles/style.scss',
-					'assets/dist/<%= pkg.functionPrefix %>_nojs.css': 'assets/dev/styles/no_js.scss'
+					'assets/dist/<%= pkg.functionPrefix %>_nojs.css': 'assets/dev/styles/no_js.scss',
+					'assets/dist/<%= pkg.functionPrefix %>_critical.css': 'assets/dev/styles/critical.scss'
 				}
 		    }
 		},
@@ -104,6 +105,7 @@ module.exports = function( grunt ) {
 				files: {
 					'assets/dist/<%= pkg.functionPrefix %>.min.css': 'assets/dist/<%= pkg.functionPrefix %>.css',
 					'assets/dist/<%= pkg.functionPrefix %>_nojs.min.css': 'assets/dist/<%= pkg.functionPrefix %>_nojs.css',
+					'assets/dist/<%= pkg.functionPrefix %>_critical.min.css': 'assets/dist/<%= pkg.functionPrefix %>_critical.css',
 				}
 			}
 		},
@@ -128,7 +130,6 @@ module.exports = function( grunt ) {
 			dist: {
 				files: {
 					'assets/dist/video.min.js': ['assets/dev/video.js'],
-					//'assets/dist/ajax_filters.min.js': ['assets/dev/ajax_filters.js'],
 					'assets/dist/<%= pkg.functionPrefix %>.min.js': ['assets/dev/scripts.js'],
 				}
 			}
@@ -239,8 +240,8 @@ module.exports = function( grunt ) {
 						'report-msgid-bugs-to': '<%= pkg.homepage %>',
 						'x-generator': 'grunt-wp-i18n 0.4.5',
 						'x-poedit-basepath': '.',
-						'x-poedit-language': 'English',
-						'x-poedit-country': 'UNITED STATES',
+						'x-poedit-language': 'Portuguese',
+						'x-poedit-country': 'Portugal',
 						'x-poedit-sourcecharset': 'uft-8',
 						'x-poedit-keywordslist': '__;_e;_x:1,2c;_ex:1,2c;_n:1,2; _nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_attr__; esc_html__;esc_attr_e; esc_html_e;esc_attr_x:1,2c; esc_html_x:1,2c;',
 						'x-poedit-bookmars': '',
@@ -330,4 +331,3 @@ module.exports = function( grunt ) {
 		});
 	});
 };
-

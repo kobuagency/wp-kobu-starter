@@ -1,14 +1,31 @@
-/* Colors */
+/* Fonts
+================================================== */
+
+/* @font-face {
+	font-family: "Domaine Text Italic";
+	font-style: normal;
+	font-weight: 400;
+	src: url("../fonts/font.eot");
+	src: url("../fonts/font.eot?#iefix")
+			format("embedded-opentype"),
+		url("../fonts/font.woff2")
+			format("woff2"),
+		url("../fonts/font.woff")
+			format("woff");
+} */
+
+/* Colors
+================================================== */
 
 @each $color, $color_code in $colors {
-    .has-#{$color}-color {
-      color: $color_code;
-    }
-    .has-#{$color}-background-color {
-      background-color: $color_code;
-    }
-    .wp-block-cover-image.has-background-dim .has-#{$color}-background-color:before,
-    .wp-block-cover.has-background-dim .has-#{$color}-background-color:before {
-      background-color: $color_code;
-    }
+  .has-#{$color}-color {
+    color: $color_code;
   }
+  .has-#{$color}-background-color {
+    background-color: $color_code;
+  }
+  .wp-block-cover-image.has-background-dim .has-#{$color}-background-color:before,
+  .wp-block-cover.has-background-dim .has-#{$color}-background-color:before {
+    background-color: $color_code;
+  }
+}
