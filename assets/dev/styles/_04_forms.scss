@@ -1,16 +1,18 @@
-/* FORMS: INPUT, SELECT, ETC
+/* Forms, inputs, select, etc
 ================================================== */
 
-@-webkit-keyframes autofill {
-	to {
-		color: $white;
-		background: $blue;
-	}
-}
-
-input:-webkit-autofill {
-	-webkit-animation-name: autofill;
-	-webkit-animation-fill-mode: both;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+	-webkit-text-fill-color: $black;
+	-webkit-box-shadow: 0 0 0px 1000px #eaeaea inset;
+	transition: background-color 5000s ease-in-out 0s;
 }
 
 input,
@@ -23,78 +25,42 @@ select {
 	padding: 10px 0 14px 0;
 	font-family: $font-family-base;
 	letter-spacing: 0px;
-	color: $blue;
+	color: $black;
 	appearance: none;
 	-webkit-appearance: none;
 	outline: 0;
 	font-size: 1.28rem;
 
 	@include input-placeholder {
-		color: $blue;
+		color: $black;
 		opacity: 1;
 	}
 }
 
-input[type="submit"],
-form button,
-.btn:not(.large):not(.whiteghost),
-.wp-block-button__link {
-	@include btn;
-
-	.site-content & {
-		text-decoration: none;
-	}
-}
-
-.btn.whiteghost {
-	@include btn(
-		$color: $white,
-		$colorhover: $blue,
-		$border: $white,
-		$borderhover: $white,
-		$background: transparent,
-		$backgroundhover: $white,
-		$pathfill: $white,
-		$pathfillhover: $blue,
-	);
-}
-
-.wp-block-button__link.has-background {
-	border-color: inherit;
-}
-
-%checkbox {
+input[type="checkbox"],
+input[type="radio"] {
 	width: 18px;
 	height: 18px;
 	display: inline-block;
 	padding: 0;
 	background-color: transparent;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
 	top: 3px;
 	position: relative;
 	margin-bottom: 0;
 	margin-top: 0;
-	border: 1px solid $blue;
 	margin-left: 0;
 	margin-right: 15px;
+	border: 1px solid $black;
 	cursor: pointer;
-}
-
-input[type="checkbox"],
-input[type="radio"] {
-	@extend %checkbox;
 }
 
 input[type="checkbox"]:checked,
 input[type="radio"]:checked {
-	background-color: $blue;
+	background-color: $black;
 }
 
 textarea {
 	height: 180px;
-	line-height: 22px;
 }
 
 input:focus,
@@ -107,6 +73,55 @@ select {
 		color: #000;
 	}
 }
+
+/* Button and CTA
+================================================== */
+
+button {
+	background-color: transparent;
+	border: 0;
+	border-radius: 0;
+	width: auto;
+	padding: 0;
+	height: auto;
+	outline: 0;
+	cursor: pointer;
+}
+
+.wp-block-button__link.has-background {
+	border-color: inherit;
+}
+.is-style-outline > .wp-block-button__link,
+.wp-block-button__link.is-style-outline {
+	border: 1px solid;
+}
+
+input[type="submit"],
+form button,
+.btn:not(.whiteghost),
+.wp-block-button__link {
+	@include btn;
+
+	.site-content & {
+		text-decoration: none;
+	}
+}
+
+.btn.whiteghost {
+	@include btn(
+		$color: $white,
+		$colorhover: $black,
+		$border: $white,
+		$borderhover: $white,
+		$background: transparent,
+		$backgroundhover: $white,
+		$pathfill: $white,
+		$pathfillhover: $black,
+	);
+}
+
+/* CF7 Forms
+================================================== */
 
 .input-group {
 	margin-bottom: 30px;

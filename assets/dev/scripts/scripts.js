@@ -3,14 +3,7 @@
 
 	var svgPlayButton = '<svg width="25" height="26" viewBox="0 0 25 26" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M24.1145,13.1885329 L1.5375,24.2894877 L1.5375,2.08757816 L24.1145,13.1885329 Z M21.9595,13.1885329 L2.5365,22.7387709 L2.5365,3.638295 L21.9595,13.1885329 Z" fill="#FDFBF8" stroke="none" stroke-width="1" fill-rule="evenodd"/></svg>';
 
-	// youtube videos
-
-	var tag = document.createElement('script');
-	tag.src = "https://www.youtube.com/iframe_api";
-
-	var firstScriptTag = document.getElementsByTagName('script')[0];
-	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
+    // youtube and vimeo videos
 	var youtubePlayers = {},
 		vimeoPlayers = {},
 		ytIframeAPIReady = false;
@@ -363,16 +356,25 @@
         
 		updateVh();
 		
-		var scrollTo = function(elementSelector) {
-			var $destination = $(elementSelector);
-
-			$('html, body').animate({
-				scrollTop: $destination.offset().top - 20
-			}, 500);
-		}
+		var scrollTo = function (target, afterFunction) {
+            afterFunction = afterFunction || null;
+            var $destination = target;
+    
+            if (typeof target !== 'number') {
+                if($(target).length) {
+                    $destination = $(target).offset().top;
+                } else {
+                    return;
+                }
+            }
+    
+            $('html, body').animate({
+                scrollTop: $destination
+            }, 500, afterFunction);
+        }
 
 		// Scroll Action on Anchor Links 
-		$(document).on('click', '.anchorlink:not(.wp-block-button), .anchorlink .wp-block-button__link ', function (event) {
+		$(document).on('click', 'a.anchorlink, .anchorlink a', function (event) {
 			event.preventDefault();
 			var section = $(this).attr('href');
 
@@ -380,7 +382,6 @@
 		});
 
 		// Set/get cookie
-
 		var cookie = {
 			set: function(cname, cvalue, exdays) {
 			    var d = new Date();
@@ -409,7 +410,7 @@
 			}
 		}
 
-		/* COOKIES */
+		// Cookies
 		$(document.body).on('click', '#accept-cookies', function () {
 			$('#cookies-notification').addClass('hidden');
 			cookie.set('privacy_acceptance',1,90);
@@ -468,7 +469,7 @@
 
 		customHeightSpacer();
 
-		/* CF7 form submit */
+		// CF7 form submit
 		$(document.body).off('wpcf7mailsent').on('wpcf7mailsent', function (event) {
 	        var formId = event.detail.id;
 
@@ -481,7 +482,6 @@
 		        }	
 			}
 	    });
-
 
 		$(window).on('resize', function() {
 			updateVh();

@@ -6,30 +6,41 @@
  * @package mywptheme
  */
 
-function mywptheme_wp_title($sep)
+function mywptheme_wp_title($sep, $echo = true)
 {
+	$title = '';
+
 	if (defined('WPSEO_VERSION')) {
-		wp_title('');
+		$title .= wp_title('', false);
 	} else {
 		wp_title($sep, true, 'right');
 		if (!is_feed()) {
 			global $page, $paged;
 
-			bloginfo('name', 'display');
+			$title .= get_bloginfo('name', 'display');
 
 			$site_description = get_bloginfo('description', 'display');
 			if ($site_description && (is_home() || is_front_page())) {
-				echo ' ' . $sep . ' ' . $site_description;
+				$title .=  ' ' . $sep . ' ' . $site_description;
 			}
 
 			if (($paged >= 2 || $page >= 2) && !is_404()) {
-				echo ' ' . $sep . ' ' . sprintf(__('Page %s', 'mywptheme'), max($paged, $page));
+				$title .=  ' ' . $sep . ' ' . sprintf(__('Page %s', 'kobu'), max($paged, $page));
 			}
 		}
 	}
+
+	if ($echo) {
+		echo $title;
+	} else {
+		return $title;
+	}
 }
 
-/* WPML Language Switcher */
+/**
+ * WPML Language Switcher
+ */
+
 function language_selector_flags()
 {
 	$langs = '';
@@ -41,7 +52,7 @@ function language_selector_flags()
 		echo '<div class="language-wrapper">';
 		echo '<div class="lang-selector-group">';
 
-		echo '<div class="current-lang" aria-label="' . __('Idioma atual', 'kobu') . '">';
+		echo '<div class="current-lang" aria-label="' . __('Current language', 'kobu') . '">';
 		echo '<div class="current-lang-code">';
 		if (ICL_LANGUAGE_CODE == 'pt-pt') {
 			echo "pt";
@@ -52,7 +63,7 @@ function language_selector_flags()
 		echo kobu_get_icons('arrow_down');
 		echo '</div>';
 
-		echo '<div class="lang-selector" aria-label="' . __('Selecionar idioma', 'kobu') . '">';
+		echo '<div class="lang-selector" aria-label="' . __('Select language', 'kobu') . '">';
 		foreach ($languages as $l) {
 			if (isset($l['url']) && !$l['active']) {
 				$langs .=  '<a class="lang" href="' . esc_url($l['url']) . '">' . strtoupper($l['language_code']) . '</a>   ';
@@ -66,11 +77,10 @@ function language_selector_flags()
 	}
 }
 
-
 /**
  * Return current path with language
- *
  */
+
 function kobu_get_current_path()
 {
 	global $wp;
@@ -90,37 +100,40 @@ function kobu_get_current_path()
 	return $path_str;
 }
 
-
 /**
  * Print CTA clone link
- *
  */
 
-function kobu_print_cta($cta, $classes = 'btn', $withtarget = true)
+function kobu_print_cta($cta, $classes = 'btn')
 {
-	if ($cta && isset($cta['text']) && $cta['text'] && ((isset($cta['link']) && $cta['link']) || (isset($cta['section_id']) && $cta['section_id']))) {
-		if ($withtarget && isset($cta['target_blank']) && $cta['target_blank'] && $cta['link_type'] !== 'section') {
+	if ($cta && isset($cta['text']) && $cta['text'] && isset($cta['link_type'])) {
+		if (isset($cta['target_blank']) && $cta['target_blank'] && $cta['link_type'] !== 'section') {
 			$target = 'target="_blank"';
 		} else {
 			$target = '';
 		}
 
-		if ($cta['link_type'] == 'section' && isset($cta['section_id'])) {
+		$section_id = isset($cta['section_id']) ? esc_attr($cta['section_id']) : '';
+		$section_url = isset($cta['link']) ? esc_url($cta['link']) : '';
+
+		if ($cta['link_type'] == 'section' && $section_id) {
 			$classes .= ' anchorlink';
-			$link = '#' . esc_attr($cta['section_id']);
-		} elseif ($cta['link_type'] == 'page_section' && isset($cta['section_id']) && isset($cta['link']) && $cta['link']) {
-			$link = esc_url($cta['link']).'#' . esc_attr($cta['section_id']);
+			$link = '#' . $section_id;
+		} elseif ($cta['link_type'] == 'page_section' && $section_id && $section_url) {
+			$link = $section_url . '#' . $section_id;
+		} elseif ($cta['link_type'] == 'page' || $cta['link_type'] == 'external') {
+			$link = $section_url;
 		} else {
-			$link = esc_url($cta['link']);
+			return;
 		}
 
 		echo '<a href="' . $link . '" class="' . ($classes ? $classes : 'btn') . '" ' . $target . '>' . $cta['text'] . '</a>';
 	}
 }
 
+
 /**
  * Print Media clone
- *
  */
 
 function kobu_print_video_elem($media, $loadvideo = false, $echo = true, $imgsize = 'full', $blockAutoplay = false)
@@ -129,32 +142,32 @@ function kobu_print_video_elem($media, $loadvideo = false, $echo = true, $imgsiz
 
 	if (wp_is_mobile() && $media['video_img_mobile']) {
 		if ($imgsize == 'full') {
-			$video_img_mobile_url = $media['video_img_mobile']['url'];
+			$video_img_mobile_url = esc_url($media['video_img_mobile']['url']);
 		} else {
-			$video_img_mobile_url = $media['video_img_mobile']['sizes'][$imgsize];
+			$video_img_mobile_url = esc_url($media['video_img_mobile']['sizes'][$imgsize]);
 		}
 
-		$output .= '<figure class="media-wrapper img" style="background-image: url(' . $video_img_mobile_url . ');"><div class="img-wrapper"><img src="' . $video_img_mobile_url . '" alt="' . $media['video_img_mobile']['alt'] . '"></div></figure>';
+		$output .= '<figure class="media-wrapper img" style="background-image: url(' . $video_img_mobile_url . ');"><div class="img-wrapper"><img src="' . $video_img_mobile_url . '" alt="' . esc_attr($media['video_img_mobile']['alt']) . '"></div></figure>';
 	} else {
 		$videoPlaceholder = '';
 		$autoplay = $blockAutoplay ? false : $media['video_autoplay'];
 
 		if ($media['placeholder']) {
 			if ($imgsize == 'full') {
-				$placeholder = $media['placeholder']['url'];
+				$placeholder = esc_url($media['placeholder']['url']);
 			} else {
-				$placeholder = $media['placeholder']['sizes'][$imgsize];
+				$placeholder = esc_url($media['placeholder']['sizes'][$imgsize]);
 			}
 
 			$videoPlaceholder .= '<div class="video-placeholder" style="background-image: url(' . $placeholder . ')">';
-			$videoPlaceholder .= '<img src="' . $placeholder . '" alt="' . $media['placeholder']['alt'] . '">';
+			$videoPlaceholder .= '<img src="' . $placeholder . '" alt="' . esc_attr($media['placeholder']['alt']) . '">';
 			$videoPlaceholder .= '</div>';
 		}
 
 		$videoOutput = '<video playsinline ' . ($autoplay ? ' autoplay' : '') . ($media['video_muted'] ? ' muted' : '') . ($media['video_loop'] ? ' loop' : '') . ($media['video_controls'] ? ' controls' : '') . '>';
-		$videoOutput .= '<source src="' . $media['media']['url'] . '" type="video/' . $media['video_format'] . '" />';
+		$videoOutput .= '<source src="' . esc_url($media['media']['url']) . '" type="video/' . $media['video_format'] . '" />';
 		if ($media['video_format'] == 'webm' && $media['media_mp4']) {
-			$videoOutput .= '<source src="' . $media['media_mp4']['url'] . '" type="video/mp4" />';
+			$videoOutput .= '<source src="' . esc_url($media['media_mp4']['url']) . '" type="video/mp4" />';
 		}
 		$videoOutput .= '</video>';
 
@@ -167,8 +180,8 @@ function kobu_print_video_elem($media, $loadvideo = false, $echo = true, $imgsiz
 			$output .= '</figure>';
 		} else {
 			$videoSettings = [
-				'webm' => $media['video_format'] == 'webm' ? $media['media']['url'] : '',
-				'mp4' => $media['video_format'] == 'webm' && $media['media_mp4'] ? $media['media_mp4']['url'] : ($media['video_format'] == 'mp4' ? $media['media']['url'] : ''),
+				'webm' => $media['video_format'] == 'webm' ? esc_url($media['media']['url']) : '',
+				'mp4' => $media['video_format'] == 'webm' && $media['media_mp4'] ? esc_url($media['media_mp4']['url']) : ($media['video_format'] == 'mp4' ? esc_url($media['media']['url']) : ''),
 				'ogg' => '',
 				'track' => '',
 				'trackKind' => '',
@@ -203,12 +216,12 @@ function kobu_print_media_elem($media, $loadvideo = false, $echo = true, $imgsiz
 	if ($media && ($media['media_video'] || $media['media_img'])) {
 		if ($media['media_type'] == 'img') {
 			if ($imgsize == 'full') {
-				$image = $media['media_img']['url'];
+				$image = esc_url($media['media_img']['url']);
 			} else {
-				$image = $media['media_img']['sizes'][$imgsize];
+				$image = esc_url($media['media_img']['sizes'][$imgsize]);
 			}
 
-			$output .= '<figure class="media-wrapper img" style="background-image: url(' . $image . ');"><div class="img-wrapper"><img src="' . $image . '" alt="' . $media['media_img']['alt'] . '"></div></figure>';
+			$output .= '<figure class="media-wrapper img" style="background-image: url(' . $image . ');"><div class="img-wrapper"><img src="' . $image . '" alt="' . esc_attr($media['media_img']['alt']) . '"></div></figure>';
 		} elseif ($media['media_type'] == 'video' && $media['media_video']['video']) {
 			$output .= kobu_print_video_elem($media['media_video']['video'], $loadvideo, false, $imgsize, $blockAutoplay);
 		}
@@ -221,10 +234,8 @@ function kobu_print_media_elem($media, $loadvideo = false, $echo = true, $imgsiz
 	}
 }
 
-
 /**
  * Image lazy load wrapper
- *
  */
 function lazyload_img_block_wrapper($block_content, $block)
 {
@@ -242,7 +253,6 @@ add_filter('render_block', 'lazyload_img_block_wrapper', 10, 2);
 
 /**
  * change excerpt size
- *
  */
 function kobu_excerpt_length()
 {
@@ -255,65 +265,19 @@ add_filter('excerpt_length', function ($length) {
 	return kobu_excerpt_length();
 });
 
-
 /**
- * Get terms links
- *
+ * Get SVG icons
  */
-function kobu_list_terms($taxonomy_slug = 'category', $output = 'string', $link = true, $list = false, $post_id = null)
-{
-	if (!$post_id) {
-		if (!$post = get_post()) {
-			return '';
-		}
-
-		$post_id = $post->ID;
+function kobu_get_icons($icon) {
+	switch ($icon) {
+	  case '':
+		$icon_code = '';
+		break;
+	  default:
+		$icon_code = '';
+		break;
 	}
-
-	$taxonomy_slug = $taxonomy_slug ? $taxonomy_slug : 'category';
-	$terms = get_the_terms($post_id, $taxonomy_slug);
-
-	if ($output == 'array') {
-		return $terms;
-	}
-
-	if (!empty($terms)) {
-		if ($list) {
-			$wrapperElem = 'ul';
-		} else {
-			$wrapperElem = 'div';
-		}
-		foreach ($terms as $term) {
-			if ($term->term_id != 1) {
-				$elem = '';
-
-				if ($list) {
-					$elem .= '<li>';
-				}
-				if ($link) {
-					$elem .= sprintf(
-						'<a href="%1$s">%2$s</a>',
-						$taxonomy_slug == 'category' ? esc_url(get_permalink(get_option('page_for_posts')) . '?category=' . $term->slug) : esc_url(get_term_link($term->slug, $taxonomy_slug)),
-						esc_html($term->name)
-					);
-				} else {
-					$elem .= sprintf(
-						'<span>%1$s</span>',
-						esc_html($term->name)
-					);
-				}
-				if ($list) {
-					$elem .= '</li>';
-				}
-
-				$out[] = $elem;
-			}
-		}
-
-		if (!empty($out)) {
-			return sprintf('<%1$s class="categories">%2$s</%1$s>', $wrapperElem, $list ? implode('', $out) : implode(', ', $out));
-		}
-	}
-
-	return;
-}
+  
+	return $icon_code;
+  }
+  

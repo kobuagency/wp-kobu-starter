@@ -1,9 +1,12 @@
 // Utilities
-@import "02_settings";
+@import "01_settings";
 
 // Base Rules
+@import "02_reset";
 @import "03_global";
-@import "04_headings";
-@import "05_forms";
-@import "07_layout";
+@import "04_forms";
+@import "05_header";
+@import "06_layout";
+@import "07_blocks";
 @import "08_footer";
+@import "09_scroll_animations";

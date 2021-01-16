@@ -11,7 +11,7 @@
   "jquery"    : true,
   "latedef"   : true,
   "nonbsp"    : true,
-  "predef"    : ["console", "wp", "_theme_config", "YT", "Vimeo", "ga", "Modernizr"],
+  "predef"    : ["console", "wp", "_theme_config", "YT", "Vimeo", "ga", "Modernizr", "lottie"],
   "strict"    : true,
   "esversion" : 5,
   "globals"   : { "ajaxfilters": true }

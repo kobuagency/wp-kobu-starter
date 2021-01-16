@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The main template file.
  *
@@ -6,30 +7,30 @@
  */
 
 get_header(); ?>
+<div id="primary" class="content-area">
+	<article id="content" role="main">
+		<?php while (have_posts()) : the_post(); ?>
+			<div class="page-title-wrapper">
+				<div class="container">
+					<h1 class="page-title"><?php the_title(); ?></h1>
+				</div>
+			</div>
 
-	<div class="container">
-		<div class="row">
+			<div class="site-content">
+				<?php
+				if (has_post_thumbnail()) {
+					$attachment_id = get_post_thumbnail_id();
+					$alt = esc_attr(get_post_meta($attachment_id, '_wp_attachment_image_alt', true));
+					$size = '1536x1536';
+				?>
+					<div class="featured-img">
+						<img src="<?php echo wp_get_attachment_image_url($attachment_id, $size); ?>" srcset="<?php echo wp_get_attachment_image_srcset($attachment_id, $size); ?>" sizes="100vw" alt="<?php echo $alt; ?>" />
+					</div>
+				<?php } ?>
 
-			<main class="primary col-md-<?php echo ( is_active_sidebar( 'primary' ) ? 9 : 12 ); ?>" role="main">
-
-				<?php if( have_posts() ) : ?>
-					<?php while( have_posts() ) : the_post(); ?>
-						<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>							
-							<h1><?php the_title(); ?></h1>
-							<?php the_content(); ?>
-						</article>
-					<?php endwhile; ?>
-				<?php endif; ?>
-
-			</main>
-
-			<?php if( is_active_sidebar( 'primary' ) ) : ?>
-				<aside class="secondary col-md-3" role="complementary">
-					<?php get_sidebar(); ?>
-				</aside>
-			<?php endif; ?>
-
-		</div>
-	</div>
-
+				<?php the_content(); ?>
+			</div>
+		<?php endwhile; ?>
+	</article><!-- #content -->
+</div><!-- #primary -->
 <?php get_footer(); ?>

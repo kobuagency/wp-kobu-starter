@@ -5,8 +5,6 @@
  * @package mywptheme
  */
 
-
-
 /**
 	Numbered pagination
 **/

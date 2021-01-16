@@ -12,7 +12,7 @@
   "author": {
     "name": "Kobu Creative Digital Agency",
     "email": "info@kobu.pt",
-    "url": "http://kobu.pt"
+    "url": "https://kobu.agency/"
   },
   "homepage": "http://<%= conf.get('themeDir') %>.com",
   "repository": {

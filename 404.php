@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying 404 pages (Not Found).
+ * The template for displaying 404 pages
  *
  * @package mywptheme
  */
@@ -11,9 +11,7 @@ get_header(); ?>
 		<div id="content" class="site-content clear" role="main">
 			<div id="error-page" class="clear">	
 				<h1 id="error-page-title">404</h1>			
-				<p id="error-page-text">
-				<?php _e( 'Unfortunately, the page you tried accessing could not be retrieved.'); ?>
-				</p>
+				<p><?php _e( 'Unfortunately, the page you tried accessing could not be retrieved.'); ?></p>
 			</div><!-- #error-page -->
 		</div><!-- #content -->
 	</div><!-- #primary -->

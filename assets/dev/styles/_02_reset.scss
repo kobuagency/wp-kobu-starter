@@ -1,5 +1,6 @@
 /* RESET
 ================================================== */
+
 * {
     box-sizing: border-box;
 }
@@ -45,11 +46,13 @@ select {
     max-width: 100%;
 }
 
-em {
+em,
+i {
     font-style: italic;
 }
 
-strong {
+strong,
+b {
     font-weight: 700;
 }
 

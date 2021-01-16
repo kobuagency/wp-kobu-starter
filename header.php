@@ -67,20 +67,16 @@ if (wp_is_mobile()) {
 		}
 	} ?>
 
-	<header id="header" class="header clear">
-
-		<div class="container">
-
+	<header id="header" class="header">
+        <div class="menu-container">
 			<div id="logo-wrapper" class="logo">
 				<a href="<?php echo home_url(); ?>">
 					<img src="<?php echo MYWPTHEME_THEME_URL ?>/assets/images/main-logo.svg" alt="<?php bloginfo('name'); ?>">
 				</a>
 			</div>
 
-			<?php // Primary Menu 
-			?>
-			<?php if (has_nav_menu('primary')) : ?>
-				<div id="navigation" class="navigation-wrapper">
+            <?php if (has_nav_menu('primary')) : ?>
+				<div class="navigation-wrapper">
 					<nav class="navigation" role="navigation">
 						<?php wp_nav_menu(array(
 							'theme_location'	=> 'primary',
@@ -90,30 +86,36 @@ if (wp_is_mobile()) {
 							'walker'		=> new Kobu_Dropdown_Walker_Nav_Menu()
 						)); ?>
 					</nav>
-					<div class="language-wrapper">
-						<?php language_selector_flags() ?>
-					</div>
-				</div><!-- #navigation -->
 
-				<button class="toggle-menu"></button>
-
-				<div class="mobile-menu">
-					<div id="mobile-nav" class="navigation mobile-navigation-menu">
-						<div class="navigation mobile-menu-wrapper">
-							<?php wp_nav_menu(array(
-								'theme_location'	=> 'primary',
-								'sort_column'	=> 'menu_order',
-								'menu_class'	=> 'dropdown-menu menu',
-								'fallback_cb'	=> false,
-								'walker'		=> new Kobu_Dropdown_Walker_Nav_Menu()
-							)); ?>
-						</div>
-					</div>
+					<button class="icon toggle-menu" aria-label="<?php _e('Toggle menu', 'kobu'); ?>">
+						<span class="nav-icon">
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+					</button>
 				</div>
-			<?php endif; ?>
-
+            <?php endif; ?>
 		</div>
 
+        <?php if (has_nav_menu('primary')) : ?>
+			<div id="mobile-menu">
+				<div class="mobile-navigation-wrapper">
+					<nav class="mobile-navigation" role="navigation">
+						<?php if (has_nav_menu('primary')) :
+							wp_nav_menu(array(
+								'theme_location'	=> 'primary',
+								'sort_column'	=> 'menu_order',
+								'menu_class'	=> 'pages-menu',
+								'fallback_cb'	=> false,
+								'walker'		=> new Kobu_Dropdown_Walker_Nav_Menu()
+							));
+						endif; ?>
+					</nav>
+				</div>
+			</div>
+		<?php endif; ?>
 	</header>
 
 	<div id="tablesite-content">

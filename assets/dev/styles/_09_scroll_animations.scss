@@ -1,0 +1,84 @@
+/* Scroll animations
+================================================== */
+
+.site-content > .animated {
+	@include animation("fadeIn 1s ease forwards");
+	position: relative;
+}
+
+@include keyframes(fadeIn) {
+	0% {
+        opacity: 0;
+        transform: translateX(0);
+	}
+
+	100% {
+        opacity: 1;
+        transform: translateX(0);
+	}
+}
+
+.site-content {
+	.animate {
+		@include transition(opacity 0.5s ease);
+		opacity: 0;
+
+		&.large-title,
+		.large-title {
+			@include transition(transform 0.5s ease, opacity 0.5s ease);
+			transform: translateX(-50px);
+			position: relative;
+		}
+
+		&.media-content-group,
+		.media-content-group {
+			.content-col {
+				@include transition(
+					transform 0.5s ease 0.2s,
+					opacity 0.5s ease 0.2s
+				);
+				opacity: 0;
+			}
+			.media-col {
+				@include transition(transform 0.5s ease);
+				transform: translateY(50px);
+			}
+
+			&.align-right {
+				.content-col {
+					transform: translateX(-50px);
+				}
+			}
+
+			&.align-left {
+				.content-col {
+					transform: translateX(50px);
+				}
+			}
+		}
+
+		&.animated {
+			opacity: 1;
+
+			&.large-title,
+			.large-title {
+				transform: translateX(0);
+			}
+
+			&.media-content-group,
+			.media-content-group {
+				.media-col {
+					transform: translateY(0);
+				}
+
+				&.align-right,
+				&.align-left {
+					.content-col {
+						transform: translateX(0);
+						opacity: 1;
+					}
+				}
+			}
+		}
+	}
+}
