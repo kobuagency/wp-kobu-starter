@@ -77,7 +77,7 @@ function kobu_nav_menu_args( $args = '' ) {
 	}
 
 	if ( ! $args['walker'] ) {
-		$kobu_nav_menu_args['walker'] = new Kobu_Nav_Walker();
+		$kobu_nav_menu_args['walker'] = new Kobu_Dropdown_Walker_Nav_Menu();
 	}
 
 	return array_merge( $args, $kobu_nav_menu_args );

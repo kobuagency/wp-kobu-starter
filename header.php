@@ -27,12 +27,12 @@
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="theme-color" content="#ffffff">
 
-	<?php echo kobu_header_scripts(); ?>
-	<?php wp_head(); ?>
-
 	<style>
 		<?php include_once(MYWPTHEME_THEME_PATH . '/assets/dist/mywptheme_critical.min.css'); ?>
 	</style>
+
+	<?php echo kobu_header_scripts(); ?>
+	<?php wp_head(); ?>
 </head>
 
 <?php $bodyclasses = '';
@@ -42,9 +42,9 @@ if (wp_is_mobile()) {
 
 <body <?php body_class($bodyclasses); ?>>
 
-<?php
+	<?php
 	$hide_cookie = (isset($_COOKIE['privacy_acceptance']) && $_COOKIE['privacy_acceptance'] == 1) ? 1 : 0;
-	
+
 	if ($hide_cookie == 0) {
 		$cookies_bar = get_field('cookies_bar', 'options');
 
@@ -68,38 +68,40 @@ if (wp_is_mobile()) {
 	} ?>
 
 	<header id="header" class="header">
-        <div class="menu-container">
-			<div id="logo-wrapper" class="logo">
-				<a href="<?php echo home_url(); ?>">
-					<img src="<?php echo MYWPTHEME_THEME_URL ?>/assets/images/main-logo.svg" alt="<?php bloginfo('name'); ?>">
-				</a>
-			</div>
-
-            <?php if (has_nav_menu('primary')) : ?>
-				<div class="navigation-wrapper">
-					<nav class="navigation" role="navigation">
-						<?php wp_nav_menu(array(
-							'theme_location'	=> 'primary',
-							'sort_column'	=> 'menu_order',
-							'menu_class'	=> 'dropdown-menu menu',
-							'fallback_cb'	=> false,
-							'walker'		=> new Kobu_Dropdown_Walker_Nav_Menu()
-						)); ?>
-					</nav>
-
-					<button class="icon toggle-menu" aria-label="<?php _e('Toggle menu', 'kobu'); ?>">
-						<span class="nav-icon">
-							<span></span>
-							<span></span>
-							<span></span>
-							<span></span>
-						</span>
-					</button>
+		<div id="menu">
+			<div class="menu-container">
+				<div class="logo-wrapper">
+					<a href="<?php echo home_url(); ?>">
+						<img src="<?php echo MYWPTHEME_THEME_URL ?>/assets/images/main-logo.svg" alt="<?php bloginfo('name'); ?>">
+					</a>
 				</div>
-            <?php endif; ?>
+
+				<?php if (has_nav_menu('primary')) : ?>
+					<div class="navigation-wrapper">
+						<nav class="navigation" role="navigation">
+							<?php wp_nav_menu(array(
+								'theme_location'	=> 'primary',
+								'sort_column'	=> 'menu_order',
+								'menu_class'	=> 'dropdown-menu menu',
+								'fallback_cb'	=> false,
+								'walker'		=> new Kobu_Dropdown_Walker_Nav_Menu()
+							)); ?>
+						</nav>
+
+						<button class="icon toggle-menu" aria-label="<?php _e('Toggle menu', 'kobu'); ?>">
+							<span class="nav-icon">
+								<span></span>
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+						</button>
+					</div>
+				<?php endif; ?>
+			</div>
 		</div>
 
-        <?php if (has_nav_menu('primary')) : ?>
+		<?php if (has_nav_menu('primary')) : ?>
 			<div id="mobile-menu">
 				<div class="mobile-navigation-wrapper">
 					<nav class="mobile-navigation" role="navigation">

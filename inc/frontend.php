@@ -268,16 +268,70 @@ add_filter('excerpt_length', function ($length) {
 /**
  * Get SVG icons
  */
-function kobu_get_icons($icon) {
+function kobu_get_icons($icon)
+{
 	switch ($icon) {
-	  case '':
-		$icon_code = '';
-		break;
-	  default:
-		$icon_code = '';
-		break;
+		case '':
+			$icon_code = '';
+			break;
+		default:
+			$icon_code = '';
+			break;
 	}
-  
+
 	return $icon_code;
-  }
-  
+}
+
+/**
+ * Get terms links
+ *
+ */
+function kobu_list_terms($taxonomy_slug = 'category', $output = 'string', $link = true, $list = false)
+{
+	$taxonomy_slug = $taxonomy_slug ? $taxonomy_slug : 'category';
+	$terms = get_the_terms(get_the_ID(), $taxonomy_slug);
+
+	if ($output == 'array') {
+		return $terms;
+	}
+
+	if (!empty($terms)) {
+		if ($list) {
+			$wrapperElem = 'ul';
+		} else {
+			$wrapperElem = 'div';
+		}
+		foreach ($terms as $term) {
+			if ($term->term_id != 1) {
+				$elem = '';
+
+				if ($list) {
+					$elem .= '<li>';
+				}
+				if ($link) {
+					$elem .= sprintf(
+						'<a href="%1$s">%2$s</a>',
+						$taxonomy_slug == 'category' ? esc_url(get_permalink(get_option('page_for_posts')) . '?category=' . $term->slug) : esc_url(get_term_link($term->slug, $taxonomy_slug)),
+						esc_html($term->name)
+					);
+				} else {
+					$elem .= sprintf(
+						'<span>%1$s</span>',
+						esc_html($term->name)
+					);
+				}
+				if ($list) {
+					$elem .= '</li>';
+				}
+
+				$out[] = $elem;
+			}
+		}
+
+		if (!empty($out)) {
+			return sprintf('<%1$s class="categories">%2$s</%1$s>', $wrapperElem, $list ? implode('', $out) : implode(', ', $out));
+		}
+	}
+
+	return;
+}

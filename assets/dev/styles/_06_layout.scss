@@ -62,6 +62,22 @@
 			} 
 		}
 	}
+
+	.col33 {
+		@include flexWidth( calc(33.33% - 40px) );
+		margin-bottom: 0;
+		margin-left: 60px;
+	
+		&:nth-child(3n+1) {
+			margin-left: 0;
+			margin-bottom: 100px;
+		}
+	
+		@include mq("sm") { 
+			@include flexWidth( 100% );
+			margin-bottom: 60px;
+		}
+	}
 }
 
 /* Container
@@ -107,6 +123,7 @@
 		text-decoration: underline;
 	}
 
+	> noscript > *:not(.alignfull),
 	> *:not(.alignfull),
 	> .kobu-section.alignfull > *,
 	> .wp-block-group.alignfull .wp-block-group__inner-container > * {
@@ -153,6 +170,14 @@
 	img {
 		max-width: inherit !important;
 	}
+}
+
+/* Archive pages
+================================================== */
+
+.fixed-ratio-img {
+	position: relative;
+	padding-top: 100%;
 }
 
 /* Error page

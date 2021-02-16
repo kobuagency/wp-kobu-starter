@@ -2,20 +2,8 @@
 ================================================== */
 
 .site-content > .animated {
-	@include animation("fadeIn 1s ease forwards");
 	position: relative;
-}
-
-@include keyframes(fadeIn) {
-	0% {
-        opacity: 0;
-        transform: translateX(0);
-	}
-
-	100% {
-        opacity: 1;
-        transform: translateX(0);
-	}
+	opacity: 1;
 }
 
 .site-content {
@@ -28,6 +16,28 @@
 			@include transition(transform 0.5s ease, opacity 0.5s ease);
 			transform: translateX(-50px);
 			position: relative;
+		}
+
+		&.wp-block-media-text {
+			.wp-block-media-text__media {
+				@include transition(transform 0.5s ease);
+				transform: translateY(50px);
+			}
+
+			.wp-block-media-text__content {
+				@include transition(
+					transform 0.5s ease 0.2s,
+					opacity 0.5s ease 0.2s
+				);
+				opacity: 0;
+				transform: translateX(50px);
+			}
+
+			&.has-media-on-the-right {
+				.wp-block-media-text__content {
+					transform: translateX(-50px);
+				}
+			}
 		}
 
 		&.media-content-group,
@@ -63,6 +73,17 @@
 			&.large-title,
 			.large-title {
 				transform: translateX(0);
+			}
+
+			&.wp-block-media-text {
+				.wp-block-media-text__media {
+					transform: translateY(0);
+				}
+	
+				.wp-block-media-text__content {
+					transform: translateX(0);
+						opacity: 1;
+				}
 			}
 
 			&.media-content-group,

@@ -88,7 +88,7 @@ add_action('init', 'kobu_custom_format_script_register');
 function kobu_block_editor_assets()
 {
     if (is_admin()) {
-        wp_enqueue_style('kobu-editor-styles', MYWPTHEME_THEME_URL . "/inc/gutenberg-files/gutenberg-editor.min.css", array(), '1.0');
+        wp_enqueue_style('kobu-editor-styles', MYWPTHEME_THEME_URL . "/inc/gutenberg-files/editor-styles.min.css", array(), '1.0');
         wp_enqueue_script('kobu-editor-scripts');
     }
 }

@@ -20,7 +20,7 @@ $current_page = (get_query_var('paged')) ? get_query_var('paged') : 1;
     </div>
 
     <div id="content">
-        <div class="container">
+        <div class="container large">
             <input id="posts-currentpage" type="hidden" name="currentpage" value="<?php echo $current_page; ?>">
             <div id="posts-wrapper">
                 <?php if (have_posts()) { ?>

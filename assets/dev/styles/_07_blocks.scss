@@ -115,6 +115,11 @@
 	}
 }
 
+video[poster] {
+	-o-object-fit: cover;
+	object-fit: cover;
+}
+
 body.js-loaded .pageload-video:not(.video-loaded),
 .wp-block-video .video-wrapper,
 .embed-container,
@@ -135,11 +140,6 @@ body.js-loaded .pageload-video:not(.video-loaded),
 		opacity: 0;
 		pointer-events: none;
 		visibility: hidden;
-	}
-
-	[poster] {
-		-o-object-fit: cover;
-		object-fit: cover;
 	}
 
 	video {

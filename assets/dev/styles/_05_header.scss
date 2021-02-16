@@ -18,3 +18,79 @@ header {
 
     }
 }
+
+.toggle-menu {
+	@include transition(color 0.25s ease 0.5s);
+	display: none;
+	margin-left: auto;
+
+	@include mq("md2") {
+		display: inline-block;
+		vertical-align: middle;
+		margin-left: 20px;
+	}
+
+	.nav-icon {
+		position: relative;
+		width: 24px;
+		height: 18px;
+		display: block;
+
+		span {
+			@include pseudo;
+			@include transition(
+				width 0.25s ease,
+				background-color 0.5s ease,
+				transform 0.25s ease
+			);
+			height: 2px;
+			background-color: $black;
+			right: 0;
+			width: 24px;
+
+			&:nth-child(1) {
+				top: 0;
+			}
+
+			&:nth-child(2),
+			&:nth-child(3) {
+				top: 8px;
+				transform: rotate(0deg);
+			}
+
+			&:nth-child(4) {
+				top: 17px;
+			}
+		}
+	}
+}
+
+#mobile-menu {
+	display: none;
+}
+
+header.open {
+	.toggle-menu {
+		.nav-icon {
+			span {
+				background-color: $white;
+
+				&:nth-child(1) {
+					width: 0;
+				}
+
+				&:nth-child(2) {
+					transform: rotate(40deg);
+				}
+
+				&:nth-child(3) {
+					transform: rotate(-40deg);
+				}
+
+				&:nth-child(4) {
+					width: 0;
+				}
+			}
+		}
+	}
+}
