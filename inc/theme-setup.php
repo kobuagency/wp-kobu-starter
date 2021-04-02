@@ -24,5 +24,12 @@ function mywptheme_setup()
 
 	// Hide admin bar at front-end
 	show_admin_bar(false);
+
+	// Disable gradients
+	add_theme_support('editor-gradient-presets', []);
+	add_theme_support('disable-custom-gradients', true);
+
+	// Remove default block patterns
+	remove_theme_support('core-block-patterns');
 }
 add_action('after_setup_theme', 'mywptheme_setup');

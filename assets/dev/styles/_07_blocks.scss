@@ -144,6 +144,7 @@ body.js-loaded .pageload-video:not(.video-loaded),
 
 	video {
 		float: left;
+		position: relative;
 	}
 
 	.play-video-btn {
@@ -755,10 +756,6 @@ body.js-loaded .pageload-video:not(.video-loaded),
 				background-position: center;
 				background-size: cover;
 				background-repeat: no-repeat;
-
-				img {
-					@extend %sr-only;
-				}
 			}
 
 			.kb-video {

@@ -131,18 +131,18 @@
 			@extend %container_common;
 		}
 
-		&:not(.alignwide):not(.alignfull) {
+		&:not(.alignwide):not(.alignextrawide):not(.alignfull):not(.bg-img) {
 			@extend %container_default;
 		}
 
-		&.alignwide:not(.larger-section) {
+		&.alignwide {
 			@extend %container_medium;
 		}
 
-		&.alignwide.larger-section {
+		&.alignextrawide {
 			@extend %container_large;
 		}
-
+		
 		&.alignfull {
 			width: 100%;
 		}

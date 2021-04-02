@@ -260,23 +260,6 @@ var observeElements = function (rootMargin) {
             mediaQueryList.addEventListener('change', changeFunction);
         } else if (mediaQueryList.attachEvent) {
             mediaQueryList.attachEvent('change', changeFunction);
-        } else {
-            document
-                .querySelectorAll(
-                    lazyConfig.lazyImage +
-                    '[data-lazy-src],' +
-                    lazyConfig.lazyIframe +
-                    '[data-lazy-src]'
-                )
-                .forEach(function (lazyItem) {
-                    restoreSource(lazyItem);
-                });
-
-            document
-                .querySelectorAll(config.selector)
-                .forEach(function (block) {
-                    block.classList.add('animated');
-                });
         }
     }
 

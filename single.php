@@ -17,14 +17,9 @@ get_header(); ?>
 			</div>
 
 			<div class="site-content">
-				<?php
-				if (has_post_thumbnail()) {
-					$attachment_id = get_post_thumbnail_id();
-					$alt = esc_attr(get_post_meta($attachment_id, '_wp_attachment_image_alt', true));
-					$size = '1536x1536';
-				?>
+				<?php if (has_post_thumbnail()) { ?>
 					<div class="featured-img">
-						<img src="<?php echo wp_get_attachment_image_url($attachment_id, $size); ?>" srcset="<?php echo wp_get_attachment_image_srcset($attachment_id, $size); ?>" sizes="100vw" alt="<?php echo $alt; ?>" />
+						<?php echo wp_get_attachment_image(get_post_thumbnail_id(get_the_ID()), '1536x1536', false, array('class' => 'coverimg', 'sizes' => '100vw'));  ?>
 					</div>
 				<?php } ?>
 

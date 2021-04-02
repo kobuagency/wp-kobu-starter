@@ -28,7 +28,7 @@ module.exports = function (grunt) {
 				tasks: ['css_task']
 			},
 			css: { // livereload with min css update
-				files: ['assets/dist/<%= pkg.functionPrefix %>.min.css', 'assets/dist/<%= pkg.functionPrefix %>_critical.min.css'],
+				files: ['assets/dist/*.min.css'],
 				options: {
 					livereload: true
 				}
@@ -38,7 +38,7 @@ module.exports = function (grunt) {
 				tasks: ['js_task']
 			},
 			js_min: { // livereload with min js update
-				files: ['assets/dist/<%= pkg.functionPrefix %>_scripts.min.js'],
+				files: ['assets/dist/*.min.js'],
 				options: {
 					livereload: true
 				}
@@ -82,12 +82,11 @@ module.exports = function (grunt) {
 		},
 
 
-		// Apply post-processors to CSS - pixrem, autoprefixer, css-mqpacker and minify
+		// Apply post-processors to CSS - autoprefixer, css-mqpacker and minify
 		postcss: {
 			options: {
 				map: false, // inline sourcemaps
 				processors: [
-					require('pixrem')(),
 					require('autoprefixer')({
 						overrideBrowserslist: [
 							'Android 2.3',
@@ -275,6 +274,7 @@ module.exports = function (grunt) {
 
 
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-newer');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-postcss');
@@ -295,23 +295,23 @@ module.exports = function (grunt) {
 	// CSS task
 	grunt.registerTask('css_task', [
 		'clean:css',
-		'sass',
-		'postcss',
+		'newer:sass',
+		'newer:postcss',
 		'usebanner:css'
 	]);
 
 	// JS task
 	grunt.registerTask('js_task', [
 		'clean:js',
-		'jshint',
-		'uglify',
+		'newer:jshint',
+		'newer:uglify',
 		'concat',
 		'usebanner:js'
 	]);
 
 	// SVG task
 	grunt.registerTask('svg_task', [
-		'svgmin:dist'
+		'newer:svgmin:dist'
 	]);
 
 	grunt.registerTask('translations', [

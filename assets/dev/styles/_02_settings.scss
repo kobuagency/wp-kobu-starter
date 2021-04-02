@@ -36,19 +36,7 @@ $colors: (
 /* Buttons and forms
 ================================================== */
 
-@mixin btn(
-	$color: $white,
-	$colorhover: $white,
-	$border: $black,
-	$borderhover: $black,
-	$background: $black,
-	$backgroundhover: $black,
-	$pathfill: $white,
-	$pathfillhover: $white,
-	$borderradius: 0,
-	$padding: 15px 24px,
-	$fontsize: 1rem
-) {
+@mixin btn-common {
 	@include transition(
 		color 0.5s ease,
 		background-color 0.5s ease,
@@ -56,42 +44,30 @@ $colors: (
 	);
 	width: auto;
 	cursor: pointer;
-	padding: $padding;
 	display: inline-block;
 	text-align: center;
+	line-height: 1;
+	text-decoration: none;
+	font-weight: 700;
+	font-family: $font-family-base;
+}
+
+@mixin btn(
+	$color: $white,
+	$colorhover: $white,
+	$border: $black,
+	$borderhover: $black,
+	$background: $black,
+	$backgroundhover: $black,
+) {
 	color: $color;
 	background: $background;
-	border: 1px solid $border;
-	line-height: 1;
-	border-radius: $borderradius;
-	font-weight: 600;
-    text-decoration: none;
-    
-    @if type_of($fontsize) == "map" {
-		@include font-size($fontsize);
-	} @else {
-		font-size: $fontsize;
-	}
-
-	svg {
-		&:last-child {
-			margin-left: 10px;
-		}
-
-		path {
-			@include transition(fill 0.5s ease);
-			fill: $pathfill;
-		}
-	}
+	border: 2px solid $border;
 
 	&:hover {
 		background-color: $backgroundhover;
 		color: $colorhover;
-		border: 1px solid $borderhover;
-
-		svg path {
-			fill: $pathfillhover;
-		}
+		border: 2px solid $borderhover;
 	}
 }
 

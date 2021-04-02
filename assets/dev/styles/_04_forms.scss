@@ -93,31 +93,66 @@ button {
 }
 .is-style-outline > .wp-block-button__link,
 .wp-block-button__link.is-style-outline {
-	border: 1px solid;
+	border: 2px solid;
 }
 
 input[type="submit"],
 form button,
-.btn:not(.whiteghost),
 .wp-block-button__link {
+	@include btn-common;
 	@include btn;
+	//@include font-size($fs18);
+	padding: 15px 30px;
+	border-radius: 25px;
 
 	.site-content & {
 		text-decoration: none;
 	}
 }
 
-.btn.whiteghost {
-	@include btn(
-		$color: $white,
-		$colorhover: $black,
-		$border: $white,
-		$borderhover: $white,
-		$background: transparent,
-		$backgroundhover: $white,
-		$pathfill: $white,
-		$pathfillhover: $black,
-	);
+/* .wp-block-button__link {
+	border-radius: 25px !important;
+}
+
+.small-btn .wp-block-button__link {
+	padding: 10px 20px;
+	border-radius: 25px !important;
+}
+
+.large-btn .wp-block-button__link {
+	padding: 20px 40px;
+	border-radius: 29px !important;
+} */
+
+.btn {
+	@include btn-common;
+	@include btn;
+	//@include font-size($fs18);
+
+	.site-content & {
+		text-decoration: none;
+	}
+
+	&.default {
+		padding: 15px 30px;
+		border-radius: 25px;
+	}
+
+	&.large {
+		padding: 20px 40px;
+		border-radius: 29px;
+	}
+
+	&.light {
+		/* @include btn(
+			$color: $beige,
+			$colorhover: $gray,
+			$border: $beige,
+			$borderhover: $beige,
+			$background: transparent,
+			$backgroundhover: $beige
+		); */
+	}
 }
 
 /* CF7 Forms

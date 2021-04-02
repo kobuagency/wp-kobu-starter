@@ -306,6 +306,11 @@
         if (_.options.restart) {
             _.$restart = _.$videoWrapper.find('.video-controls .restart');
         }
+
+        var sliderWrapper = _.$videoWrapper.closest('.slick-initialized');
+		if (sliderWrapper) {
+			sliderWrapper.slick('setPosition');
+		}
     };
 
     KobuVideo.prototype.initializeEvents = function () {
@@ -342,6 +347,11 @@
                     }
                 }
             }
+
+            var sliderWrapper = _.$videoWrapper.closest('.slick-initialized');
+			if (sliderWrapper) {
+				sliderWrapper.slick('setPosition');
+			}
         }
 
         if (_.$video.readyState >= 2) {
