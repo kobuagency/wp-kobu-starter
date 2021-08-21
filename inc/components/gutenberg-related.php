@@ -111,5 +111,5 @@ if (!function_exists('kobu_custom_blocks_category')) {
         );
     }
 
-    add_filter('block_categories', 'kobu_custom_blocks_category', 10, 2);
+    add_filter('block_categories_all', 'kobu_custom_blocks_category', 10, 2);
 }

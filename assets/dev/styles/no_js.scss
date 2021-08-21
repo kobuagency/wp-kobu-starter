@@ -4,3 +4,7 @@
 .kb-video .video-placeholder {
     display: none;
 }
+
+.slider-gallery.hidden {
+    @include visible;
+}
