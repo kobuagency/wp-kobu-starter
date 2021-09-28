@@ -279,6 +279,7 @@ var observeElements = function (rootMargin) {
         onPrinting();
 
         /* Support for IE cover img */
+        /* 
         if ('objectFit' in document.documentElement.style === false) {
             document.querySelectorAll('.coverimg:not(.done)').forEach(function (image) {
                 (image.runtimeStyle || image.style).background = "url(\"".concat(image.src, "\") no-repeat 50%/").concat(image.currentStyle ? image.currentStyle['object-fit'] : image.getAttribute('data-object-fit'));
@@ -286,6 +287,7 @@ var observeElements = function (rootMargin) {
                 image.classList.add('done');
             });
         }
+        */
     }
 
     // If the page has loaded already, run setup - if it hasn't, run as soon as it has.

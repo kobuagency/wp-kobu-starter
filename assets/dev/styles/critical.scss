@@ -15,51 +15,19 @@ html {
 
 #cookies-notification {
 	@include transition(opacity 0.5s ease, visibility 0.5s ease);
+	@include font-size($fs14);
+	@include visible;
 	position: fixed;
 	z-index: 10001;
-	width: calc(100% - 80px);
-	max-width: 508px;
-	bottom: 40px;
-	left: 40px;
+	width: 100%;
+	bottom: 0;
+	left: 0;
 	padding: 20px;
 	background-color: $black;
 	color: $white;
-	opacity: 1;
-	visibility: visible;
-	font-size: 0.85rem;
-	opacity: 0;
-
-	@include mq("xxl") {
-		max-width: 688px;
-	}
-
-	@include mq("xl") {
-		max-width: 608px;
-	}
-
-	@include mq("sm") {
-		bottom: 20px;
-		left: 20px;
-		width: calc(100% - 40px);
-		max-width: calc(100% - 40px);
-	}
-
-	@include mq("xs") {
-		left: 20px;
-		bottom: 20px;
-		width: calc(100% - 40px);
-		max-width: calc(100% - 40px);
-	}
-
-	.js-loaded & {
-		&:not(.hidden) {
-			opacity: 1;
-		}
-	}
 
 	&.hidden {
-		opacity: 0;
-		visibility: hidden;
+		@include hidden;
 	}
 
 	.notification-wrapper {

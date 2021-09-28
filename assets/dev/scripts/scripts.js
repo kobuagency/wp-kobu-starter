@@ -491,6 +491,22 @@
 
 	$(window).on('load', function() {
 		loadCustomVideos();
+
+		Modernizr.on('webp', function (result) {
+			if (!result) {
+				$.when(
+					$.getScript("https://unpkg.com/webp-hero@0.0.0-dev.27/dist-cjs/polyfills.js"),
+					$.getScript("https://unpkg.com/webp-hero@0.0.0-dev.27/dist-cjs/webp-hero.bundle.js"),
+					$.Deferred(function (deferred) {
+						$(deferred.resolve);
+					})
+				).done(function () {
+					// Support for webp
+					var webpMachine = new webpHero.WebpMachine();
+					webpMachine.polyfillDocument();
+				});
+			}
+		});
 	});
 
 }(jQuery);

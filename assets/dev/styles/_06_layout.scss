@@ -131,7 +131,7 @@
 			@extend %container_common;
 		}
 
-		&:not(.alignwide):not(.alignextrawide):not(.alignfull):not(.bg-img) {
+		&:not(.alignwide):not(.alignextrawide):not(.alignfull):not(.bg-img):not(.color-overlay) {
 			@extend %container_default;
 		}
 
