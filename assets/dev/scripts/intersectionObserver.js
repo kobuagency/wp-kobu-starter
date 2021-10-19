@@ -93,6 +93,9 @@ var observeElements = function (rootMargin) {
         lazyItem.setAttribute('src', lazyItem.getAttribute('data-lazy-src'));
         lazyItem.removeAttribute('data-lazy-src'); // Not using delete .dataset here for compatibility down to IE9
         lazyItem.classList.remove('temp-img');
+
+        var lazyLoadReplace = new Event('lazyLoadReplace', { bubbles: true });
+        lazyItem.dispatchEvent(lazyLoadReplace);
     }
 
     /**
@@ -277,17 +280,6 @@ var observeElements = function (rootMargin) {
 
         // Bind for someone printing the page
         onPrinting();
-
-        /* Support for IE cover img */
-        /* 
-        if ('objectFit' in document.documentElement.style === false) {
-            document.querySelectorAll('.coverimg:not(.done)').forEach(function (image) {
-                (image.runtimeStyle || image.style).background = "url(\"".concat(image.src, "\") no-repeat 50%/").concat(image.currentStyle ? image.currentStyle['object-fit'] : image.getAttribute('data-object-fit'));
-                image.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='".concat(image.width, "' height='").concat(image.height, "'%3E%3C/svg%3E");
-                image.classList.add('done');
-            });
-        }
-        */
     }
 
     // If the page has loaded already, run setup - if it hasn't, run as soon as it has.

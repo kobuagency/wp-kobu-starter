@@ -336,10 +336,6 @@ body.js-loaded .pageload-video:not(.video-loaded),
 		background-size: cover;
 		background-position: center;
 		z-index: 2;
-
-		img {
-			@extend %sr-only;
-		}
 	}
 }
 

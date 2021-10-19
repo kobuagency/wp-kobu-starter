@@ -1,26 +1,26 @@
-+function ( $ ) {
++function ($) {
 	'use strict';
 
 	var svgPlayButton = '<svg width="25" height="26" viewBox="0 0 25 26" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M24.1145,13.1885329 L1.5375,24.2894877 L1.5375,2.08757816 L24.1145,13.1885329 Z M21.9595,13.1885329 L2.5365,22.7387709 L2.5365,3.638295 L21.9595,13.1885329 Z" fill="#FDFBF8" stroke="none" stroke-width="1" fill-rule="evenodd"/></svg>';
 
-    // youtube and vimeo videos
+	// youtube and vimeo videos
 	var youtubePlayers = {},
 		vimeoPlayers = {},
 		ytIframeAPIReady = false;
 
 	// The API will call this function when the video player is ready.
-	var onPlayerReady = function(event) {
+	var onPlayerReady = function (event) {
 		event.target.pauseVideo();
 
 		var player_id = $(event.target.getIframe()).attr('id'),
 			wrapperid = youtubePlayers[player_id].wrapperid,
-			$wrapper = $('#'+wrapperid);
+			$wrapper = $('#' + wrapperid);
 
-		$('#'+player_id).attr('title', event.target.getVideoData().title);
+		$('#' + player_id).attr('title', event.target.getVideoData().title);
 		$wrapper.removeClass('loading');
 
-		$(document.body).on('click','#'+wrapperid+' .video-placeholder', function() {
-			var current_button = $('#'+wrapperid+' .play-video-btn');
+		$(document.body).on('click', '#' + wrapperid + ' .video-placeholder', function () {
+			var current_button = $('#' + wrapperid + ' .play-video-btn');
 
 			$wrapper.addClass('loading');
 
@@ -28,7 +28,7 @@
 			current_button.focus();
 		});
 
-		$(document.body).on('click', '#'+wrapperid+' .play-video-btn', function () {
+		$(document.body).on('click', '#' + wrapperid + ' .play-video-btn', function () {
 			if ($wrapper.hasClass('paused')) {
 				$wrapper.addClass('loading');
 				event.target.playVideo();
@@ -40,27 +40,27 @@
 		});
 	};
 
-	var onPlayerStateChange = function(event) {
+	var onPlayerStateChange = function (event) {
 		var player_id = $(event.target.getIframe()).attr('id'),
 			wrapperid = youtubePlayers[player_id].wrapperid,
-			button = $('#'+wrapperid+' .play-video-btn');
+			button = $('#' + wrapperid + ' .play-video-btn');
 
 		if (event.data == YT.PlayerState.PLAYING) {
 			button.attr('aria-label', _theme_config.strings.pause_video);
-			$('#'+wrapperid).removeClass('loading paused');
+			$('#' + wrapperid).removeClass('loading paused');
 		} else {
 			button.attr('aria-label', _theme_config.strings.play_video);
-			$('#'+wrapperid).addClass('paused');
+			$('#' + wrapperid).addClass('paused');
 		}
 	};
 
-	var onPlayerError = function(event) {
+	var onPlayerError = function (event) {
 		var player_id = $(event.target.getIframe()).attr('id'),
 			wrapperid = youtubePlayers[player_id].wrapperid,
-			$wrapper = $('#'+wrapperid);
+			$wrapper = $('#' + wrapperid);
 
 		$wrapper.removeClass('paused loading');
-		$('#'+wrapperid+' .play-video-btn').remove();
+		$('#' + wrapperid + ' .play-video-btn').remove();
 	};
 
 	/*
@@ -119,7 +119,7 @@
 
 	*/
 
-	var initEmbedVideos = function() {
+	var initEmbedVideos = function () {
 		var player_num = 0;
 
 		$('.embed-container').each(function () {
@@ -131,13 +131,13 @@
 				player_id;
 
 			$player_wrapper.addClass('paused loading');
-			play_button = '<button type="button" class="play-video-btn" aria-label="'+_theme_config.strings.play_video+'">'+svgPlayButton+'</button>';
+			play_button = '<button type="button" class="play-video-btn" aria-label="' + _theme_config.strings.play_video + '">' + svgPlayButton + '</button>';
 			$player_wrapper.prepend(play_button);
 
 			$button = $player_wrapper.find('.play-video-btn');
 
-			player_id = 'player_'+player_num;
-			wrapper_id = 'wrapper_'+player_id;
+			player_id = 'player_' + player_num;
+			wrapper_id = 'wrapper_' + player_id;
 
 			$player.attr('id', player_id);
 			$player_wrapper.attr('id', wrapper_id);
@@ -149,55 +149,55 @@
 
 				youtubePlayers[player_id] = {
 					'video': new YT.Player(player_id, {
-							host: 'https://www.youtube.com',
-							height: '360',
-				        	width: '640',
-				        	videoId: videosrc,
-				        	playerVars: {
-				        		'rel': 0,
-				        		'origin': videoOrigin,
-				        		'showinfo': 0,
-				        		'modestbranding': 1,
-				        		'start': videoStart
-				        	},
-							events: {
-								'onReady': onPlayerReady,
-								'onStateChange': onPlayerStateChange,
-								'onError': onPlayerError
-							}
-						}),
-					'wrapperid':wrapper_id
+						host: 'https://www.youtube.com',
+						height: '360',
+						width: '640',
+						videoId: videosrc,
+						playerVars: {
+							'rel': 0,
+							'origin': videoOrigin,
+							'showinfo': 0,
+							'modestbranding': 1,
+							'start': videoStart
+						},
+						events: {
+							'onReady': onPlayerReady,
+							'onStateChange': onPlayerStateChange,
+							'onError': onPlayerError
+						}
+					}),
+					'wrapperid': wrapper_id
 				};
-			} else if($player_wrapper.hasClass('vimeo')) {
+			} else if ($player_wrapper.hasClass('vimeo')) {
 				if (typeof Vimeo !== 'undefined') {
-					var iframe = $('#'+player_id).get(0),
+					var iframe = $('#' + player_id).get(0),
 						vimeo_video = new Vimeo.Player(iframe);
 
 					vimeoPlayers[player_id] = {
 						'video': vimeo_video,
-						'wrapperid':wrapper_id
+						'wrapperid': wrapper_id
 					}
 
-					vimeo_video.ready().then(function() {
-					    $player_wrapper.removeClass('loading');
+					vimeo_video.ready().then(function () {
+						$player_wrapper.removeClass('loading');
 					});
 
 					// click events on vimeo
 
-				    $(document.body).on('click','#'+wrapper_id+'.paused  .video-placeholder', function() {
-						var current_button = $('#'+wrapper_id+' .play-video-btn');
+					$(document.body).on('click', '#' + wrapper_id + '.paused  .video-placeholder', function () {
+						var current_button = $('#' + wrapper_id + ' .play-video-btn');
 
 						$player_wrapper.addClass('loading');
 
-						vimeo_video.play().then(function() {
+						vimeo_video.play().then(function () {
 							current_button.focus();
-						}).catch(function(error) {
+						}).catch(function (error) {
 							console.error('error playing the video:', error.name);
 						});
 					});
 
 
-					$(document.body).on('click', '#'+wrapper_id+' .play-video-btn', function () {
+					$(document.body).on('click', '#' + wrapper_id + ' .play-video-btn', function () {
 						if ($player_wrapper.hasClass('paused')) {
 							$player_wrapper.addClass('loading');
 							vimeo_video.play();
@@ -206,19 +206,19 @@
 						}
 					});
 
-					vimeo_video.getVideoTitle().then(function(title) {
-				        $player.attr('title',title);
-				    });
+					vimeo_video.getVideoTitle().then(function (title) {
+						$player.attr('title', title);
+					});
 
-					vimeo_video.on('play', function() {
+					vimeo_video.on('play', function () {
 						$player_wrapper.removeClass('loading paused');
 						$button.attr('aria-label', _theme_config.strings.pause_video);
-				    });
+					});
 
-					vimeo_video.on('pause', function() {
+					vimeo_video.on('pause', function () {
 						$button.attr('aria-label', _theme_config.strings.play_video);
 						$player_wrapper.addClass('paused');
-				    });
+					});
 				} else {
 					$('.wp-block-embed.is-provider-vimeo').removeClass('loading paused');
 					$('.wp-block-embed.is-provider-vimeo .play-video-btn').remove();
@@ -229,7 +229,7 @@
 		});
 	};
 
-	var onYouTubeIframeAPIReady = function() {
+	var onYouTubeIframeAPIReady = function () {
 		ytIframeAPIReady = true;
 		initEmbedVideos();
 	};
@@ -237,7 +237,7 @@
 	window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
 
 	// Check video support
-	var supportsVideoType = function(type) {
+	var supportsVideoType = function (type) {
 		var video;
 
 		var formats = {
@@ -248,7 +248,7 @@
 			hls: 'application/x-mpegURL; codecs="avc1.42E01E"'
 		};
 
-		if(!video) {
+		if (!video) {
 			video = document.createElement('video')
 		}
 
@@ -345,33 +345,33 @@
 		});
 	};
 
-	$( document ).ready(function( $ ) {
+	$(document).ready(function ($) {
 		$('body').addClass('js-loaded');
 
 		// Update vh value
 		var updateVh = function () {
-            var vh = $(window).height() * 0.01;
-            document.documentElement.style.setProperty('--vh', vh + 'px');
-        }
-        
+			var vh = $(window).height() * 0.01;
+			document.documentElement.style.setProperty('--vh', vh + 'px');
+		}
+
 		updateVh();
-		
+
 		var scrollTo = function (target, afterFunction) {
-            afterFunction = afterFunction || null;
-            var $destination = target;
-    
-            if (typeof target !== 'number') {
-                if($(target).length) {
-                    $destination = $(target).offset().top;
-                } else {
-                    return;
-                }
-            }
-    
-            $('html, body').animate({
-                scrollTop: $destination
-            }, 500, afterFunction);
-        }
+			afterFunction = afterFunction || null;
+			var $destination = target;
+
+			if (typeof target !== 'number') {
+				if ($(target).length) {
+					$destination = $(target).offset().top;
+				} else {
+					return;
+				}
+			}
+
+			$('html, body').animate({
+				scrollTop: $destination
+			}, 500, afterFunction);
+		}
 
 		// Scroll Action on Anchor Links 
 		$(document).on('click', 'a.anchorlink, .anchorlink a', function (event) {
@@ -383,20 +383,20 @@
 
 		// Set/get cookie
 		var cookie = {
-			set: function(cname, cvalue, exdays) {
-			    var d = new Date();
-			    var expires = '';
-			    if (exdays) {
-			    	d.setTime(d.getTime() + (24*60*60*1000 * exdays));
-			    	expires = ';expires='+d.toUTCString();
-			    }
-			    document.cookie = cname + '=' + cvalue + expires + ';path=/';
+			set: function (cname, cvalue, exdays) {
+				var d = new Date();
+				var expires = '';
+				if (exdays) {
+					d.setTime(d.getTime() + (24 * 60 * 60 * 1000 * exdays));
+					expires = ';expires=' + d.toUTCString();
+				}
+				document.cookie = cname + '=' + cvalue + expires + ';path=/';
 			},
-			get: function(cname) {
+			get: function (cname) {
 				var name = cname + '=';
 				var ca = document.cookie.split(';');
 
-				for(var i = 0; i < ca.length; i++) {
+				for (var i = 0; i < ca.length; i++) {
 					var c = ca[i];
 					while (c.charAt(0) == ' ') {
 						c = c.substring(1);
@@ -413,31 +413,66 @@
 		// Cookies
 		$(document.body).on('click', '#accept-cookies', function () {
 			$('#cookies-notification').addClass('hidden');
-			cookie.set('privacy_acceptance',1,90);
+			cookie.set('privacy_acceptance', 1, 90);
 
-			setTimeout(function() {
-	           $('#cookies-notification').remove();
-	        }, 500);
-	    });
-
-
-	    // Slick gallery
-	    $('.gallery').slick({
-			dots: false,
-			arrows: true,
-			infinite: true,
-			speed: 600,
-			slidesToScroll: 1,
-			fade: true,
-			cssEase: 'linear'
+			setTimeout(function () {
+				$('#cookies-notification').remove();
+			}, 500);
 		});
 
 
+		/* Slick Gallery
+		================================================== */
+
+		function initializeSlick(gallery) {
+			gallery.imagesLoaded(function () {
+				gallery.on('init reInit', function (event, slick) {
+					var galleryWrapper = gallery.closest('.slider-wrapper, .slider-gallery');
+
+					if (galleryWrapper.find('.slick-pagination').length === 0) {
+						galleryWrapper.append('<div class="slick-pagination"><span>1</span> / ' + slick.slideCount + '</div>');
+					}
+
+					galleryWrapper.removeClass('hidden');
+				});
+
+				gallery.on('reInit beforeChange', function (event, slick, currentSlide, nextSlide) {
+					var i = (nextSlide ? nextSlide : 0) + 1;
+
+					gallery.closest('.slider-wrapper, .slider-gallery').find('.slick-pagination span').text(i);
+				});
+
+				gallery.slick({
+					dots: false,
+					arrows: true,
+					infinite: true,
+					speed: 600,
+					slidesToScroll: 1,
+					adaptiveHeight: true,
+					responsive: [
+						{
+							breakpoint: 1200,
+							settings: {
+								dots: false,
+							}
+						},
+					]
+				});
+			});
+		}
+
+		var galleries = $('.gallery');
+		if (galleries.length > 0) {
+			galleries.each(function () {
+				initializeSlick($(this));
+			});
+		}
+
 		// Videos
-		$('.kb-video:not(.pageload-video) .video-wrapper, .wp-block-video').kobuvideo({svgbutton: svgPlayButton, fullscreen: false});
+		$('.kb-video:not(.pageload-video) .video-wrapper, .wp-block-video').kobuvideo({ svgbutton: svgPlayButton, fullscreen: false });
 
 		// Responsive Spacer
-		var returnHeight = function(elem, width) {
+		var returnHeight = function (elem, width) {
 			var spacer = elem,
 				height;
 
@@ -458,11 +493,11 @@
 			return height;
 		}
 
-		var customHeightSpacer = function() {
+		var customHeightSpacer = function () {
 			$('.responsive-spacer.size-custom').each(function () {
 				var spacer = $(this),
 					height = returnHeight(spacer, $(window).width());
-					
+
 				spacer.css('height', height);
 			});
 		}
@@ -471,25 +506,25 @@
 
 		// CF7 form submit
 		$(document.body).off('wpcf7mailsent').on('wpcf7mailsent', function (event) {
-	        var formId = event.detail.id;
+			var formId = event.detail.id;
 
-	        if(window.ga) {
-				if ($('#'+formId+' input.eventCategory').length && $('#'+formId+' input.eventAction').length && $('#'+formId+' input.eventLabel').length) {
-		            var eventCategory = $('#'+formId+' input.eventCategory').val();
-		            var eventAction = $('#'+formId+' input.eventAction').val();
-		            var eventLabel = $('#'+formId+' input.eventLabel').val();
-		            ga('send', 'event', eventCategory, eventAction, eventLabel);
-		        }	
+			if (window.ga) {
+				if ($('#' + formId + ' input.eventCategory').length && $('#' + formId + ' input.eventAction').length && $('#' + formId + ' input.eventLabel').length) {
+					var eventCategory = $('#' + formId + ' input.eventCategory').val();
+					var eventAction = $('#' + formId + ' input.eventAction').val();
+					var eventLabel = $('#' + formId + ' input.eventLabel').val();
+					ga('send', 'event', eventCategory, eventAction, eventLabel);
+				}
 			}
-	    });
+		});
 
-		$(window).on('resize', function() {
+		$(window).on('resize', function () {
 			updateVh();
 			customHeightSpacer();
 		});
 	});
 
-	$(window).on('load', function() {
+	$(window).on('load', function () {
 		loadCustomVideos();
 
 		Modernizr.on('webp', function (result) {
@@ -502,8 +537,17 @@
 					})
 				).done(function () {
 					// Support for webp
+					$('img[src$=".webp"]').each(function () {
+						$(this).attr('srcset', '');
+					});
+
 					var webpMachine = new webpHero.WebpMachine();
-					webpMachine.polyfillDocument();
+					webpMachine.polyfillDocument()
+
+					$(document).on('lazyLoadReplace', function (event) {
+						webpMachine.polyfillImage(event.target);
+						$(event.target).attr('srcset', '');
+					});
 				});
 			}
 		});
