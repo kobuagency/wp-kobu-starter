@@ -1,33 +1,28 @@
+@use "../abstracts/mixins" as *;
+
 /* Scroll animations
 ================================================== */
 
-.site-content > .animated {
+.site-content > .animated:not(.table-of-contents-wrapper) {
 	position: relative;
 	opacity: 1;
 }
 
 .site-content {
 	.animate {
-		@include transition(opacity 0.5s ease);
+		@include transition(opacity 0.8s ease);
 		opacity: 0;
-
-		&.large-title,
-		.large-title {
-			@include transition(transform 0.5s ease, opacity 0.5s ease);
-			transform: translateX(-50px);
-			position: relative;
-		}
 
 		&.wp-block-media-text {
 			.wp-block-media-text__media {
-				@include transition(transform 0.5s ease);
+				@include transition(transform 0.8s ease);
 				transform: translateY(50px);
 			}
 
 			.wp-block-media-text__content {
 				@include transition(
-					transform 0.5s ease 0.2s,
-					opacity 0.5s ease 0.2s
+					transform 0.8s ease 0.2s,
+					opacity 0.8s ease 0.2s
 				);
 				opacity: 0;
 				transform: translateX(50px);
@@ -44,13 +39,13 @@
 		.media-content-group {
 			.content-col {
 				@include transition(
-					transform 0.5s ease 0.2s,
-					opacity 0.5s ease 0.2s
+					transform 0.8s ease 0.2s,
+					opacity 0.8s ease 0.2s
 				);
 				opacity: 0;
 			}
 			.media-col {
-				@include transition(transform 0.5s ease);
+				@include transition(transform 0.8s ease);
 				transform: translateY(50px);
 			}
 
@@ -70,19 +65,14 @@
 		&.animated {
 			opacity: 1;
 
-			&.large-title,
-			.large-title {
-				transform: translateX(0);
-			}
-
 			&.wp-block-media-text {
 				.wp-block-media-text__media {
 					transform: translateY(0);
 				}
-	
+
 				.wp-block-media-text__content {
 					transform: translateX(0);
-						opacity: 1;
+					opacity: 1;
 				}
 			}
 

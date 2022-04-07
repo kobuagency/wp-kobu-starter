@@ -1,0 +1,123 @@
+@use "../abstracts" as *;
+
+/* Body and html
+================================================== */
+
+body,
+html {
+	padding: 0;
+	margin: 0;
+	font-family: $font-family-base;
+	font-size: $font-size-base;
+	line-height: $line-height-base;
+	font-weight: $font-weight-base;
+	letter-spacing: $letter-spacing;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	width: 100%;
+	min-height: 100%;
+	height: 100%;
+
+	@include mq("xl") {
+		font-size: 16px;
+	}
+
+	@include mq("xxl") {
+		font-size: 20px;
+	}
+}
+
+/* Sticky footer
+================================================== */
+
+#tablesite-content {
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	//z-index: z(tablesite-content);
+
+	.js-loaded & {
+		min-height: 100vh;
+		min-height: calc(var(--vh, 1vh) * 100);
+	}
+
+	#main-content {
+		flex: 1 0 auto;
+		overflow: hidden;
+	}
+
+	#footer-wrap {
+		flex-shrink: 0;
+	}
+}
+
+/* Container
+================================================== */
+
+.container {
+	margin-left: auto;
+	margin-right: auto;
+
+	&:not(.small):not(.medium):not(.large) {
+		@include responsive-width("c798");
+	}
+	&.medium {
+		@include responsive-width("c569");
+	}
+	&.large {
+		@include responsive-width("c1162");
+	}
+}
+
+/* Editor content
+================================================== */
+
+#content {
+	padding-top: var(--padding--section--medium);
+	padding-bottom: var(--padding--section--large);
+
+	> .alignfull {
+		width: 100%;
+
+		&.kobu-section:first-child,
+		&.wp-block-group:first-child {
+			margin-top: calc(-1 * var(--padding--section--medium));
+		}
+		&.kobu-section:last-child,
+		&.wp-block-group:last-child {
+			margin-bottom: calc(-1 * var(--padding--section--large));
+		}
+	}
+}
+
+.site-content {
+	overflow: hidden;
+	position: relative;
+
+	a {
+		text-decoration: underline;
+	}
+
+	> noscript > *:not(.alignfull),
+	> *:not(.alignfull),
+	> .kobu-section.alignfull > *,
+	> .wp-block-group.alignfull .wp-block-group__inner-container > *,
+	> .wp-block-group.alignfull > *:not(.wp-block-group__inner-container) {
+		&:not(.alignwide):not(.alignfull):not(.bg-img):not(.color-overlay) {
+			@include responsive-width("c798");
+			@include responsive-width("m342", "margin-left");
+		}
+
+		&.alignwide {
+			@include responsive-width("c1162");
+			@include responsive-width("m114", "margin-left");
+		}
+
+		&.alignfull {
+			width: 100%;
+		}
+	}
+}

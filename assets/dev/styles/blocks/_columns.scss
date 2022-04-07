@@ -1,0 +1,22 @@
+@use "../abstracts" as *;
+
+/* Colunns block
+================================================== */
+
+.wp-block-columns {
+	--wp--style--block-gap: 60px;
+
+	&.alignwide {
+		--wp--style--block-gap: 110px;
+	}
+
+	&.two-columns-wide-right {
+		.wp-block-column:first-child {
+			flex-grow: 1;
+
+		}
+		.wp-block-column:last-child {
+			flex-grow: 1.33;
+		}
+	}
+}

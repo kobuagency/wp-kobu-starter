@@ -1,0 +1,53 @@
+@use "variables" as *;
+
+/* Fonts
+================================================== */
+
+%splinesans_font {
+	font-family: $font-family-splinesans;
+	line-height: 1.26;
+	font-weight: 500;
+}
+
+/* Clear
+================================================== */
+
+%clear {
+	&:after {
+		content: " ";
+		clear: both;
+		display: block;
+		height: 0;
+		line-height: 0;
+		visibility: hidden;
+	}
+}
+
+/* Screen readers only
+================================================== */
+
+%sr-only {
+	margin: -1px;
+	padding: 0;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	clip: rect(0, 0, 0, 0);
+	position: absolute !important;
+	top: 0;
+	left: 0;
+}
+
+/* Cover img
+================================================== */
+
+%coverimg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	z-index: 0;
+}

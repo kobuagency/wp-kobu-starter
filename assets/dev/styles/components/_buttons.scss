@@ -1,0 +1,87 @@
+@use "../abstracts" as *;
+
+/* Button and CTA
+================================================== */
+
+button {
+	font-family: $font-family-base;
+	background-color: transparent;
+	border: 0;
+	border-radius: 0;
+	width: auto;
+	padding: 0;
+	height: auto;
+	outline: 0;
+	cursor: pointer;
+}
+
+.wp-block-button__link.has-background {
+	border-color: inherit;
+}
+.is-style-outline > .wp-block-button__link,
+.wp-block-button__link.is-style-outline {
+	border: 1px solid;
+}
+
+input[type="submit"],
+form button,
+.wp-block-button:not(.is-style-outline) .wp-block-button__link {
+	@include btn-common;
+	@include btn();
+
+	.site-content & {
+		text-decoration: none;
+	}
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link {
+	@include btn-common;
+	@include btn();
+
+	.site-content & {
+		text-decoration: none;
+	}
+}
+
+.btn-wrapper a,
+.btn {
+	@include btn-common;
+
+	.site-content & {
+		text-decoration: none;
+	}
+}
+
+.btn-wrapper.blue a,
+.btn.blue {
+	@include btn(
+		$color: $lightestgray,
+		$colorhover: $lightestgray,
+		$border: $blue,
+		$borderhover: $darkblue,
+		$background: $blue,
+		$backgroundhover: $darkblue,
+	);
+}
+.btn-wrapper.darkblue a,
+.btn.darkblue {
+	@include btn(
+		$color: $lightestgray,
+		$colorhover: $lightestgray,
+		$border: $darkblue,
+		$borderhover: $darkblue,
+		$background: $darkblue,
+		$backgroundhover: $darkblue,
+	);
+}
+.btn-wrapper.orange a,
+.btn.orange {
+	@include btn(
+		$color: $lightestgray,
+		$colorhover: $lightestgray,
+		$border: $orange,
+		$borderhover: $orange,
+		$background: $orange,
+		$backgroundhover: $orange,
+	);
+}

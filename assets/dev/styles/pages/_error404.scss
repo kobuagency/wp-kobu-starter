@@ -1,0 +1,27 @@
+@use "../abstracts" as *;
+
+/* Error page
+================================================== */
+
+.error-page {
+    position: relative;
+	display: flex;
+	align-items: center;
+	color: $lightestgray;
+	background-color: $orange;
+
+	.error-page-content {
+		z-index: 2;
+        width: 100%;
+	}
+
+    h1.error-page-title {
+        @include font-size($fs120);
+    }
+
+    .error-page-message {
+        p {
+            @include font-size($fs30);
+        }
+    }
+}

@@ -1,0 +1,91 @@
+@use '../abstracts' as *;
+
+/* Lists
+================================================== */
+
+.site-content {
+	ul:not(.page-numbers):not(.blocks-gallery-grid),
+	ol:not(.blocks-gallery-grid) {
+		margin-bottom: 20px;
+
+		li {
+			margin-bottom: 8px;
+			margin-left: 0;
+			padding-left: 25px;
+			position: relative;
+		}
+
+		ul,
+		ol {
+			margin-top: 10px;
+			margin-bottom: 20px;
+		}
+
+		ol {
+			counter-reset: item;
+
+			li {
+				display: block;
+				padding-left: 35px;
+
+				&:before {
+					content: counters(item, ".") " ";
+					counter-increment: item;
+				}
+			}
+		}
+
+		.ol-no-number {
+			li:before {
+				display: none;
+			}
+		}
+
+		table {
+			margin-top: 15px;
+			margin-bottom: 15px;
+			border-collapse: collapse;
+		}
+
+		table,
+		th,
+		td {
+			border: 1px solid;
+		}
+
+		th,
+		td {
+			padding: 5px 10px;
+		}
+	}
+
+	ul:not(.page-numbers):not(.blocks-gallery-grid) {
+		list-style: none;
+
+		li:before {
+			content: "\2022 ";
+			font-family: Arial, Helvetica, Tahoma, sans-serif;
+			font-size: inherit;
+			color: inherit;
+			margin-right: 5px;
+			font-weight: 900;
+			position: absolute;
+			left: 0;
+			top: -2px;
+		}
+	}
+
+	ol {
+		counter-reset: item;
+
+		li:before {
+			content: counter(item) ". ";
+			counter-increment: item;
+			color: inherit;
+			margin-right: 5px;
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	}
+}

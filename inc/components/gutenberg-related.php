@@ -19,48 +19,6 @@ if (!function_exists('writy_setup')) {
 }
 
 /**
- * Add custom colors to blocks
- */
-add_theme_support('editor-color-palette', array(
-    array(
-        'name'  => __('Black', 'kobu'),
-        'slug'  => 'black',
-        'color' => '#000000',
-    ),
-    array(
-        'name'  => __('White', 'kobu'),
-        'slug'  => 'white',
-        'color' => '#ffffff',
-    ),
-));
-
-/**
- * Add custom font-sizes to blocks
- */
-add_theme_support('editor-font-sizes', array(
-    array(
-        'name'      => __('Small', 'kobu'),
-        'size'      => 14,
-        'slug'      => 'small'
-    ),
-    array(
-        'name'      => __('Regular', 'kobu'),
-        'size'      => 16,
-        'slug'      => 'regular'
-    ),
-    array(
-        'name'      => __('Medium', 'kobu'),
-        'size'      => 18,
-        'slug'      => 'medium'
-    ),
-    array(
-        'name'      => __('Large', 'kobu'),
-        'size'      => 32,
-        'slug'      => 'large'
-    )
-));
-
-/**
  * Gutenberg admin styles and scripts
  */
 function kobu_custom_format_script_register()

@@ -335,3 +335,23 @@ function kobu_list_terms($taxonomy_slug = 'category', $output = 'string', $link 
 
 	return;
 }
+
+
+/**
+ * Check if remote file exists
+ */
+
+function remote_file_exists($url)
+{
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_NOBODY, true);
+	curl_exec($ch);
+	$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	curl_close($ch);
+
+	if ($httpCode == 200) {
+		return true;
+	} else {
+		return false;
+	}
+}

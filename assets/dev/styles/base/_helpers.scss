@@ -1,0 +1,100 @@
+@use "../abstracts" as *;
+
+/* CSS custom properties
+================================================== */
+
+:root {
+	--vh: 1vh;
+	--vw: 1vw;
+}
+
+body {
+	--padding--section--medium: 160px;
+	--padding--section--large: 180px;
+}
+
+/* Text align
+================================================== */
+
+.text-left {
+	text-align: left;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+/* Hide Recaptcha badge
+================================================== */
+
+.grecaptcha-badge {
+	opacity: 0 !important;
+	pointer-events: none !important;
+}
+
+/* Images
+================================================== */
+
+.bg-img {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	left: 0;
+	right: 0;
+
+	&:before {
+		@include pseudo;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
+		background-color: rgba($darkblue, 0.5);
+		z-index: 2;
+	}
+
+	.coverimg {
+		z-index: 1;
+	}
+}
+
+.coverimg {
+	@extend %coverimg;
+}
+
+/* Blocks colors
+================================================== */
+
+@each $color, $color_code in $colors {
+	.has-#{$color}-color {
+		color: $color_code;
+	}
+
+	.has-#{$color}-background-color {
+		background-color: $color_code;
+	}
+
+	.wp-block-cover-image.has-background-dim
+		.has-#{$color}-background-color:before,
+	.wp-block-cover.has-background-dim .has-#{$color}-background-color:before {
+		background-color: $color_code;
+	}
+}
+
+/* Other
+================================================== */
+
+.clr {
+	@extend %clear;
+}
+
+.oh {
+	overflow: hidden;
+}
+
+.sr-only {
+	@extend %sr-only;
+}

@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "settings": {
+    "color": {
+      "custom": false,
+      "customDuotone": false,
+      "customGradient": false,
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "palette": [
+        {
+          "name": "Dark blue",
+          "slug": "darkblue",
+          "color": "#373153"
+        },
+        {
+          "name": "Blue",
+          "slug": "blue",
+          "color": "#5F5AF8"
+        },
+        {
+          "name": "Orange",
+          "slug": "orange",
+          "color": "#FF7A3C"
+        },
+        {
+          "name": "Orange",
+          "slug": "orange",
+          "color": "#F2A631"
+        },
+        {
+          "name": "Light orange",
+          "slug": "lightorange",
+          "color": "#FFA262"
+        },
+        {
+          "name": "Light gray",
+          "slug": "lightgray",
+          "color": "#F8F5F3"
+        },
+        {
+          "name": "Lightest gray",
+          "slug": "lightestgray",
+          "color": "#FDFCFB"
+        }
+      ],
+      "gradients": [],
+      "duotone": []
+    },
+    "typography": {
+      "baseFont": 16,
+      "customFontSize": false,
+      "customLineHeight": false,
+      "dropCap": false,
+      "fontSizes": [
+        {
+          "name": "Extra small - 12px",
+          "size": "12px",
+          "slug": "xsmall"
+        },
+        {
+          "name": "Small - 14px",
+          "size": "14px",
+          "slug": "small"
+        },
+        {
+          "name": "Regular - 16px",
+          "size": "16px",
+          "slug": "regular"
+        },
+        {
+          "name": "Medium - 22px",
+          "size": "22px",
+          "slug": "medium"
+        },
+        {
+          "name": "Medium large - 34px",
+          "size": "34px",
+          "slug": "mediumlarge"
+        },
+        {
+          "name": "Large - 38px",
+          "size": "38px",
+          "slug": "large"
+        },
+        {
+          "name": "Extra Large - 80px",
+          "size": "80px",
+          "slug": "xlarge"
+        }
+      ]
+    },
+    "layout": {
+      "contentSize": "640px",
+      "wideSize": "995px"
+    },
+    "blocks": {
+      "core/button": {
+        "border": {
+          "customRadius": false
+        },
+        "color": {
+          "gradients": []
+        }
+      }
+    }
+  }
+}

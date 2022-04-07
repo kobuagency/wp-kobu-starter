@@ -1,0 +1,22 @@
+@use '../abstracts' as *;
+
+/* Blockquote
+================================================== */
+
+.wp-block-quote {
+	font-style: normal;
+
+	p {
+		margin-bottom: 10px;
+		@include font-size($fs34);
+		@extend %splinesans_font;
+		font-style: normal;
+	}
+
+	cite {
+		display: block;
+		margin-top: 20px;
+		@include font-size($fs14);
+		letter-spacing: 2px;
+	}
+}

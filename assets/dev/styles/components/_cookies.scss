@@ -1,32 +1,19 @@
-// Reset
-@import "01_reset";
-
-// Utilities
-@import "02_settings";
-
-body,
-html {
-	padding: 0;
-	margin: 0;
-	width: 100%;
-	min-height: 100%;
-	height: 100%;
-}
+@use '../abstracts' as *;
 
 /* Cookies 
 ================================================== */
 
 #cookies-notification {
-	@include transition(opacity 0.5s ease, visibility 0.5s ease);
+	@include transition(opacity 0.8s ease, visibility 0.8s ease);
 	@include visible;
 	position: fixed;
-	z-index: 10001;
+	z-index: z(cookies-notification);
 	width: 100%;
 	bottom: 0;
 	left: 0;
 	padding: 20px;
-	background-color: $black;
-	color: $white;
+	background-color: $blue;
+	color: $lightestgray;
 
 	&.hidden {
 		@include hidden;

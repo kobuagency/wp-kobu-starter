@@ -1,0 +1,203 @@
+@use "../abstracts" as *;
+
+/* Fonts
+================================================== */
+
+@font-face {
+	font-family: "HK Grotesk";
+	font-style: normal;
+	font-weight: 400;
+	src: url("#{$assets-path}/fonts/HKGrotesk/HKGrotesk-Regular.woff2")
+			format("woff2"),
+		url("#{$assets-path}/fonts/HKGrotesk/HKGrotesk-Regular.woff")
+			format("woff"),
+		url("#{$assets-path}/fonts/HKGrotesk/HKGrotesk-Regular.otf")
+			format("opentype");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "HK Grotesk";
+	font-style: italic;
+	font-weight: 400;
+	src: url("#{$assets-path}/fonts/HKGrotesk/HKGrotesk-Italic.woff2")
+			format("woff2"),
+		url("#{$assets-path}/fonts/HKGrotesk/HKGrotesk-Italic.woff")
+			format("woff"),
+		url("#{$assets-path}/fonts/HKGrotesk/HKGrotesk-Italic.otf")
+			format("opentype");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "HK Grotesk";
+	font-style: normal;
+	font-weight: 600;
+	src: url("#{$assets-path}/fonts/HKGrotesk/HKGrotesk-SemiBold.woff2")
+			format("woff2"),
+		url("#{$assets-path}/fonts/HKGrotesk/HKGrotesk-SemiBold.woff")
+			format("woff"),
+		url("#{$assets-path}/fonts/HKGrotesk/HKGrotesk-SemiBold.otf")
+			format("opentype");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "HK Grotesk";
+	font-style: italic;
+	font-weight: 600;
+	src: url("#{$assets-path}/fonts/HKGrotesk/HKGrotesk-SemiBoldItalic.woff2")
+			format("woff2"),
+		url("#{$assets-path}/fonts/HKGrotesk/HKGrotesk-SemiBoldItalic.woff")
+			format("woff"),
+		url("#{$assets-path}/fonts/HKGrotesk/HKGrotesk-SemiBoldItalic.otf")
+			format("opentype");
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Spline Sans";
+	font-style: normal;
+	font-weight: 500;
+	src: url("#{$assets-path}/fonts/SplineSans/SplineSans-Medium.woff2")
+			format("woff2"),
+		url("#{$assets-path}/fonts/SplineSans/SplineSans-Medium.woff")
+			format("woff"),
+		url("#{$assets-path}/fonts/SplineSans/SplineSans-Medium.ttf")
+			format("truetype");
+	font-display: swap;
+}
+
+/* Blocks font-sizes
+================================================== */
+
+body {
+	// Update font size variables to use rem
+	@include var-font-size(--wp--preset--font-size--xsmall, $fs12);
+	@include var-font-size(--wp--preset--font-size--small, $fs14);
+	--wp--preset--font-size--regular: 1rem;
+	@include var-font-size(--wp--preset--font-size--mediumsmall, $fs22);
+	@include var-font-size(--wp--preset--font-size--medium, $fs30);
+	@include var-font-size(--wp--preset--font-size--mediumlarge, $fs34);
+	@include var-font-size(--wp--preset--font-size--large, $fs38);
+	@include var-font-size(--wp--preset--font-size--xlarge, $fs80);
+}
+
+.has-xsmall-font-size {
+	@include font-size($fs12);
+}
+.has-small-font-size {
+	@include font-size($fs14);
+}
+.has-regular-font-size {
+	font-size: 1rem;
+}
+.has-medium-font-size {
+	@include font-size($fs22);
+}
+.has-mediumsmall-font-size {
+	@include font-size($fs30);
+}
+.has-mediumlarge-font-size {
+	@include font-size($fs34);
+}
+.has-large-font-size {
+	@include font-size($fs38);
+}
+.has-xlarge-font-size {
+	@include font-size($fs80);
+}
+
+/* Paragraphs
+================================================== */
+
+p {
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	+ .wp-block-kobu-custom-blocks-responsive-spacer {
+		margin-top: -20px;
+	}
+
+	+ h1,
+	+ h2,
+	+ h3,
+	+ h4,
+	+ h5,
+	+ h6 {
+		margin-top: 60px;
+
+		@include mq("xs") {
+			margin-top: 30px;
+		}
+	}
+}
+
+/* Links
+================================================== */
+
+a {
+	@include transition(color 0.8s ease);
+	-webkit-tap-highlight-color: transparent;
+	cursor: pointer;
+	text-decoration: none;
+	outline: none;
+	color: inherit;
+
+	&:hover {
+		text-decoration: none;
+		outline: none;
+	}
+}
+
+/* Headings
+================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@extend %splinesans_font;
+}
+
+h1,
+h2 {
+	margin-bottom: 50px;
+}
+
+h3 {
+	margin-bottom: 30px;
+}
+
+h4,
+h5,
+h6 {
+	margin-bottom: 20px;
+}
+
+h1 {
+	@include font-size($fs80);
+}
+
+h2 {
+	@include font-size($fs80);
+}
+
+h3 {
+	@include font-size($fs34);
+}
+
+h4 {
+	@include font-size($fs30);
+}
+
+h5 {
+	@include font-size($fs22);
+}
+
+h6 {
+	@include font-size($fs20);
+}

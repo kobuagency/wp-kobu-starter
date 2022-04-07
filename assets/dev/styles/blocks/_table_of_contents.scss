@@ -1,0 +1,43 @@
+@use "../abstracts" as *;
+
+/* Table of contents
+================================================== */
+
+.table-of-contents-wrapper {
+	.table-of-contents {
+		> ul,
+		> ol {
+			padding: 20px;
+			margin-top: 0;
+			border-top: 1px solid;
+			border-bottom: 1px solid;
+
+			li {
+				margin-bottom: 20px !important;
+
+				&:last-child {
+					margin-bottom: 0 !important;
+				}
+
+				&::before {
+					margin-right: 5px;
+					font-style: initial;
+					position: relative;
+					top: auto;
+					left: auto;
+				}
+			}
+
+			ul,
+			ol {
+				padding-left: 20px;
+			}
+		}
+
+		ol {
+			li {
+				padding-left: 0 !important;
+			}
+		}
+	}
+}

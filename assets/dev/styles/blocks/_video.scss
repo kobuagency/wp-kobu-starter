@@ -1,0 +1,369 @@
+@use "../abstracts" as *;
+/* Video and embed
+================================================== */
+
+.wp-block-kobu-custom-blocks-custom-video,
+.wp-block-embed,
+.wp-block-video {
+	overflow: hidden;
+}
+
+.wp-block-kobu-custom-blocks-custom-video,
+.wp-block-embed,
+.wp-block-video {
+	&.alignfull .video-wrapper {
+		border-radius: 0;
+	}
+}
+
+.video-wrapper.error {
+	padding-top: 57%;
+
+	&:before {
+		opacity: 1 !important;
+		visibility: visible !important;
+	}
+
+	&:after {
+		@include pseudo(
+			$content: "An error has occurred. This video cannot be played."
+		);
+		top: 50%;
+		left: 0;
+		width: calc(100% - 40px);
+		transform: translateY(-50%);
+		padding-left: 20px;
+		padding-right: 20px;
+		text-align: center;
+		color: $lightestgray;
+		z-index: 10;
+		opacity: 1 !important;
+		visibility: visible !important;
+	}
+
+	> *:not(.video-placeholder) {
+		display: none;
+	}
+}
+
+video[poster] {
+	-o-object-fit: cover;
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
+}
+
+body.js-loaded .pageload-video:not(.video-loaded),
+.wp-block-video .video-wrapper,
+.embed-container,
+.kb-video .video-wrapper {
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+
+	&:before {
+		@include pseudo;
+		@include transition(opacity 0.8s ease, visibility 0.8s ease);
+		background-color: rgba($darkblue, 0.6);
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 3;
+		opacity: 0;
+		pointer-events: none;
+		visibility: hidden;
+	}
+
+	video {
+		float: left;
+		position: relative;
+	}
+
+	.play-video-btn {
+		@include transition(opacity 0.8s ease, visibility 0.8s ease);
+		position: absolute;
+		height: 100px;
+		width: 100px;
+		transform: translateX(-100%) translateY(-100%);
+		left: 0;
+		top: 0;
+		z-index: 5;
+		opacity: 0;
+		padding: 0;
+		border: 0;
+		background-color: transparent;
+		cursor: pointer;
+
+		@include mq("xs") {
+			height: 60px;
+			width: 60px;
+		}
+
+		svg {
+			width: 100%;
+			height: 100%;
+
+			path,
+			circle {
+				@include transition(stroke 0.8s ease);
+			}
+		}
+	}
+
+	.video-controls {
+		@include transition(opacity 0.8s ease);
+		position: absolute;
+		bottom: 30px;
+		opacity: 1;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 1;
+
+		button {
+			display: inline-block;
+			width: 22px;
+			height: 22px;
+			padding: 0;
+			border: 0;
+			background-color: transparent;
+			margin-right: 25px;
+			color: transparent;
+			overflow: hidden;
+			font-size: 0;
+			background-repeat: no-repeat;
+			background-size: auto 100%;
+			background-position: left center;
+			cursor: pointer;
+
+			&:last-child  {
+				margin-right: 0;
+			}
+
+			&.play-pause {
+				width: 18px;
+				height: 22px;
+
+				&.play {
+					background-image: url("#{$assets-path}/images/controls-play.svg");
+				}
+
+				&.pause {
+					background-image: url("#{$assets-path}/images/controls-pause.svg");
+				}
+			}
+
+			&.mute {
+				height: 22px;
+				width: 22px;
+				background-image: url("#{$assets-path}/images/controls-mute.svg");
+
+				&.muted {
+					background-image: url("#{$assets-path}/images/controls-unmute.svg");
+				}
+			}
+
+			&.fullscreen {
+				height: 22px;
+				width: 22px;
+				background-image: url("#{$assets-path}/images/controls-fullscreen.svg");
+			}
+		}
+	}
+
+	.subtitles {
+		@include transition(bottom 0.8s ease);
+		position: absolute;
+		bottom: 60px;
+		left: 0;
+		width: 100%;
+		padding-left: 60px;
+		padding-right: 60px;
+		text-align: center;
+		display: none;
+
+		@media only screen and (max-width: 700px) {
+			padding-left: 25px;
+			padding-right: 25px;
+		}
+
+		&.visible {
+			display: block;
+		}
+
+		span {
+			background-color: rgba($darkblue, 0.8);
+			padding: 0.2em 0 0.2em 0;
+			-webkit-box-decoration-break: clone;
+			-ms-box-decoration-break: clone;
+			-o-box-decoration-break: clone;
+			box-decoration-break: clone;
+			box-shadow: 0.3em 0 0 rgba($darkblue, 0.8),
+				-0.3em 0 0 rgba($darkblue, 0.8);
+			line-height: 1.8;
+			color: $lightestgray;
+		}
+	}
+
+	&:not(.show-controls) {
+		.video-controls {
+			opacity: 0;
+		}
+
+		.subtitles {
+			bottom: 20px;
+		}
+	}
+
+	&.paused {
+		.video-controls {
+			opacity: 0;
+		}
+
+		.subtitles {
+			display: none;
+		}
+	}
+
+	&.paused:not(.loading) {
+		&:before {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.play-video-btn {
+			opacity: 1;
+			transform: translateX(-50%) translateY(-50%);
+			left: 50%;
+			top: 50%;
+		}
+	}
+}
+
+body.js-loaded .pageload-video:not(.video-loaded),
+.wp-block-video .video-wrapper.loading:not(.error),
+.embed-container.loading:not(.error),
+.kb-video .video-wrapper.loading:not(.error),
+.embed-container.not-loaded {
+	&:before {
+		background-image: url("#{$assets-path}/images/loader.gif");
+		background-size: 50px;
+		background-position: center;
+		background-repeat: no-repeat;
+		opacity: 1;
+		pointer-events: auto;
+		visibility: visible;
+	}
+}
+
+.embed-container {
+	iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+	}
+}
+
+.embed-container,
+.kb-video {
+	.video-placeholder {
+		@include transition(opacity 0.8s ease, visibility 0.8s ease);
+		background-size: cover;
+		background-position: center;
+		z-index: 2;
+	}
+}
+
+.kb-video:not(.video-loaded) {
+	.video-placeholder {
+		position: relative;
+	}
+}
+
+.embed-container,
+.kb-video.video-loaded {
+	.video-placeholder {
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		padding-top: 0 !important;
+		height: 100%;
+		width: 100%;
+	}
+}
+
+.embed-container.not-loaded,
+.embed-container.paused,
+.kb-video.video-loaded .video-wrapper.paused {
+	.video-placeholder {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+	}
+}
+
+.wp-block-video,
+.kb-video {
+	position: relative;
+	overflow: hidden;
+
+	video {
+		width: 100%;
+		height: auto;
+		float: left;
+	}
+}
+
+.wp-block-embed.is-type-video {
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 0;
+
+	.wp-block-embed__wrapper {
+		overflow: hidden;
+		padding-top: 57%;
+		background-color: #000;
+		position: relative;
+		height: 0;
+		width: 100%;
+
+		> .embed-container,
+		> iframe {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+	}
+}
+
+.wp-block-embed.wp-block-embed-facebook {
+	position: relative;
+
+	.wp-block-embed__wrapper .fb-video {
+		width: 100% !important;
+
+		span {
+			padding-top: 56.25% !important;
+			background-color: #000;
+			position: relative;
+			height: 0;
+			width: 100% !important;
+
+			> .embed-container,
+			> iframe {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100% !important;
+				height: 100% !important;
+			}
+		}
+	}
+}

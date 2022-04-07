@@ -1,0 +1,12 @@
+@use "../abstracts" as *;
+
+/* Embed
+================================================== */
+
+.wp-block-embed.aligncenter .wp-block-embed__wrapper {
+    > * {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

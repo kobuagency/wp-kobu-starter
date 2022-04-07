@@ -1,12 +1,22 @@
 +function ($) {
 	'use strict';
 
+	/* Common variables
+	================================================== */
+
 	var svgPlayButton = '<svg width="25" height="26" viewBox="0 0 25 26" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M24.1145,13.1885329 L1.5375,24.2894877 L1.5375,2.08757816 L24.1145,13.1885329 Z M21.9595,13.1885329 L2.5365,22.7387709 L2.5365,3.638295 L21.9595,13.1885329 Z" fill="#FDFBF8" stroke="none" stroke-width="1" fill-rule="evenodd"/></svg>';
 
-	// youtube and vimeo videos
-	var youtubePlayers = {},
+
+	/* Embed videos
+	================================================== */
+
+	var youtubeLoaded = false,
+		vimeoLoaded = false,
+		youtubePlayers = {},
 		vimeoPlayers = {},
-		ytIframeAPIReady = false;
+		ytIframeAPIReady = false,
+		player_num = 0,
+		queueYoutubeVideo = [];
 
 	// The API will call this function when the video player is ready.
 	var onPlayerReady = function (event) {
@@ -19,7 +29,7 @@
 		$('#' + player_id).attr('title', event.target.getVideoData().title);
 		$wrapper.removeClass('loading');
 
-		$(document.body).on('click', '#' + wrapperid + ' .video-placeholder', function () {
+		$(document.body).on('click', '#' + wrapperid + '.paused .video-placeholder', function () {
 			var current_button = $('#' + wrapperid + ' .play-video-btn');
 
 			$wrapper.addClass('loading');
@@ -43,14 +53,23 @@
 	var onPlayerStateChange = function (event) {
 		var player_id = $(event.target.getIframe()).attr('id'),
 			wrapperid = youtubePlayers[player_id].wrapperid,
-			button = $('#' + wrapperid + ' .play-video-btn');
+			button = $('#' + wrapperid + ' .play-video-btn'),
+			$player_wrapper = $('#' + wrapperid);
 
 		if (event.data == YT.PlayerState.PLAYING) {
 			button.attr('aria-label', _theme_config.strings.pause_video);
-			$('#' + wrapperid).removeClass('loading paused');
+			$player_wrapper.removeClass('loading paused');
+
+			if ($player_wrapper.hasClass('testimonial')) {
+				$player_wrapper.closest('.patients-voices-top-wrapper').addClass('video-playing')
+			}
 		} else {
 			button.attr('aria-label', _theme_config.strings.play_video);
-			$('#' + wrapperid).addClass('paused');
+			$player_wrapper.addClass('paused');
+
+			if ($player_wrapper.hasClass('testimonial')) {
+				$player_wrapper.closest('.patients-voices-top-wrapper').removeClass('video-playing')
+			}
 		}
 	};
 
@@ -67,7 +86,7 @@
 
 	// Destroy videos with ajax navigation
 
-	var destroyYTvideo = function(player) {
+	var destroyYTvideo = function (player) {
 		if (player) {
 			player.video.stopVideo();
 			player.video.clearVideo();
@@ -79,22 +98,22 @@
 			player.video.destroy();
 			player.video = null;  // Clear out the reference to the destroyed player
 
-			$(document.body).off('click','#' + player.wrapperid + '.paused');
+			$(document.body).off('click', '#' + player.wrapperid + '.paused');
 			$(document.body).off('click', '#' + player.wrapperid + ' .play-video-btn');
 		}
 	};
 
-	var destroyVimeovideo = function(player) {
+	var destroyVimeovideo = function (player) {
 		if (player) {
 			player.video.destroy();
 			player.video = null;  // Clear out the reference to the destroyed player
 
-			$(document.body).off('click','#' + player.wrapperid + '.paused');
+			$(document.body).off('click', '#' + player.wrapperid + '.paused');
 			$(document.body).off('click', '#' + player.wrapperid + ' .play-video-btn');
 		}
 	};
 
-	var clearProviderEmbedVideos = function(players_arr, provider) {
+	var clearProviderEmbedVideos = function (players_arr, provider) {
 		// for all properties of an object with proto chain
 		var players = Object.getOwnPropertyNames(players_arr);
 		for (var i = 0; i < players.length; i++) {
@@ -103,12 +122,12 @@
 			} else if (provider == 'vimeo') {
 				destroyVimeovideo(players_arr[players[i]]);
 			}
-			
+
 			delete players_arr[players[i]];
 		}
 	};
 
-	var clearEmbedVideos = function() {
+	var clearEmbedVideos = function () {
 		if (!$.isEmptyObject(youtubePlayers)) {
 			clearProviderEmbedVideos(youtubePlayers, 'youtube');
 		}
@@ -119,124 +138,222 @@
 
 	*/
 
-	var initEmbedVideos = function () {
-		var player_num = 0;
+	var initYoutubeVideo = function ($video) {
+		var $player_wrapper = $video,
+			$player = $player_wrapper.find('.iframe'),
+			play_button,
+			wrapper_id,
+			player_id;
 
-		$('.embed-container').each(function () {
-			var $player_wrapper = $(this),
-				$player = $player_wrapper.find('.iframe'),
-				play_button,
-				wrapper_id,
-				$button,
-				player_id;
+		$player_wrapper.addClass('paused loading');
 
-			$player_wrapper.addClass('paused loading');
-			play_button = '<button type="button" class="play-video-btn" aria-label="' + _theme_config.strings.play_video + '">' + svgPlayButton + '</button>';
-			$player_wrapper.prepend(play_button);
+		play_button = '<button type="button" class="play-video-btn" aria-label="' + _theme_config.strings.play_video + '">' + svgPlayButton + '</button>';
 
-			$button = $player_wrapper.find('.play-video-btn');
+		$player_wrapper.prepend(play_button);
 
-			player_id = 'player_' + player_num;
-			wrapper_id = 'wrapper_' + player_id;
+		player_id = 'player_' + player_num;
+		wrapper_id = 'wrapper_' + player_id;
 
-			$player.attr('id', player_id);
-			$player_wrapper.attr('id', wrapper_id);
+		$player.attr('id', player_id);
+		$player_wrapper.attr('id', wrapper_id);
 
-			if ($player_wrapper.hasClass('youtube')) {
-				var videosrc = $player.attr('data-iframe-src'),
-					videoOrigin = window.location.origin,
-					videoStart = $player.attr('data-iframe-start');
+		var videosrc = $player.attr('data-iframe-src'),
+			videoOrigin = window.location.origin,
+			videoStart = $player.attr('data-iframe-start');
 
-				youtubePlayers[player_id] = {
-					'video': new YT.Player(player_id, {
-						host: 'https://www.youtube.com',
-						height: '360',
-						width: '640',
-						videoId: videosrc,
-						playerVars: {
-							'rel': 0,
-							'origin': videoOrigin,
-							'showinfo': 0,
-							'modestbranding': 1,
-							'start': videoStart
-						},
-						events: {
-							'onReady': onPlayerReady,
-							'onStateChange': onPlayerStateChange,
-							'onError': onPlayerError
-						}
-					}),
-					'wrapperid': wrapper_id
-				};
-			} else if ($player_wrapper.hasClass('vimeo')) {
-				if (typeof Vimeo !== 'undefined') {
-					var iframe = $('#' + player_id).get(0),
-						vimeo_video = new Vimeo.Player(iframe);
-
-					vimeoPlayers[player_id] = {
-						'video': vimeo_video,
-						'wrapperid': wrapper_id
-					}
-
-					vimeo_video.ready().then(function () {
-						$player_wrapper.removeClass('loading');
-					});
-
-					// click events on vimeo
-
-					$(document.body).on('click', '#' + wrapper_id + '.paused  .video-placeholder', function () {
-						var current_button = $('#' + wrapper_id + ' .play-video-btn');
-
-						$player_wrapper.addClass('loading');
-
-						vimeo_video.play().then(function () {
-							current_button.focus();
-						}).catch(function (error) {
-							console.error('error playing the video:', error.name);
-						});
-					});
-
-
-					$(document.body).on('click', '#' + wrapper_id + ' .play-video-btn', function () {
-						if ($player_wrapper.hasClass('paused')) {
-							$player_wrapper.addClass('loading');
-							vimeo_video.play();
-						} else {
-							vimeo_video.pause();
-						}
-					});
-
-					vimeo_video.getVideoTitle().then(function (title) {
-						$player.attr('title', title);
-					});
-
-					vimeo_video.on('play', function () {
-						$player_wrapper.removeClass('loading paused');
-						$button.attr('aria-label', _theme_config.strings.pause_video);
-					});
-
-					vimeo_video.on('pause', function () {
-						$button.attr('aria-label', _theme_config.strings.play_video);
-						$player_wrapper.addClass('paused');
-					});
-				} else {
-					$('.wp-block-embed.is-provider-vimeo').removeClass('loading paused');
-					$('.wp-block-embed.is-provider-vimeo .play-video-btn').remove();
+		youtubePlayers[player_id] = {
+			'video': new YT.Player(player_id, {
+				host: 'https://www.youtube.com',
+				height: '360',
+				width: '640',
+				videoId: videosrc,
+				playerVars: {
+					'rel': 0,
+					'origin': videoOrigin,
+					'showinfo': 0,
+					'modestbranding': 1,
+					'start': videoStart,
+					'playsinline': 1
+				},
+				events: {
+					'onReady': onPlayerReady,
+					'onStateChange': onPlayerStateChange,
+					'onError': onPlayerError
 				}
+			}),
+			'wrapperid': wrapper_id
+		};
+
+		player_num++;
+	}
+
+	var initVimeoVideo = function ($video) {
+		var $player_wrapper = $video,
+			$player = $player_wrapper.find('.iframe'),
+			play_button,
+			wrapper_id,
+			$button,
+			player_id;
+
+		$player_wrapper.addClass('paused loading');
+
+		play_button = '<button type="button" class="play-video-btn" aria-label="' + _theme_config.strings.play_video + '">' + svgPlayButton + '</button>';
+
+		$player_wrapper.prepend(play_button);
+
+		$button = $player_wrapper.find('.play-video-btn');
+
+		player_id = 'player_' + player_num;
+		wrapper_id = 'wrapper_' + player_id;
+
+		$player.attr('id', player_id);
+		$player_wrapper.attr('id', wrapper_id);
+
+		if (typeof Vimeo !== 'undefined') {
+			var iframe = $('#' + player_id).get(0),
+				vimeo_video = new Vimeo.Player(iframe);
+
+			vimeoPlayers[player_id] = {
+				'video': vimeo_video,
+				'wrapperid': wrapper_id
 			}
 
-			player_num++;
-		});
-	};
+			vimeo_video.ready().then(function () {
+				$player_wrapper.removeClass('loading');
+			});
+
+			// click events on vimeo
+
+			$(document.body).on('click', '#' + wrapper_id + '.paused  .video-placeholder', function () {
+				var current_button = $('#' + wrapper_id + ' .play-video-btn');
+
+				$player_wrapper.addClass('loading');
+
+				vimeo_video.play().then(function () {
+					current_button.focus();
+				}).catch(function (error) {
+					console.error('error playing the video:', error.name);
+				});
+			});
+
+
+			$(document.body).on('click', '#' + wrapper_id + ' .play-video-btn', function () {
+				if ($player_wrapper.hasClass('paused')) {
+					$player_wrapper.addClass('loading');
+					vimeo_video.play();
+				} else {
+					vimeo_video.pause();
+				}
+			});
+
+			vimeo_video.getVideoTitle().then(function (title) {
+				$player.attr('title', title);
+			});
+
+			vimeo_video.on('play', function () {
+				$player_wrapper.removeClass('loading paused');
+				$button.attr('aria-label', _theme_config.strings.pause_video);
+			});
+
+			vimeo_video.on('pause', function () {
+				$button.attr('aria-label', _theme_config.strings.play_video);
+				$player_wrapper.addClass('paused');
+			});
+		} else {
+			$('.wp-block-embed.is-provider-vimeo').removeClass('loading paused');
+			$('.wp-block-embed.is-provider-vimeo .play-video-btn').remove();
+		}
+
+		player_num++;
+	}
 
 	var onYouTubeIframeAPIReady = function () {
 		ytIframeAPIReady = true;
-		initEmbedVideos();
+
+		if (queueYoutubeVideo) {
+			var i;
+			for (i = 0; i < queueYoutubeVideo.length; ++i) {
+				initYoutubeVideo(queueYoutubeVideo[i]);
+			}
+		}
 	};
 
 	window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
 
-	// Check video support
+
+	/* Load videos with intersection observer
+	================================================== */
+
+	var loadVideo = function ($video) {
+		$video.removeClass('not-loaded');
+
+		if ($video.hasClass('youtube')) {
+			if (!youtubeLoaded) {
+				$.when(
+					$.getScript('https://www.youtube.com/iframe_api'),
+					$.Deferred(function (deferred) {
+						$(deferred.resolve);
+					})
+				).done(function () {
+					youtubeLoaded = true;
+
+					if (ytIframeAPIReady) {
+						initYoutubeVideo($video);
+					} else {
+						queueYoutubeVideo.push($video)
+					}
+				});
+			} else {
+				if (ytIframeAPIReady) {
+					initYoutubeVideo($video);
+				} else {
+					queueYoutubeVideo.push($video)
+				}
+			}
+		} else if ($video.hasClass('vimeo')) {
+			if (!vimeoLoaded) {
+				$.when(
+					$.getScript(_theme_config.theme_path + '/assets/third-party/vimeo/vimeo_player.min.js'),
+					$.Deferred(function (deferred) {
+						$(deferred.resolve);
+					})
+				).done(function () {
+					vimeoLoaded = true;
+					initVimeoVideo($video);
+				});
+			} else {
+				initVimeoVideo($video);
+			}
+		}
+	}
+
+	$(document.body).on('click', '.embed-container.not-loaded', function () {
+		var $video = $(this);
+		loadVideo($video);
+	});
+
+	var videoIntersectionObserver;
+
+	var videoOnIntersection = function (entries) {
+		entries.forEach(function (entry) {
+			// Mitigation for EDGE lacking support of .isIntersecting until v15, compare to e.g. https://github.com/w3c/IntersectionObserver/issues/211#issuecomment-309144669
+			if (entry.intersectionRatio === 0) {
+				return;
+			}
+
+			// If the item is visible now, load it and stop watching it
+			var targetElem = entry.target;
+			videoIntersectionObserver.unobserve(targetElem);
+
+			var $video = $(targetElem);
+			loadVideo($video);
+		});
+	}
+
+
+	/* Check video support
+	================================================== */
+
 	var supportsVideoType = function (type) {
 		var video;
 
@@ -259,7 +376,9 @@
 		}
 	};
 
-	// Load custom videos
+	/* Load custom videos
+	================================================== */
+
 	var loadCustomVideos = function () {
 		$('.pageload-video:not(.video-loaded)').each(function () {
 			var $this = $(this),
@@ -345,16 +464,26 @@
 		});
 	};
 
+
+	/* Document ready
+	================================================== */
+
 	$(document).ready(function ($) {
 		$('body').addClass('js-loaded');
 
-		// Update vh value
+		/* Update vh value
+		================================================== */
+
 		var updateVh = function () {
 			var vh = $(window).height() * 0.01;
 			document.documentElement.style.setProperty('--vh', vh + 'px');
 		}
 
 		updateVh();
+
+
+		/* Anchorlinks
+		================================================== */
 
 		var scrollTo = function (target, afterFunction) {
 			afterFunction = afterFunction || null;
@@ -381,7 +510,10 @@
 			scrollTo(section);
 		});
 
-		// Set/get cookie
+
+		/* Cookies
+		================================================== */
+
 		var cookie = {
 			set: function (cname, cvalue, exdays) {
 				var d = new Date();
@@ -410,7 +542,6 @@
 			}
 		}
 
-		// Cookies
 		$(document.body).on('click', '#accept-cookies', function () {
 			$('#cookies-notification').addClass('hidden');
 			cookie.set('privacy_acceptance', 1, 90);
@@ -419,6 +550,33 @@
 				$('#cookies-notification').remove();
 			}, 500);
 		});
+
+
+		/* Embed Videos
+		================================================== */
+
+		if ('IntersectionObserver' in window) {
+			var config = {
+				rootMargin: '0px 0px 0px 0px',
+				threshold: 0.01
+			};
+
+			if (typeof videoIntersectionObserver === 'undefined') {
+				videoIntersectionObserver = new IntersectionObserver(videoOnIntersection, config);
+			}
+
+			$('.embed-container.not-loaded').each(function () {
+				var video = $(this).get(0);
+
+				videoIntersectionObserver.observe(video);
+			});
+		}
+
+
+		/* Local Videos
+		================================================== */
+
+		$('.kb-video:not(.pageload-video) .video-wrapper, .wp-block-video').kobuvideo({ svgbutton: svgPlayButton, fullscreen: false });
 
 
 		/* Slick Gallery
@@ -468,10 +626,10 @@
 			});
 		}
 
-		// Videos
-		$('.kb-video:not(.pageload-video) .video-wrapper, .wp-block-video').kobuvideo({ svgbutton: svgPlayButton, fullscreen: false });
 
-		// Responsive Spacer
+		/* Responsive Spacer
+		================================================== */
+
 		var returnHeight = function (elem, width) {
 			var spacer = elem,
 				height;
@@ -504,7 +662,10 @@
 
 		customHeightSpacer();
 
-		// CF7 form submit
+
+		/* wpcf7mailsent event
+		================================================== */
+
 		$(document.body).off('wpcf7mailsent').on('wpcf7mailsent', function (event) {
 			var formId = event.detail.id;
 
@@ -518,14 +679,26 @@
 			}
 		});
 
+		
+		/* Resize event
+		================================================== */
+
 		$(window).on('resize', function () {
 			updateVh();
 			customHeightSpacer();
 		});
 	});
 
+
+	/* Window onload
+	================================================== */
+
 	$(window).on('load', function () {
 		loadCustomVideos();
+
+
+		/* webp Polyfill
+		================================================== */
 
 		Modernizr.on('webp', function (result) {
 			if (!result) {

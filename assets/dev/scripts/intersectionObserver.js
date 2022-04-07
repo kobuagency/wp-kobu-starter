@@ -15,10 +15,13 @@ var observeElements = function (rootMargin) {
         lazyImage: 'img[loading="lazy"]',
         lazyIframe: 'iframe[loading="lazy"]'
     };
+    
+    var notSelector = ':not(.responsive-spacer):not(.wp-block-group)';
+
     var config = {
         rootMargin: rootMargin || '0px 0px -20% 0px',
         threshold: 0.01,
-        selector: '.site-content>*:not(.responsive-spacer):not(.wp-block-group), .site-content>.wp-block-group>.wp-block-group__inner-container>*'
+        selector: '.site-content>*' + notSelector + ', .site-content>.wp-block-group>.wp-block-group__inner-container>*' + notSelector
     };
 
     // Device/browser capabilities object

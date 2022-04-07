@@ -3,6 +3,7 @@
   "themeName": "<% print(conf.get('themeDir').replace(/-/g, ' ').replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})); %>",
   "functionPrefix": "<% print(conf.get('themeDir').replace(/-/g, '')); %>",
   "classPrefix": "<% print(conf.get('themeDir').replace(/-/g, ' ').replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}).replace(/\s/g, '')); %>",
+  "localUrl": "<%= conf.get('url') %>",
   "constantPrefix": "<% print(conf.get('themeDir').replace(/-/g, '').toUpperCase()); %>",
   "version": "1.0.0",
   "description": "A simple blank WordPress starter theme intended to use with YeoPress, Grunt and Bower.",
@@ -30,33 +31,41 @@
   "engines": {
     "node": ">= 0.10.0"
   },
+  "dependencies": {
+    "autoprefixer": "^10.4.2",
+    "browserslist": "^4.19.1",
+    "css-mqpacker": "^7.0.0",
+    "cssnano": "^5.0.16",
+    "generator-karma": "^2.0.1",
+    "keen-slider": "^6.6.3",
+    "natives": "^1.1.6",
+    "sort-css-media-queries": "^2.0.4"
+  },
   "devDependencies": {
-    "@lodder/grunt-postcss": "^3.0.1",
-    "bower": "^1.8.12",
-    "grunt": "^1.4.0",
+    "@lodder/grunt-postcss": "^3.1.1",
+    "bower": "^1.8.13",
+    "grunt": "^1.4.1",
     "grunt-banner": "^0.6.0",
     "grunt-contrib-clean": "^2.0.0",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-jshint": "^3.0.0",
+    "grunt-contrib-concat": "^2.0.0",
+    "grunt-contrib-jshint": "^3.1.1",
     "grunt-contrib-uglify": "^5.0.1",
     "grunt-contrib-watch": "^1.1.0",
+    "grunt-critical": "^2.0.1",
     "grunt-newer": "^1.3.0",
-    "grunt-postcss": "^0.9.0",
     "grunt-sass": "^3.1.0",
     "grunt-svgmin": "^6.0.1",
     "grunt-text-replace": "^0.4.0",
     "grunt-wp-i18n": "1.0.3",
-    "node-sass": "^6.0.1",
     "pixrem": "^5.0.0",
-    "postcss": "^8.3.6"
+    "postcss": "^8.4.6",
+    "sass": "^1.49.7"
   },
-  "dependencies": {
-    "autoprefixer": "^10.3.1",
-    "browserslist": "^4.16.7",
-    "css-mqpacker": "^7.0.0",
-    "cssnano": "^5.0.7",
-    "generator-karma": "^2.0.1",
-    "natives": "^1.1.6",
-    "sort-css-media-queries": "^2.0.4"
-  }
+  "peerDependencies": {
+    "postcss": "^8.4.6"
+  },
+  "browserslist": [
+    "defaults",
+    "not ie <= 10"
+  ]
 }

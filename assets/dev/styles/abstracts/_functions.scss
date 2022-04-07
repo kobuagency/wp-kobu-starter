@@ -1,0 +1,38 @@
+@use "variables" as *;
+
+/* Generate Z-indexes
+================================================== */
+
+@function z($name, $z-indexes-list: $z-indexes) {
+	@if index($z-indexes-list, $name) {
+		@return (length($z-indexes-list) - index($z-indexes-list, $name)) + 1;
+	} @else {
+		@warn 'There is no item "#{$name}" in this list; choose one of: #{$z-indexes-list}';
+
+		@return null;
+	}
+}
+
+/* Px to rem converter
+================================================== */
+
+// Converts one px value to rem.
+// `$zero-safe-rem-value` returns a 0 if `$px-value` is 0.
+@function convert-to-rem($px-value) {
+	$rem-value: calc($px-value / $font-size-base);
+	$zero-safe-rem-value: if($px-value == 0, 0, $rem-value);
+
+	@return #{$zero-safe-rem-value}rem;
+}
+
+// Converts single or multiple px values into rem.
+// Accepts multiple values in the form: `rem(20px 30px 0 40px)`.
+@function rem($px-values) {
+	$rem-values: ();
+
+	@each $px-value in $px-values {
+		$rem-values: append($rem-values, convert-to-rem($px-value));
+	}
+
+	@return $rem-values;
+}

@@ -17,15 +17,26 @@ function kobu_login_logo()
         }
 
         body.login {
-            background-color: #FAFAFA;
-            display: table;
+            background-position: top right;
+            background-size: 29%;
+            background-repeat: no-repeat;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
             height: 100%;
             width: 100%;
         }
 
+        .wpml-login-ls {
+            width: 100%;
+            position: absolute;
+            bottom: 30px;
+            padding-bottom: 0;
+        }
+
         body.login div#login {
-            display: table-cell;
-            vertical-align: middle;
+            width: 100%;
             padding: 30px 0 30px 0;
             width: 100%;
         }
@@ -40,11 +51,11 @@ function kobu_login_logo()
         }
 
         body.login div#login h1 a {
-            background-image: url('<?php echo MYWPTHEME_THEME_URL; ?>/assets/images/main-logo.svg');
+            background-image: url('<?php echo MYWPTHEME_THEME_URL; ?>/assets/images/younergy-logo.svg');
             background-size: 100%;
-            height: 50px;
-            width: 280px;
-            margin: 0 auto 30px auto;
+            height: 72px;
+            width: 206px;
+            margin: 0 auto 0 auto;
             display: inline-block;
         }
 
@@ -62,19 +73,22 @@ function kobu_login_logo()
         body.login div#login form#loginform label,
         body.login div#login form#lostpasswordform label {
             font-size: 12px;
+            margin-bottom: 10px;
         }
 
         body.login div#login form#loginform input,
         body.login div#login form#lostpasswordform input {
             background: transparent;
-            border-radius: 0;
-            padding: 8px 0px;
-            font-size: 18px;
+            padding: 15px 30px;
+            font-size: 14px;
             box-shadow: none;
             text-shadow: none;
-            border: 0px solid transparent;
-            border-bottom: 1px solid #000000;
-            font-weight: bold;
+            border: 1px solid #000000;
+            border-radius: 24px;
+        }
+
+        body.login .button.wp-hide-pw {
+            top: 5px;
         }
 
         body.login div#login form#loginform input:focus,
@@ -89,10 +103,10 @@ function kobu_login_logo()
 
         body.login div#login form#loginform p.submit input#wp-submit,
         body.login div#login form#lostpasswordform p.submit input#wp-submit {
-            background: #D9027D;
-            padding: 13px 28px;
-            font-size: 18px;
-            text-transform: lowercase;
+            background: #000000;
+            padding: 15px 30px;
+            font-size: 14px;
+            text-transform: uppercase;
             box-shadow: none;
             color: #ffffff;
             text-decoration: none;
@@ -100,8 +114,9 @@ function kobu_login_logo()
             -moz-transition: 0.4s ease;
             -webkit-transition: 0.4s ease;
             height: auto;
-            border: 1px solid #D9027D;
+            border: 1px solid #000000;
             line-height: 1;
+            border-radius: 25px;
         }
 
         body.login div#login form#loginform p.submit input#wp-submit.focus,
@@ -112,7 +127,7 @@ function kobu_login_logo()
         body.login div#login form#lostpasswordform p.submit input#wp-submit.hover,
         body.login div#login form#lostpasswordform p.submit input#wp-submit:focus,
         body.login div#login form#lostpasswordform p.submit input#wp-submit:hover {
-            background: #D9027D;
+            background: #000000;
             color: #ffffff;
         }
 
@@ -134,7 +149,7 @@ function kobu_login_logo()
         body.login #backtoblog a:hover,
         body.login #nav a:hover,
         body.login .privacy-policy-page-link a:hover {
-            color: #D9027D;
+            color: #000000;
         }
 
         body.login .privacy-policy-page-link {
@@ -224,19 +239,20 @@ add_action('wp_before_admin_bar_render', 'cmf_admin_bar_render');
  */
 
 add_filter('acf/settings/save_json', 'kobu_acf_json_save_point');
- 
-function kobu_acf_json_save_point( $path ) {
+
+function kobu_acf_json_save_point($path)
+{
     $path = get_stylesheet_directory() . '/inc/components/acf';
     return $path;
 }
 
 add_filter('acf/settings/load_json', 'kobu_acf_json_load_point');
 
-function kobu_acf_json_load_point( $paths ) {
+function kobu_acf_json_load_point($paths)
+{
     unset($paths[0]);
     $paths[] = get_stylesheet_directory() . '/inc/components/acf';
     return $paths;
-    
 }
 
 /**

@@ -1,0 +1,11 @@
+@use "../abstracts" as *;
+
+/* Separator
+================================================== */
+
+.wp-block-separator {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border-top: 0;
+    border-bottom: 1px solid;
+}

@@ -17,7 +17,8 @@ if (!is_admin()) {
 
         // Add these classes to all embeds.
         $classes_all = array(
-            'embed-container'
+            'embed-container',
+            'not-loaded'
         );
 
         // Check for different providers and add appropriate classes.
@@ -86,7 +87,11 @@ if (!is_admin()) {
             if ($matches) {
                 if (isset($matches[1][0])) {
                     $video_id = $matches[1][0];
-                    $thumbnail_url = 'https://img.youtube.com/vi/' . $video_id . '/hqdefault.jpg';
+                    $thumbnail_url = 'https://img.youtube.com/vi/' . $video_id . '/maxresdefault.jpg';
+
+                    if(!remote_file_exists($thumbnail_url)) {
+                        $thumbnail_url = 'https://img.youtube.com/vi/' . $video_id . '/hqdefault.jpg';
+                    }
                 }
 
                 if (isset($matches[2][0]) || isset($matches[3][0])) {

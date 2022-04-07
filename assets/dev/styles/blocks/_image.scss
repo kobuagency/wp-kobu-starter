@@ -1,0 +1,25 @@
+@use "../abstracts" as *;
+
+/* Figcaption
+================================================== */
+
+figcaption {
+	@include font-size($fs14);
+	padding-top: 10px;
+}
+
+/* Image block
+================================================== */
+
+.wp-block-image.is-resized {
+	img {
+		width: initial;
+	}
+}
+
+.wp-block-image {
+	img {
+		position: relative;
+		z-index: 2;
+	}
+}

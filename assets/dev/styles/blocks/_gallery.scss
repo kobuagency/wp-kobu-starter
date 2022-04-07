@@ -1,0 +1,59 @@
+@use "../abstracts" as *;
+
+/* Core gallery block
+================================================== */
+
+.wp-block-gallery {
+	--gallery-block--gutter-size: 40px;
+	align-items: center;
+}
+
+.wp-block-gallery.has-nested-images:not(.is-cropped)
+	figure.wp-block-image:not(#individual-image) {
+	margin-bottom: 40px;
+	display: block;
+	background-color: $lightestgray;
+
+	&:before {
+		@include transition(background-color 0.8s ease);
+		@include pseudo;
+		height: calc(100% + 2px);
+		width: calc(100% + 2px);
+		top: -1px;
+		left: -1px;
+		z-index: 1;
+		background-color: $lightestgray;
+	}
+
+	img {
+		margin-bottom: 0;
+		position: relative;
+		z-index: 1;
+	}
+}
+
+.wp-block-gallery.has-nested-images figure.wp-block-image {
+	flex-grow: 0;
+}
+
+.wp-block-gallery.has-nested-images:not(.is-cropped) figure.wp-block-image img {
+	max-height: 100px;
+	max-width: 100%;
+	width: auto;
+	height: auto;
+	margin-bottom: 0;
+}
+
+.wp-block-gallery.has-nested-images figure.wp-block-image figcaption {
+	@include font-size($fs14);
+	bottom: 0;
+	position: relative;
+	padding: 20px 0 0 0;
+	margin-top: 0;
+	top: 0;
+	max-height: none;
+	background: transparent;
+	color: inherit;
+	text-align: left;
+	z-index: 3;
+}

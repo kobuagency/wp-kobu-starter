@@ -27,10 +27,6 @@
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="theme-color" content="#ffffff">
 
-	<style>
-		<?php include_once(MYWPTHEME_THEME_PATH . '/assets/dist/mywptheme_critical.min.css'); ?>
-	</style>
-
 	<?php echo kobu_header_scripts(); ?>
 	<?php wp_head(); ?>
 </head>
@@ -82,38 +78,38 @@ if (wp_is_mobile()) {
 							<?php wp_nav_menu(array(
 								'theme_location'	=> 'primary',
 								'sort_column'	=> 'menu_order',
-								'menu_class'	=> 'dropdown-menu menu',
+								'menu_class'	=> 'main-menu',
 								'fallback_cb'	=> false,
 								'walker'		=> new Kobu_Dropdown_Walker_Nav_Menu()
 							)); ?>
 						</nav>
 
-						<button class="icon toggle-menu" aria-label="<?php _e('Toggle menu', 'kobu'); ?>">
-							<span class="nav-icon">
-								<span></span>
-								<span></span>
-								<span></span>
-								<span></span>
-							</span>
-						</button>
+						<?php if (has_nav_menu('full')) : ?>
+							<button class="icon toggle-menu" aria-label="<?php _e('Toggle menu', 'kobu'); ?>">
+								<span class="nav-icon">
+									<span></span>
+									<span></span>
+									<span></span>
+									<span></span>
+								</span>
+							</button>
+						<?php endif; ?>
 					</div>
 				<?php endif; ?>
 			</div>
 		</div>
 
-		<?php if (has_nav_menu('primary')) : ?>
-			<div id="mobile-menu">
-				<div class="mobile-navigation-wrapper">
-					<nav class="mobile-navigation" role="navigation">
-						<?php if (has_nav_menu('primary')) :
-							wp_nav_menu(array(
-								'theme_location'	=> 'primary',
-								'sort_column'	=> 'menu_order',
-								'menu_class'	=> 'pages-menu',
-								'fallback_cb'	=> false,
-								'walker'		=> new Kobu_Dropdown_Walker_Nav_Menu()
-							));
-						endif; ?>
+		<?php if (has_nav_menu('full')) : ?>
+			<div id="full-menu">
+				<div class="full-menu-navigation-wrapper">
+					<nav class="full-menu-navigation" role="navigation">
+						<?php wp_nav_menu(array(
+							'theme_location'	=> 'full',
+							'sort_column'	=> 'menu_order',
+							'menu_class'	=> 'full-menu',
+							'fallback_cb'	=> false,
+							'walker'		=> new Kobu_Dropdown_Walker_Nav_Menu()
+						)); ?>
 					</nav>
 				</div>
 			</div>

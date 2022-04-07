@@ -1,0 +1,33 @@
+@use '../abstracts' as *;
+
+/* Media text block
+================================================== */
+
+.wp-block-media-text {
+	.wp-block-media-text__content {
+		padding-left: 50px;
+		padding-right: 0;
+
+		@include mq("xs") {
+			padding-left: 0;
+			padding-top: 80px;
+		}
+	}
+
+	.wp-block-media-text__media {
+		@include mq("xs") {
+			grid-area: unset;
+
+			img {
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+			}
+		}
+	}
+
+	@include mq("xs") {
+		display: block;
+		grid-template-columns: unset !important;
+	}
+}

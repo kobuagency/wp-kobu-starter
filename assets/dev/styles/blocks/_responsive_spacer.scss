@@ -1,0 +1,62 @@
+@use '../abstracts' as *;
+
+/* Responsive spacer
+================================================== */
+
+.wp-block-kobu-custom-blocks-responsive-spacer {
+	&.size-large {
+		height: 140px;
+
+		@include mq("xxl") {
+			height: 200px;
+		}
+		@include mq("xl") {
+			height: 170px;
+		}
+		@include mq("md") {
+			height: 100px;
+		}
+		@include mq("sm") {
+			height: 80px;
+		}
+	}
+
+	&.size-xlarge {
+		height: 160px;
+
+		@include mq("xxl") {
+			height: 220px;
+		}
+		@include mq("xl") {
+			height: 180px;
+		}
+		@include mq("md") {
+			height: 120px;
+		}
+		@include mq("sm") {
+			height: 100px;
+		}
+	}
+
+	&.size-medium {
+		height: 80px;
+
+		@include mq("xl") {
+			height: 100px;
+		}
+		@include mq("sm") {
+			height: 50px;
+		}
+	}
+
+	&.size-small {
+		height: 60px;
+
+		@include mq("xl") {
+			height: 90px;
+		}
+		@include mq("sm") {
+			height: 30px;
+		}
+	}
+}

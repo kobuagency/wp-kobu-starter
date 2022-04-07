@@ -1,0 +1,22 @@
+@use "../abstracts" as *;
+
+/* File block
+================================================== */
+
+.wp-block-file {
+	* + .wp-block-file__button {
+		margin-top: 20px;
+	}
+
+	a:not(.wp-block-file__button) {
+		@include font-size($fs14);
+		display: table;
+		text-decoration: none;
+	}
+
+	a.wp-block-file__button,
+    a.wp-block-file__button:visited {
+		@include btn-common;
+		@include btn;
+	}
+}

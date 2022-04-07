@@ -24,7 +24,7 @@ module.exports = function (grunt) {
 		// Watches for changes and runs tasks
 		watch: {
 			sass: { // watch sass files
-				files: ['assets/dev/styles/*.scss', 'inc/gutenberg-files/editor-styles.scss'],
+				files: ['assets/dev/styles/*.scss', 'assets/dev/styles/*/*.scss', 'inc/gutenberg-files/editor-styles.scss'],
 				tasks: ['css_task']
 			},
 			css: { // livereload with min css update
@@ -55,6 +55,9 @@ module.exports = function (grunt) {
 			css: {
 				src: ['assets/dist/*.css', 'assets/dist/*.css.map']
 			},
+			critical: {
+				src: ['assets/dist/critical/*.css']
+			},
 			js: {
 				src: ['assets/dist/*.min.js']
 			},
@@ -69,13 +72,12 @@ module.exports = function (grunt) {
 		sass: {
 			dist: {
 				options: {
-					implementation: require('node-sass'),
+					implementation: require('sass'),
 					sourcemap: 'none'
 				},
 				files: {
 					'assets/dist/<%= pkg.functionPrefix %>.css': 'assets/dev/styles/style.scss',
 					'assets/dist/<%= pkg.functionPrefix %>_nojs.css': 'assets/dev/styles/no_js.scss',
-					'assets/dist/<%= pkg.functionPrefix %>_critical.css': 'assets/dev/styles/critical.scss',
 					'inc/gutenberg-files/editor-styles.css': 'inc/gutenberg-files/editor-styles.scss',
 				}
 			}
@@ -87,18 +89,7 @@ module.exports = function (grunt) {
 			options: {
 				map: false, // inline sourcemaps
 				processors: [
-					require('autoprefixer')({
-						overrideBrowserslist: [
-							'Android 2.3',
-							'Android >= 4',
-							'Chrome >= 20',
-							'Firefox >= 24',
-							'Explorer >= 8',
-							'iOS >= 6',
-							'Opera >= 12',
-							'Safari >= 6',
-						]
-					}), // add vendor prefixes
+					require('autoprefixer')(), // add vendor prefixes
 					require('css-mqpacker')({ sort: require('sort-css-media-queries').desktopFirst }), // Pack media queries
 					require('cssnano')({ preset: 'default' }) // minify the result
 				]
@@ -107,7 +98,6 @@ module.exports = function (grunt) {
 				files: {
 					'assets/dist/<%= pkg.functionPrefix %>.min.css': 'assets/dist/<%= pkg.functionPrefix %>.css',
 					'assets/dist/<%= pkg.functionPrefix %>_nojs.min.css': 'assets/dist/<%= pkg.functionPrefix %>_nojs.css',
-					'assets/dist/<%= pkg.functionPrefix %>_critical.min.css': 'assets/dist/<%= pkg.functionPrefix %>_critical.css',
 					'inc/gutenberg-files/editor-styles.min.css': 'inc/gutenberg-files/editor-styles.css',
 				}
 			}
@@ -200,7 +190,6 @@ module.exports = function (grunt) {
 		},
 
 
-
 		replace: {
 			dist: {
 				src: ['style.css'],
@@ -231,6 +220,7 @@ module.exports = function (grunt) {
 					'single.php',
 					'page.php',
 					'templates/*.php',
+					'assets/dev/styles/abstracts/_variables.scss',
 				],
 				overwrite: true,
 				replacements: [{
@@ -246,6 +236,7 @@ module.exports = function (grunt) {
 			}
 		},
 
+
 		makepot: {
 			dist: {
 				options: {
@@ -253,7 +244,6 @@ module.exports = function (grunt) {
 					potComments: 'Copyright (c) 2014-<%= grunt.template.today("yyyy") %> <%= pkg.author.name %>',
 					potFilename: '<%= pkg.functionPrefix %>.pot',
 					potHeaders: {
-						'report-msgid-bugs-to': '<%= pkg.homepage %>',
 						'x-generator': 'grunt-wp-i18n 0.4.5',
 						'x-poedit-basepath': '.',
 						'x-poedit-language': 'Portuguese',
@@ -268,8 +258,23 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-	});
 
+
+		critical: {
+			homepage: {
+				options: {
+					base: './',
+					css: [
+						'assets/dist/ilgaeurope.css'
+					],
+					width: 1366,
+					height: 768
+				},
+				src: '<%= pkg.localUrl %>',
+				dest: 'assets/dist/critical/ilgaeurope_critical_homepage.min.css'
+			}
+		}
+	});
 
 
 
@@ -285,7 +290,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-svgmin');
 	grunt.loadNpmTasks('grunt-text-replace');
 	grunt.loadNpmTasks('grunt-wp-i18n');
-
+	grunt.loadNpmTasks('grunt-critical');
 
 	// Default task
 	grunt.registerTask('default', [
@@ -319,15 +324,15 @@ module.exports = function (grunt) {
 		'makepot'
 	]);
 
-
 	// Build task
 	grunt.registerTask('build', [
 		'css_task',
 		'js_task',
+		'clean:critical',
+		'critical',
 		'translations',
 		'replace:dist'
 	]);
-
 
 	// Template Setup Task
 	grunt.registerTask('setup', [

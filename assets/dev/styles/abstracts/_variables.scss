@@ -1,0 +1,133 @@
+/* Theme paths 
+================================================== */
+
+$assets-path: "/files/themes/mywptheme";
+
+/* Fonts 
+================================================== */
+
+$font-family-base: "HK Grotesk", Helvetica, Tahoma, sans-serif;
+$font-family-splinesans: "Spline Sans", Helvetica, Tahoma, sans-serif;
+$font-size-base: 16px;
+$font-weight-base: 400;
+$letter-spacing: 0px;
+$line-height-base: 1.44;
+
+/* Fonts sizes
+================================================== */
+
+$fs120: (
+	"null": 120px,
+	"xs": 74px,
+);
+$fs80: (
+	"null": 80px,
+	"xs": 60px,
+);
+$fs38: (
+	"null": 38px,
+	"xs": 30px,
+);
+$fs34: (
+	"null": 34px,
+	"xs": 26px,
+);
+$fs30: (
+	"null": 30px,
+	"xs": 26px,
+);
+$fs22: (
+	"null": 22px,
+);
+$fs20: (
+	"null": 20px,
+);
+$fs14: (
+	"null": 14px,
+);
+$fs12: (
+	"null": 12px,
+);
+
+/* Color palette
+================================================== */
+
+$darkblue: #373153;
+$blue: #5f5af8;
+$lightblue: #8B82B3;
+$orange: #ff7a3c;
+$lightorange: #ffa262;
+$lightgray: #f8f5f3;
+$lightestgray: #fdfcfb;
+
+$colors: (
+	"darkblue": $darkblue,
+	"blue": $blue,
+	"lightblue": $lightblue,
+	"orange": $orange,
+	"lightorange": $lightorange,
+	"lightgray": $lightgray,
+	"lightestgray": $lightestgray,
+);
+
+/* Media queries breakpoints
+================================================== */
+
+$breakpoints: (
+	"xxs": "450px",
+	"xs": "600px",
+	"sm": "768px",
+	"md": "992px",
+	"md2": "1200px",
+	"lg": "1400px",
+	"xl": "1900px",
+	"xxl": "2000px",
+);
+
+/* Z-indexes List
+================================================== */
+
+$z-indexes: (
+	"cookies-notification",
+	"error-message",
+	"header",
+	"scroll-down",
+	"tablesite-content",
+	"footer"
+);
+
+/* Section widths and margins
+================================================== */
+
+$variable_width_sizes: (
+	"c1162": (
+		"null": 85,
+	),
+	"c1024": (
+		"null": 74.96,
+	),
+	"c798": (
+		"null": 58.418,
+	),
+	"c569": (
+		"null": 41.65,
+	),
+	"c342": (
+		"null": 25,
+	),
+	"m683": (
+		"null": 50,
+	),
+	"m455": (
+		"null": 33.3,
+	),
+	"m342": (
+		"null": 25,
+	),
+	"m227": (
+		"null": 16.617,
+	),
+	"m114": (
+		"null": 8.34,
+	),
+);

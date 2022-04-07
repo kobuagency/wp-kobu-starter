@@ -1,0 +1,21 @@
+@use "../abstracts" as *;
+
+/* Error message
+================================================== */
+
+.error-message {
+	position: fixed;
+	width: 100%;
+	left: 0;
+	z-index: z(error-message);
+	bottom: 30px;
+
+	p {
+		@include responsive-width("c1162");
+		margin-left: auto;
+		margin-right: auto;
+		padding: 10px 20px 6px 20px;
+		color: $lightestgray;
+		background-color: $darkblue;
+	}
+}

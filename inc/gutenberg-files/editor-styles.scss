@@ -1,6 +1,217 @@
-/* Highlight text */
+/* Utilities 
+================================================== */
+@use "../../assets/dev/styles/abstracts" as *;
+@use "../../assets/dev/styles/base/helpers" as *;
 
-.highlight-text {
-	background-color: #dcdeeb;
-	padding: 0.3em;
+/* Custom Blocks 
+================================================== */
+@use "../../assets/dev/styles/blocks/blockquote";
+@use "../../assets/dev/styles/blocks/slider";
+@use "../../assets/dev/styles/blocks/table";
+@use "../../assets/dev/styles/blocks/separator";
+@use "../../assets/dev/styles/blocks/gallery";
+@use "../../assets/dev/styles/blocks/columns";
+
+/* Fonts
+================================================== */
+
+@font-face {
+	font-family: "HK Grotesk";
+	font-style: normal;
+	font-weight: 400;
+	src: url("../../assets/fonts/HKGrotesk/HKGrotesk-Regular.woff2")
+			format("woff2"),
+		url("../../assets/fonts/HKGrotesk/HKGrotesk-Regular.woff")
+			format("woff"),
+		url("../../assets/fonts/HKGrotesk/HKGrotesk-Regular.otf")
+			format("opentype");
+}
+
+@font-face {
+	font-family: "HK Grotesk";
+	font-style: italic;
+	font-weight: 400;
+	src: url("../../assets/fonts/HKGrotesk/HKGrotesk-Italic.woff2")
+			format("woff2"),
+		url("../../assets/fonts/HKGrotesk/HKGrotesk-Italic.woff") format("woff"),
+		url("../../assets/fonts/HKGrotesk/HKGrotesk-Italic.otf")
+			format("opentype");
+}
+
+@font-face {
+	font-family: "HK Grotesk";
+	font-style: normal;
+	font-weight: 600;
+	src: url("../../assets/fonts/HKGrotesk/HKGrotesk-SemiBold.woff2")
+			format("woff2"),
+		url("../../assets/fonts/HKGrotesk/HKGrotesk-SemiBold.woff")
+			format("woff"),
+		url("../../assets/fonts/HKGrotesk/HKGrotesk-SemiBold.otf")
+			format("opentype");
+}
+
+@font-face {
+	font-family: "HK Grotesk";
+	font-style: italic;
+	font-weight: 600;
+	src: url("../../assets/fonts/HKGrotesk/HKGrotesk-SemiBoldItalic.woff2")
+			format("woff2"),
+		url("../../assets/fonts/HKGrotesk/HKGrotesk-SemiBoldItalic.woff")
+			format("woff"),
+		url("../../assets/fonts/HKGrotesk/HKGrotesk-SemiBoldItalic.otf")
+			format("opentype");
+}
+
+@font-face {
+	font-family: "Spline Sans";
+	font-style: normal;
+	font-weight: 500;
+	src: url("../../assets/fonts/SplineSans/SplineSans-Medium.woff2")
+			format("woff2"),
+		url("../../assets/fonts/SplineSans/SplineSans-Medium.woff")
+			format("woff"),
+		url("../../assets/fonts/SplineSans/SplineSans-Medium.ttf")
+			format("truetype");
+}
+
+/* Editor Styles
+================================================== */
+
+body .editor-styles-wrapper {
+	font-family: $font-family-base !important;
+
+	.editor-post-title .editor-post-title__input {
+		@include font-size($fs80);
+		font-family: $font-family-splinesans;
+	}
+
+	/* Custom alignment 
+	================================================== */
+
+	.wp-block {
+		max-width: 640px;
+		margin-left: auto;
+		margin-right: auto;
+
+		&[data-align="full"] {
+			max-width: 100%;
+		}
+
+		&[data-align="wide"] {
+			max-width: 995px;
+		}
+
+		&.is-style-wide-img {
+			max-width: 1100px !important;
+		}
+	}
+
+	.has-text-color a {
+		color: inherit;
+	}
+
+	/* Paragraphs
+	================================================== */
+
+	p:first-child {
+		margin-top: 0;
+	}
+
+	p:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Images
+	================================================== */
+
+	img.coverimg {
+		height: 100% !important;
+		width: 100% !important;
+	}
+
+	/* Headings
+	================================================== */
+
+	.has-text-color {
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			color: inherit;
+		}
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@extend %splinesans_font;
+	}
+
+	h1,
+	h2 {
+		margin-bottom: 50px;
+	}
+
+	h3 {
+		margin-bottom: 30px;
+	}
+
+	h4,
+	h5,
+	h6 {
+		margin-bottom: 20px;
+	}
+
+	h1 {
+		@include font-size($fs80);
+	}
+
+	h2 {
+		@include font-size($fs80);
+	}
+
+	h3 {
+		@include font-size($fs34);
+	}
+
+	h4 {
+		@include font-size($fs30);
+	}
+
+	h5 {
+		@include font-size($fs22);
+	}
+
+	h6 {
+		@include font-size($fs20);
+	}
+}
+
+/* Buttons
+================================================== */
+
+.btn-wrapper a,
+.btn {
+	@include btn-common;
+
+	.site-content & {
+		text-decoration: none;
+	}
+}
+
+.btn-wrapper a,
+.btn {
+	@include btn;
+}
+
+/* Kobu section block
+================================================== */
+
+.kobu-section {
+	background-color: transparent;
 }

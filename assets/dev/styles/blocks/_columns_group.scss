@@ -1,0 +1,174 @@
+@use '../abstracts' as *;
+
+/* Columns group blocks
+================================================== */
+
+.wp-block-kobu-custom-blocks-margin-aligned-image,
+.wp-block-kobu-custom-blocks-columns-group-item,
+.media-content-group,
+.wp-block-kobu-custom-blocks-text-slider-img-text .slide-content {
+	position: relative;
+
+	@include mq("sm") {
+		.content-col .content-col-wrapper {
+			> .responsive-spacer:first-child,
+			> .responsive-spacer:last-child {
+				display: none;
+			}
+		}
+	}
+
+	&.valign-start,
+	&.valign-masonry {
+		@include flex;
+	}
+
+	&.valign-center {
+		@include flex($align: center);
+	}
+
+	&.valign-end {
+		@include flex($align: flex-end);
+	}
+
+	&.valign-stretch {
+		@include flex;
+
+		.media-col {
+			align-self: stretch;
+			position: relative;
+
+			> * {
+				height: 100%;
+			}
+
+			.img-wrapper {
+				background-position: center;
+				background-size: cover;
+				background-repeat: no-repeat;
+			}
+
+			.kb-video {
+				position: relative;
+			}
+
+			.kb-video,
+			.video-wrapper {
+				width: 100%;
+				height: 100%;
+			}
+
+			.video-wrapper {
+				position: absolute !important;
+				top: 0;
+				left: 0;
+
+				video {
+					height: 100%;
+					width: 100%;
+					object-fit: cover;
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+			}
+		}
+	}
+
+	&.img-first.align-right,
+	&.img-last.align-left {
+		flex-direction: row-reverse;
+	}
+
+	&.align-left {
+		.content-col {
+			.content-col-wrapper {
+				margin-right: auto;
+			}
+		}
+	}
+
+	&.align-right {
+		.content-col {
+			.content-col-wrapper {
+				margin-left: auto;
+			}
+		}
+	}
+
+	.content-col {
+		@include flexWidth(50%);
+
+		@include mq("sm") {
+			@include flexWidth(100%);
+		}
+	}
+
+	.media-col {
+		@include flexWidth(50%);
+		overflow: hidden;
+
+		@include mq("sm") {
+			@include flexWidth(100%);
+		}
+
+		img {
+			float: left;
+
+			+ figcaption {
+				float: left;
+				width: 100%;
+				max-width: 100%;
+			}
+		}
+	}
+
+	&.img-first {
+		@include mq("sm") {
+			.media-col {
+				padding-bottom: 50px;
+			}
+		}
+	}
+
+	&.img-last {
+		@include mq("sm") {
+			.media-col {
+				padding-top: 50px;
+			}
+		}
+	}
+}
+
+.media-content-group:not(.alignfull):not(.alignwide):not(.alignextrawide) {
+	&.align-left {
+		.media-col {
+			padding-right: 60px;
+		}
+	}
+	&.align-right {
+		.media-col {
+			padding-left: 60px;
+		}
+	}
+}
+
+.media-content-group.alignwide,
+.media-content-group.alignextrawide,
+.media-content-group.alignfull {
+	&.align-left {
+		.media-col {
+			padding-right: 110px;
+		}
+	}
+	&.align-right {
+		.media-col {
+			padding-left: 110px;
+		}
+	}
+}
+
+.media-content-group.alignfull {
+	.content-col-wrapper {
+	}
+}

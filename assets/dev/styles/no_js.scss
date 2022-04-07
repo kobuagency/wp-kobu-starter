@@ -1,10 +1,10 @@
 // Utilities
-@import "02_settings";
+@use "abstracts" as *;
 
 .kb-video .video-placeholder {
-    display: none;
+	display: none;
 }
 
 .slider-gallery.hidden {
-    @include visible;
+	@include visible;
 }

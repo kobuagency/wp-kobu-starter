@@ -1,0 +1,254 @@
+@use "../abstracts" as *;
+
+/* Forms, inputs, select, etc
+================================================== */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+	-webkit-text-fill-color: var(--textColor--main);
+	-webkit-box-shadow: 0 0 0px 1000px #eaeaea inset;
+	transition: background-color 5000s ease-in-out 0s;
+}
+
+input,
+textarea,
+select,
+.gform_wrapper.gravity-theme form input[type="color"],
+.gform_wrapper.gravity-theme form input[type="date"],
+.gform_wrapper.gravity-theme form input[type="datetime-local"],
+.gform_wrapper.gravity-theme form input[type="datetime"],
+.gform_wrapper.gravity-theme form input[type="email"],
+.gform_wrapper.gravity-theme form input[type="month"],
+.gform_wrapper.gravity-theme form input[type="number"],
+.gform_wrapper.gravity-theme form input[type="password"],
+.gform_wrapper.gravity-theme form input[type="search"],
+.gform_wrapper.gravity-theme form input[type="tel"],
+.gform_wrapper.gravity-theme form input[type="text"],
+.gform_wrapper.gravity-theme form input[type="time"],
+.gform_wrapper.gravity-theme form input[type="url"],
+.gform_wrapper.gravity-theme form input[type="week"],
+.gform_wrapper.gravity-theme form select,
+.gform_wrapper.gravity-theme form textarea {
+	@include transition(color 0s ease, border 0.8s ease);
+	width: 100%;
+	height: 50px;
+	padding: 15px 25px;
+	background-color: transparent;
+	border-radius: 27px;
+	border: 1px solid $lightgray;
+	appearance: none;
+	-webkit-appearance: none;
+	outline: 0;
+	font-family: $font-family-base;
+	color: $darkblue;
+	line-height: 1;
+	font-weight: 600;
+	font-size: 1rem;
+
+	@include input-placeholder {
+		color: $darkblue;
+		opacity: 1;
+	}
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	margin-bottom: 0;
+	margin-top: 0;
+	margin-left: 0;
+	background-color: transparent;
+	border: 1px solid $darkblue;
+	cursor: pointer;
+}
+
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+	background-color: $darkblue;
+}
+
+.gform_wrapper.gravity-theme .gfield textarea.large,
+.gform_wrapper.gravity-theme textarea,
+textarea {
+	height: 140px;
+}
+
+input:focus,
+textarea:focus {
+	outline: none;
+}
+
+.gform_wrapper.gravity-theme select,
+select {
+	background-image: url("#{$assets-path}/images/arrow_down.svg") !important;
+	background-size: 10px 6px;
+	background-repeat: no-repeat;
+	background-position: center right 25px;
+	padding-right: 50px;
+	height: 50px;
+
+	option {
+		color: #000;
+	}
+}
+
+/* GF Styles
+================================================== */
+
+.gform_wrapper.gravity-theme
+	input:not([type="radio"]):not([type="checkbox"]):not([type="image"]):not([type="file"]) {
+	line-height: 1;
+}
+
+.gform_wrapper.gravity-theme .gform_fields {
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+.gform_wrapper.gravity-theme .gsection {
+	border: 0;
+}
+
+// Labels
+.gform_wrapper.gravity-theme .gfield_label,
+.gform_wrapper.gravity-theme .ginput_complex label,
+.gform_wrapper.gravity-theme .ginput_complex legend {
+	@include font-size($fs12);
+	margin-bottom: 10px;
+	font-weight: 400;
+	color: $lightblue;
+}
+
+// Consent, checkbox and radio
+.ginput_container_consent {
+	position: relative;
+
+	input {
+		top: 0;
+	}
+
+	.gfield_consent_label {
+		@include font-size($fs12);
+		display: block;
+		padding-left: 30px;
+	}
+}
+
+.gfield_radio .gchoice,
+.gfield_checkbox .gchoice {
+	position: relative;
+
+	label {
+		@include font-size($fs12);
+		display: block;
+		padding-left: 30px;
+	}
+}
+
+// Required fields
+.gform_wrapper .gfield_error .gfield_repeater_cell label,
+.gform_wrapper .gfield_error label,
+.gform_wrapper .gfield_required {
+	color: inherit !important;
+}
+
+.gfield_consent_label + .gfield_required {
+	@extend %sr-only;
+}
+
+// Footer and submit button
+.gform_wrapper.gravity-theme .gform_footer,
+.gform_wrapper.gravity-theme .gform_page_footer {
+	text-align: right;
+	margin-top: 20px;
+	padding-top: 0;
+}
+
+.gform_wrapper.gravity-theme .gform_footer input[type="submit"] {
+	@include btn-common;
+	@include btn(
+		$color: $lightestgray,
+		$colorhover: $lightestgray,
+		$border: $orange,
+		$borderhover: $orange,
+		$background: $orange,
+		$backgroundhover: $orange
+	);
+	line-height: 1;
+	margin-left: auto;
+}
+
+// Spinner
+.gform_ajax_spinner {
+	@include animation(spinner 1.1s infinite linear);
+	margin-left: 20px;
+	border: 4px solid rgba($darkblue, 0.3);
+	border-left: 4px solid rgba($darkblue, 0.7);
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	top: 10px;
+	position: relative;
+}
+
+.gform_ajax_spinner {
+	width: 30px;
+	margin-left: 10px;
+	display: inline-block;
+}
+
+// Errors
+.gform_wrapper .gform_validation_errors {
+	margin-bottom: 40px;
+	box-shadow: none;
+	border-radius: 10px;
+
+	h2 {
+		color: $orange;
+	}
+}
+
+.gform_wrapper .gfield_validation_message,
+.gform_wrapper .validation_message {
+	background-color: transparent;
+	padding: 0 !important;
+	color: inherit;
+	border: 0;
+	padding-top: 0;
+}
+
+.gform_wrapper.gravity-theme .gfield_description.gfield_validation_message {
+	@include font-size($fs12);
+	margin-top: 10px;
+	color: $orange;
+}
+
+.gform_wrapper .gfield_error [aria-invalid="true"] {
+	border: 1px solid $orange !important;
+	color: $orange !important;
+	background-color: transparent;
+
+	@include input-placeholder {
+		color: $orange !important;
+	}
+
+	+ label {
+		color: $orange !important;
+	}
+}
+
+.gform_wrapper .gform_validation_errors {
+	border: 1px solid $orange !important;
+}

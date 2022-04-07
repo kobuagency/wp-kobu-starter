@@ -1,0 +1,285 @@
+@use "variables" as *;
+@use "functions" as *;
+
+/* Buttons and forms
+================================================== */
+
+@mixin btn-common {
+	@include transition(
+		color 0.8s ease,
+		background-color 0.8s ease,
+		border 0.8s ease
+	);
+	width: auto;
+	display: inline-block;
+	text-align: center;
+	line-height: 1;
+	font-family: $font-family-base;
+	text-decoration: none;
+	cursor: pointer;
+	border-radius: 30px;
+	padding: 20px 35px;
+}
+
+@mixin btn(
+	$color: $lightestgray,
+	$colorhover: $lightestgray,
+	$border: $blue,
+	$borderhover: $darkblue,
+	$background: $blue,
+	$backgroundhover: $darkblue
+) {
+	color: $color;
+	background: $background;
+	border: 1px solid $border;
+
+	&:hover {
+		background-color: $backgroundhover;
+		color: $colorhover;
+		border: 1px solid $borderhover;
+	}
+}
+
+@mixin input-placeholder {
+	&.placeholder {
+		@content;
+	}
+	&:-moz-placeholder {
+		@content;
+	}
+	&::-moz-placeholder {
+		@content;
+	}
+	&:-ms-input-placeholder {
+		@content;
+	}
+	&::-webkit-input-placeholder {
+		@content;
+	}
+}
+
+/* Flexbox 
+================================================== */
+
+@mixin flex(
+	$align: flex-start,
+	$wrap: wrap,
+	$justify: flex-start,
+	$after: "yes"
+) {
+	// align flex-start, center, flex-end
+	display: flex;
+	flex-wrap: $wrap;
+	align-items: $align;
+	justify-content: $justify;
+
+	& > div,
+	& > li {
+		float: left;
+	}
+
+	@if $after == "yes" {
+		&:after {
+			content: " ";
+			clear: both;
+			display: block;
+			height: 0;
+			line-height: 0;
+			visibility: hidden;
+		}
+	}
+}
+
+@mixin flexWidth($args...) {
+	width: $args;
+	max-width: $args;
+	flex-basis: $args;
+}
+
+/* Transitions and animations
+================================================== */
+
+@mixin transition($args...) {
+	-webkit-transition: $args;
+	-moz-transition: $args;
+	-ms-transition: $args;
+	-o-transition: $args;
+	transition: $args;
+}
+
+@mixin keyframes($animation-name) {
+	@-webkit-keyframes #{$animation-name} {
+		@content;
+	}
+	@-moz-keyframes #{$animation-name} {
+		@content;
+	}
+	@keyframes #{$animation-name} {
+		@content;
+	}
+}
+
+@mixin animation($str) {
+	-webkit-animation: #{$str};
+	-moz-animation: #{$str};
+	animation: #{$str};
+}
+
+/* Visibility
+================================================== */
+
+@mixin hidden {
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+}
+
+@mixin visible {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+}
+
+/* Media queries
+================================================== */
+
+@mixin mq($width: "xs") {
+	$query_width: map-get($breakpoints, $width);
+
+	@if $query_width == null {
+		@error "Wrong width: #{$width}";
+	}
+
+	@if $width == "xl" or $width == "xxl" {
+		@media screen and (min-width: #{$query_width}) {
+			@content;
+		}
+	} @else {
+		@media screen and (max-width: #{$query_width}) {
+			@content;
+		}
+	}
+}
+
+@mixin min-mq($min-width) {
+	@media screen and (min-width: "#{$min-width}px") {
+		@content;
+	}
+}
+
+@mixin max-mq($max-width) {
+	@media screen and (max-width: "#{$max-width}px") {
+		@content;
+	}
+}
+
+@mixin between-mq($min-width, $max-width) {
+	@media screen and (min-width: "#{$min-width}px") and (max-width: "#{$max-width - 1}px") {
+		@content;
+	}
+}
+
+/* Font sizes
+================================================== */
+
+// Converts px value to rem.
+@mixin font-size($fs-map) {
+	@each $fs-breakpoint, $px-size in $fs-map {
+		@if $fs-breakpoint == "null" {
+			font-size: $px-size;
+			font-size: rem($px-size);
+		} @else {
+			$query: "max-width";
+			@if map-has-key($breakpoints, $fs-breakpoint) {
+				@if $fs-breakpoint == "xl" or $fs-breakpoint == "xxl" {
+					$query: "min-width";
+				}
+
+				$fs-breakpoint: map-get($breakpoints, $fs-breakpoint);
+			}
+			@media screen and (#{$query}: #{$fs-breakpoint}) {
+				font-size: $px-size;
+				font-size: rem($px-size);
+			}
+		}
+	}
+}
+
+@mixin var-font-size($var, $fs-map) {
+	@each $fs-breakpoint, $px-size in $fs-map {
+		@if $fs-breakpoint == "null" {
+			#{$var}: rem($px-size);
+		} @else {
+			$query: "max-width";
+			@if map-has-key($breakpoints, $fs-breakpoint) {
+				@if $fs-breakpoint == "xl" or $fs-breakpoint == "xxl" {
+					$query: "min-width";
+				}
+
+				$fs-breakpoint: map-get($breakpoints, $fs-breakpoint);
+			}
+			@media screen and (#{$query}: #{$fs-breakpoint}) {
+				#{$var}: rem($px-size);
+			}
+		}
+	}
+}
+
+/* Pseudo
+================================================== */
+
+@mixin pseudo($display: block, $pos: absolute, $content: "") {
+	content: $content;
+	display: $display;
+	position: $pos;
+}
+
+/* SVG icon
+================================================== */
+
+@mixin svg-icon($path, $height, $width, $color) {
+	height: $height;
+	width: $width;
+	background-color: $color;
+	mask-image: url($path);
+	background-size: cover;
+	-webkit-mask-size: contain;
+	mask-size: contain;
+	-webkit-mask-position: center;
+	mask-position: center;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+}
+
+/* Variable width containers
+================================================== */
+
+@mixin responsive-width($key, $property: width) {
+	@if $key == null {
+		@error "Wrong key: #{$key}";
+	}
+
+	$map: map-get($variable_width_sizes, $key);
+
+	@if $map == null {
+		@error "Wrong key: #{$key}";
+	}
+
+	@each $breakpoint, $size in $map {
+		@if $breakpoint == "null" {
+			#{$property}: $size * 1%;
+		} @else {
+			$query: "max-width";
+			@if map-has-key($breakpoints, $breakpoint) {
+				@if $breakpoint == "xl" or $breakpoint == "xxl" {
+					$query: "min-width";
+				}
+
+				$breakpoint: map-get($breakpoints, $breakpoint);
+			}
+			@media screen and (#{$query}: #{$breakpoint}) {
+				#{$property}: $size * 1%;
+			}
+		}
+	}
+}

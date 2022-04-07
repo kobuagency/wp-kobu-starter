@@ -1,0 +1,139 @@
+@use "../abstracts" as *;
+
+/* Common gallery styles
+================================================== */
+
+/* .keen-slider:not(.disabled-slider):not(.no-bullet) {
+	cursor: url("/files/themes/younergy/assets/images/slider_cursor.png") 50
+			50,
+		auto !important;
+		
+
+	a:not(.btn):not(.read-more):not(.wp-block-button__link) {
+		cursor: url("/files/themes/younergy/assets/images/slider_cursor.png")
+				50 50,
+			auto !important;
+
+		.read-more {
+			cursor: pointer !important;
+		}
+	}
+} */
+
+.keen-slider:focus {
+	outline: none;
+}
+
+.content-slider,
+.articles-slider,
+.gallery {
+	&:not(.keen-slider) {
+		@include flex($align: stretch, $justify: center, $after: "no");
+	}
+
+	&.disabled-slider {
+		justify-content: center;
+
+		a {
+			cursor: pointer !important;
+		}
+
+		.clone {
+			display: none;
+		}
+
+		.post-card,
+		.slide {
+			transform: none !important;
+		}
+
+		~ div {
+			display: none;
+		}
+	}
+
+	&:focus {
+		outline: 0;
+	}
+}
+
+/* Sliders
+================================================== */
+
+.gallery-navigation-wrapper {
+	position: relative;
+	
+	.dots {
+		display: none;
+	}
+}
+
+.slider-gallery {
+	&.multiple {
+		img {
+			max-width: none;
+			height: 380px;
+			width: auto;
+			margin-left: 30px;
+			margin-right: 30px;
+		}
+	}
+
+	&:not(.multiple) .gallery {
+		align-items: center;
+		background-color: $lightgray;
+	}
+
+	&.with-pagination {
+		.gallery-navigation-wrapper {
+			padding-bottom: 60px;
+			position: relative;
+
+			.disabled-slider {
+				margin-bottom: -60px;
+			}
+
+			.pagination {
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				width: 100px;
+				margin-left: -50px;
+				text-align: center;
+				font-style: italic;
+				@include font-size($fs14);
+				pointer-events: none;
+			}
+
+			.arrow {
+				position: absolute;
+				bottom: 0;
+				cursor: pointer;
+				@include svg-icon(
+					"/files/themes/younergy/assets/images/slider_arrow.svg",
+					22px,
+					14px,
+					$darkblue
+				);
+			}
+
+			.arrow--left {
+				left: 50%;
+				margin-left: -50px;
+			}
+			.arrow--right {
+				right: 50%;
+				margin-right: -50px;
+				transform: rotate(180deg);
+			}
+		}
+	}
+
+	.figure-wrapper figure {
+		overflow: hidden;
+
+		img {
+			float: left;
+		}
+	}
+}

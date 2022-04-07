@@ -20,6 +20,8 @@ function mywptheme_setup()
 
 	register_nav_menus(array(
 		'primary'		=> __('Main Menu', 'kobu'),
+		'full'			=> __('Full Menu', 'kobu'),
+		'footer'		=> __('Footer Menu', 'kobu'),
 	));
 
 	// Hide admin bar at front-end
