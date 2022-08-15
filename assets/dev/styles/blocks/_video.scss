@@ -35,7 +35,7 @@
 		padding-left: 20px;
 		padding-right: 20px;
 		text-align: center;
-		color: $lightestgray;
+		color: var(--wp--preset--color--senary);
 		z-index: 10;
 		opacity: 1 !important;
 		visibility: visible !important;
@@ -64,7 +64,7 @@ body.js-loaded .pageload-video:not(.video-loaded),
 	&:before {
 		@include pseudo;
 		@include transition(opacity 0.8s ease, visibility 0.8s ease);
-		background-color: rgba($darkblue, 0.6);
+		background-color: rgba($topLayerColor, 0.6);
 		left: 0;
 		top: 0;
 		width: 100%;
@@ -192,16 +192,16 @@ body.js-loaded .pageload-video:not(.video-loaded),
 		}
 
 		span {
-			background-color: rgba($darkblue, 0.8);
+			background-color: rgba($topLayerColor, 0.8);
 			padding: 0.2em 0 0.2em 0;
 			-webkit-box-decoration-break: clone;
 			-ms-box-decoration-break: clone;
 			-o-box-decoration-break: clone;
 			box-decoration-break: clone;
-			box-shadow: 0.3em 0 0 rgba($darkblue, 0.8),
-				-0.3em 0 0 rgba($darkblue, 0.8);
+			box-shadow: 0.3em 0 0 rgba($topLayerColor, 0.8),
+				-0.3em 0 0 rgba($topLayerColor, 0.8);
 			line-height: 1.8;
-			color: $lightestgray;
+			color: var(--wp--preset--color--senary);
 		}
 	}
 

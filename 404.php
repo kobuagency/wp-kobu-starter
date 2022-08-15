@@ -12,7 +12,7 @@ get_header(); ?>
 		<div class="error-page-content">
 			<h1 class="error-page-title">404</h1>
 			<div class="error-page-message">
-				<p><?php _e('Unfortunately, the page you tried accessing could not be retrieved.'); ?></p>
+				<p><?php _e('Unfortunately, the page you tried accessing could not be retrieved.', 'kobu'); ?></p>
 				<a class="btn white" href="<?php echo home_url(); ?>"><?php _e('back to homepage', 'kobu'); ?></a>
 			</div>
 		</div>

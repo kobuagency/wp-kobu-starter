@@ -7,8 +7,8 @@
     position: relative;
 	display: flex;
 	align-items: center;
-	color: $lightestgray;
-	background-color: $orange;
+	color: var(--wp--preset--color--senary);
+	background-color: var(--wp--preset--color--secondary);
 
 	.error-page-content {
 		z-index: 2;

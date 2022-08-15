@@ -286,8 +286,12 @@ function kobu_get_icons($icon)
  * Get terms links
  *
  */
-function kobu_list_terms($taxonomy_slug = 'category', $output = 'string', $link = true, $list = false)
+function kobu_list_terms($taxonomy_slug = 'category', $output = 'string', $link = true, $list = false, $post_id = '')
 {
+	if (!$post_id) {
+		$post_id = get_the_ID();
+	}
+
 	$taxonomy_slug = $taxonomy_slug ? $taxonomy_slug : 'category';
 	$terms = get_the_terms(get_the_ID(), $taxonomy_slug);
 

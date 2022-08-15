@@ -39,14 +39,11 @@ add_action('wp_head', 'critical_css');
 
 function mywptheme_enqueue_script()
 {
-	// Theme CSS -> If cached, media="all" else media="print"
-	if (!(isset($_COOKIE['csscache']) && $_COOKIE['csscache'] == MYWPTHEME_THEME_VERSION)) {
-		wp_enqueue_style('mywptheme-preload', MYWPTHEME_THEME_URL . '/assets/dist/mywptheme.min.css', array(), MYWPTHEME_THEME_VERSION);
-		wp_enqueue_style('mywptheme-onload', MYWPTHEME_THEME_URL . '/assets/dist/mywptheme.min.css', array(), MYWPTHEME_THEME_VERSION, 'print');
-	} else {
-		wp_enqueue_style('mywptheme', MYWPTHEME_THEME_URL . '/assets/dist/mywptheme.min.css', array(), MYWPTHEME_THEME_VERSION);
+	if (isset($_COOKIE['csscache']) && $_COOKIE['csscache'] == MYWPTHEME_THEME_VERSION) {
+		// Cached, can load all CSS in the head
+		$style_dependencies = apply_filters('mywptheme_style_dependencies', array());
+		wp_enqueue_style('mywptheme', MYWPTHEME_THEME_URL . '/assets/dist/mywptheme.min.css', $style_dependencies, MYWPTHEME_THEME_VERSION);
 	}
-
 
 	// Theme JS
 	wp_enqueue_script('intersectionObserver', MYWPTHEME_THEME_URL . '/assets/dist/intersectionObserver.min.js', array(), MYWPTHEME_THEME_VERSION, true);
@@ -102,7 +99,7 @@ add_action('wp_print_styles', 'mywptheme_dequeue_styles', 100);
 function mywptheme_enqueue_third_party_scripts()
 {
 	// enqueue footer scripts
-	wp_enqueue_script('slick', MYWPTHEME_THEME_URL . '/assets/third-party/slick-carousel/slick/slick.min.js', array('jquery'), '1.8.0', true);
+	wp_enqueue_script('keen-slider', MYWPTHEME_THEME_URL . '/assets/third-party/keen-slider/keen-slider.min.js', array('jquery'), '6.0.0', true);
 
 	wp_enqueue_script('modernizr', MYWPTHEME_THEME_URL . '/assets/third-party/modernizr/modernizr-custom.js', array('jquery'), '3.6.0', true);
 	wp_enqueue_script('isInViewport', MYWPTHEME_THEME_URL . '/assets/third-party/isInViewport/lib/isInViewport.js', array('jquery'), '3.0.4', true);
@@ -118,10 +115,16 @@ add_action('wp_enqueue_scripts', 'mywptheme_enqueue_third_party_scripts');
 
 function mywptheme_enqueue_footer()
 {
+	if (!(isset($_COOKIE['csscache']) && $_COOKIE['csscache'] == MYWPTHEME_THEME_VERSION)) {
+		// Not cached, critical css loaded in head
+		$style_dependencies = apply_filters('mywptheme_style_dependencies', array());
+		wp_enqueue_style('mywptheme', MYWPTHEME_THEME_URL . '/assets/dist/mywptheme.min.css', $style_dependencies, MYWPTHEME_THEME_VERSION);
+	}
+
 	// Enqueue non-critical styles
 	wp_enqueue_style('wp-block-library');
 	wp_enqueue_style('kobu_custom_blocks-style-css');
-	wp_enqueue_style('slick', MYWPTHEME_THEME_URL . '/assets/third-party/slick-carousel/slick/slick.css', array(), '1.8.0');
+	wp_enqueue_style('keen-slider', MYWPTHEME_THEME_URL . '/assets/third-party/keen-slider/keen-slider.min.css', array(), '6.0.0');
 	wp_enqueue_style('no_script', MYWPTHEME_THEME_URL . '/assets/dist/mywptheme_nojs.min.css', array(), MYWPTHEME_THEME_VERSION);
 }
 add_action('get_footer', 'mywptheme_enqueue_footer');
@@ -133,6 +136,7 @@ function mywptheme_main_script_dependency($script_dependencies)
 	$script_dependencies[] = 'isInViewport';
 	$script_dependencies[] = 'intersectionObserver';
 	$script_dependencies[] = 'imagesloaded';
+	$script_dependencies[] = 'keen-slider';
 
 	return $script_dependencies;
 }

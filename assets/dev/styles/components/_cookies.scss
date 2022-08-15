@@ -12,8 +12,8 @@
 	bottom: 0;
 	left: 0;
 	padding: 20px;
-	background-color: $blue;
-	color: $lightestgray;
+	background-color: var(--wp--preset--color--primary);
+	color: var(--wp--preset--color--senary);
 
 	&.hidden {
 		@include hidden;

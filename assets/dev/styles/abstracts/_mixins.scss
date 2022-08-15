@@ -22,12 +22,12 @@
 }
 
 @mixin btn(
-	$color: $lightestgray,
-	$colorhover: $lightestgray,
-	$border: $blue,
-	$borderhover: $darkblue,
-	$background: $blue,
-	$backgroundhover: $darkblue
+	$color: var(--wp--preset--color--senary),
+	$colorhover: var(--wp--preset--color--senary),
+	$border: var(--wp--preset--color--primary),
+	$borderhover: var(--wp--preset--color--primary),
+	$background: var(--wp--preset--color--primary),
+	$backgroundhover: var(--wp--preset--color--primary)
 ) {
 	color: $color;
 	background: $background;

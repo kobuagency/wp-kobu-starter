@@ -6,8 +6,7 @@ $assets-path: "/files/themes/mywptheme";
 /* Fonts 
 ================================================== */
 
-$font-family-base: "HK Grotesk", Helvetica, Tahoma, sans-serif;
-$font-family-splinesans: "Spline Sans", Helvetica, Tahoma, sans-serif;
+$font-family-base: var(--wp--preset--font-family--hk-grotesk);
 $font-size-base: 16px;
 $font-weight-base: 400;
 $letter-spacing: 0px;
@@ -52,22 +51,17 @@ $fs12: (
 /* Color palette
 ================================================== */
 
-$darkblue: #373153;
-$blue: #5f5af8;
-$lightblue: #8B82B3;
-$orange: #ff7a3c;
-$lightorange: #ffa262;
-$lightgray: #f8f5f3;
-$lightestgray: #fdfcfb;
+$topLayerColor : #000;
 
 $colors: (
-	"darkblue": $darkblue,
-	"blue": $blue,
-	"lightblue": $lightblue,
-	"orange": $orange,
-	"lightorange": $lightorange,
-	"lightgray": $lightgray,
-	"lightestgray": $lightestgray,
+	"background": var(--wp--preset--color--background),
+	"foreground": var(--wp--preset--color--foreground),
+	"primary": var(--wp--preset--color--primary),
+	"secondary": var(--wp--preset--color--secondary),
+	"tertiary": var(--wp--preset--color--tertiary),
+	"quaternary": var(--wp--preset--color--quaternary),
+	"quinary": var(--wp--preset--color--quinary),
+	"senary": var(--wp--preset--color--senary),
 );
 
 /* Media queries breakpoints

@@ -48,9 +48,11 @@ if (!is_admin()) {
                     curl_setopt($ch, CURLOPT_URL, $url);
 
                     $vimeo_file = curl_exec($ch);
+                    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
                     curl_close($ch);
 
-                    if ($vimeo_file !== FALSE) {
+                    if ($httpCode == 200 && $vimeo_file !== FALSE) {
                         $hash = unserialize($vimeo_file);
                         $thumbnail_url = $hash[0]['thumbnail_large'];
                     }

@@ -39,28 +39,6 @@ body {
 /* Images
 ================================================== */
 
-.bg-img {
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	left: 0;
-	right: 0;
-
-	&:before {
-		@include pseudo;
-		height: 100%;
-		width: 100%;
-		top: 0;
-		left: 0;
-		background-color: rgba($darkblue, 0.5);
-		z-index: 2;
-	}
-
-	.coverimg {
-		z-index: 1;
-	}
-}
-
 .coverimg {
 	@extend %coverimg;
 }

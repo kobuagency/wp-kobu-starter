@@ -20,9 +20,33 @@
 	}
 } */
 
-.keen-slider:focus {
-	outline: none;
+.keen-slider {
+	&.disabled-slider {
+		justify-content: center;
+
+		a {
+			cursor: pointer !important;
+		}
+
+		.clone {
+			display: none;
+		}
+
+		.post-card,
+		.slide {
+			transform: none !important;
+		}
+
+		~ div {
+			display: none;
+		}
+	}
+
+	&:focus {
+		outline: 0;
+	}
 }
+
 
 .content-slider,
 .articles-slider,
@@ -57,6 +81,7 @@
 	}
 }
 
+
 /* Sliders
 ================================================== */
 
@@ -72,61 +97,16 @@
 	&.multiple {
 		img {
 			max-width: none;
-			height: 380px;
+			height: 78px;
 			width: auto;
-			margin-left: 30px;
-			margin-right: 30px;
+			margin-left: var(--wp--custom--spacing--small);
+			margin-right: var(--wp--custom--spacing--small);
 		}
 	}
 
 	&:not(.multiple) .gallery {
 		align-items: center;
-		background-color: $lightgray;
-	}
-
-	&.with-pagination {
-		.gallery-navigation-wrapper {
-			padding-bottom: 60px;
-			position: relative;
-
-			.disabled-slider {
-				margin-bottom: -60px;
-			}
-
-			.pagination {
-				position: absolute;
-				bottom: 0;
-				left: 50%;
-				width: 100px;
-				margin-left: -50px;
-				text-align: center;
-				font-style: italic;
-				@include font-size($fs14);
-				pointer-events: none;
-			}
-
-			.arrow {
-				position: absolute;
-				bottom: 0;
-				cursor: pointer;
-				@include svg-icon(
-					"/files/themes/younergy/assets/images/slider_arrow.svg",
-					22px,
-					14px,
-					$darkblue
-				);
-			}
-
-			.arrow--left {
-				left: 50%;
-				margin-left: -50px;
-			}
-			.arrow--right {
-				right: 50%;
-				margin-right: -50px;
-				transform: rotate(180deg);
-			}
-		}
+		background-color: var(--wp--preset--color--quinary);
 	}
 
 	.figure-wrapper figure {
@@ -134,6 +114,73 @@
 
 		img {
 			float: left;
+		}
+	}
+}
+
+.gallery-navigation-wrapper {
+	padding-bottom: 60px;
+	position: relative;
+
+	.disabled-slider {
+		margin-bottom: -60px;
+	}
+
+	.pagination {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		width: 100px;
+		margin-left: -50px;
+		text-align: center;
+		font-style: italic;
+		@include font-size($fs14);
+		pointer-events: none;
+	}
+
+	.arrow {
+		position: absolute;
+		bottom: 0;
+		cursor: pointer;
+		@include svg-icon(
+			"/files/themes/mywptheme/assets/images/slider-arrow-right.svg",
+			22px,
+			14px,
+			var(--wp--preset--color--primary)
+		);
+	}
+
+	.arrow--left {
+		left: 50%;
+		margin-left: -50px;
+		transform: rotate(180deg);
+	}
+	.arrow--right {
+		right: 50%;
+		margin-right: -50px;
+	}
+
+	.dots {
+		display: inline-block;
+		margin-top: 3px;
+
+		.dot {
+			@include transition(
+				background-color 0.8s ease,
+				border 0.8s ease
+			);
+			width: 12px;
+			height: 12px;
+			margin-left: 5px;
+			margin-right: 5px;
+			display: inline-block;
+			border: 1px solid var(--wp--preset--color--primary);
+			border-radius: 100%;
+			cursor: pointer;
+
+			&.dot--active {
+				background-color: var(--wp--preset--color--primary);
+			}
 		}
 	}
 }

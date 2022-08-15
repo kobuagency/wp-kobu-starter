@@ -52,36 +52,14 @@ form button,
 	}
 }
 
-.btn-wrapper.blue a,
-.btn.blue {
+.btn-wrapper.primary a,
+.btn.primary {
 	@include btn(
-		$color: $lightestgray,
-		$colorhover: $lightestgray,
-		$border: $blue,
-		$borderhover: $darkblue,
-		$background: $blue,
-		$backgroundhover: $darkblue,
-	);
-}
-.btn-wrapper.darkblue a,
-.btn.darkblue {
-	@include btn(
-		$color: $lightestgray,
-		$colorhover: $lightestgray,
-		$border: $darkblue,
-		$borderhover: $darkblue,
-		$background: $darkblue,
-		$backgroundhover: $darkblue,
-	);
-}
-.btn-wrapper.orange a,
-.btn.orange {
-	@include btn(
-		$color: $lightestgray,
-		$colorhover: $lightestgray,
-		$border: $orange,
-		$borderhover: $orange,
-		$background: $orange,
-		$backgroundhover: $orange,
+		$color: var(--wp--preset--color--senary),
+		$colorhover: var(--wp--preset--color--senary),
+		$border: var(--wp--preset--color--primary),
+		$borderhover: var(--wp--preset--color--primary),
+		$background: var(--wp--preset--color--primary),
+		$backgroundhover: var(--wp--preset--color--primary),
 	);
 }

@@ -20,7 +20,7 @@
 	left: 0;
 	width: 100%;
 	z-index: 4;
-	color: $darkblue;
+	color: var(--wp--preset--color--primary);
 
 	#header.scroll & {
 		pointer-events: none;
@@ -106,7 +106,7 @@
 				);
 				height: 2px;
 				width: 22px;
-				background-color: $darkblue;
+				background-color: var(--wp--preset--color--primary);
 
 				&:nth-child(1) {
 					top: 4px;
@@ -157,8 +157,8 @@
 	z-index: 3;
 	opacity: 0;
 	visibility: hidden;
-	background: $lightgray;
-	color: $darkblue;
+	background: var(--wp--preset--color--senary);
+	color: var(--wp--preset--color--primary);
 
 	#header.open & {
 		opacity: 1;

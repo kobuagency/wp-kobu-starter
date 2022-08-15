@@ -42,18 +42,18 @@ select,
 	padding: 15px 25px;
 	background-color: transparent;
 	border-radius: 27px;
-	border: 1px solid $lightgray;
+	border: 1px solid var(--wp--preset--color--senary);
 	appearance: none;
 	-webkit-appearance: none;
 	outline: 0;
 	font-family: $font-family-base;
-	color: $darkblue;
+	color: var(--wp--preset--color--primary);
 	line-height: 1;
 	font-weight: 600;
 	font-size: 1rem;
 
 	@include input-placeholder {
-		color: $darkblue;
+		color: var(--wp--preset--color--primary);
 		opacity: 1;
 	}
 }
@@ -70,13 +70,13 @@ input[type="radio"] {
 	margin-top: 0;
 	margin-left: 0;
 	background-color: transparent;
-	border: 1px solid $darkblue;
+	border: 1px solid var(--wp--preset--color--primary);
 	cursor: pointer;
 }
 
 input[type="checkbox"]:checked,
 input[type="radio"]:checked {
-	background-color: $darkblue;
+	background-color: var(--wp--preset--color--primary);
 }
 
 .gform_wrapper.gravity-theme .gfield textarea.large,
@@ -128,7 +128,7 @@ select {
 	@include font-size($fs12);
 	margin-bottom: 10px;
 	font-weight: 400;
-	color: $lightblue;
+	color: var(--wp--preset--color--quinary);
 }
 
 // Consent, checkbox and radio
@@ -179,12 +179,12 @@ select {
 .gform_wrapper.gravity-theme .gform_footer input[type="submit"] {
 	@include btn-common;
 	@include btn(
-		$color: $lightestgray,
-		$colorhover: $lightestgray,
-		$border: $orange,
-		$borderhover: $orange,
-		$background: $orange,
-		$backgroundhover: $orange
+		$color: var(--wp--preset--color--senary),
+		$colorhover: var(--wp--preset--color--senary),
+		$border: var(--wp--preset--color--secondary),
+		$borderhover: var(--wp--preset--color--secondary),
+		$background: var(--wp--preset--color--secondary),
+		$backgroundhover: var(--wp--preset--color--secondary)
 	);
 	line-height: 1;
 	margin-left: auto;
@@ -194,8 +194,8 @@ select {
 .gform_ajax_spinner {
 	@include animation(spinner 1.1s infinite linear);
 	margin-left: 20px;
-	border: 4px solid rgba($darkblue, 0.3);
-	border-left: 4px solid rgba($darkblue, 0.7);
+	border: 4px solid rgba(var(--wp--preset--color--primary), 0.3);
+	border-left: 4px solid rgba(var(--wp--preset--color--primary), 0.7);
 	border-radius: 50%;
 	width: 30px;
 	height: 30px;
@@ -216,7 +216,7 @@ select {
 	border-radius: 10px;
 
 	h2 {
-		color: $orange;
+		color: var(--wp--preset--color--secondary);
 	}
 }
 
@@ -232,23 +232,23 @@ select {
 .gform_wrapper.gravity-theme .gfield_description.gfield_validation_message {
 	@include font-size($fs12);
 	margin-top: 10px;
-	color: $orange;
+	color: var(--wp--preset--color--secondary);
 }
 
 .gform_wrapper .gfield_error [aria-invalid="true"] {
-	border: 1px solid $orange !important;
-	color: $orange !important;
+	border: 1px solid var(--wp--preset--color--secondary) !important;
+	color: var(--wp--preset--color--secondary) !important;
 	background-color: transparent;
 
 	@include input-placeholder {
-		color: $orange !important;
+		color: var(--wp--preset--color--secondary) !important;
 	}
 
 	+ label {
-		color: $orange !important;
+		color: var(--wp--preset--color--secondary) !important;
 	}
 }
 
 .gform_wrapper .gform_validation_errors {
-	border: 1px solid $orange !important;
+	border: 1px solid var(--wp--preset--color--secondary) !important;
 }

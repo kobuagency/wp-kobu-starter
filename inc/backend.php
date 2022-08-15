@@ -267,3 +267,58 @@ function kobu_google_map_api($api)
 }
 add_filter('acf/fields/google_map/api', 'kobu_google_map_api');
 */
+
+/*
+ * Register taxonomy
+ */
+function kobu_register_taxonomy($tax_name, $slug, $post_types, $singular_name, $plural_name, $hierarchical = true)
+{
+    $labels = array(
+        'name'                       => $plural_name,
+        'menu_name'                  => $plural_name,
+        'singular_name'              => $singular_name,
+        'search_items'               => 'Search ' . $plural_name,
+        'popular_items'              => 'Popular ' . $plural_name,
+        'all_items'                  => 'All ' . $plural_name,
+        'parent_item'                => 'Parent ' . $singular_name,
+        'parent_item_colon'          => 'Parent ' . $singular_name . ':',
+        'edit_item'                  => 'Edit ' . $singular_name,
+        'view_item'                  => 'View ' . $singular_name,
+        'update_item'                => 'Update ' . $singular_name,
+        'add_new_item'               => 'Add New ' . $singular_name,
+        'new_item_name'              => 'New ' . $singular_name . ' Name',
+        'separate_items_with_commas' => 'Separate ' . $plural_name . ' with commas',
+        'add_or_remove_items'        => 'Add or remove ' . $plural_name,
+        'back_to_items'              => '← Back to ' . $plural_name,
+        'items_list_navigation'      => $plural_name . ' list navigation',
+        'items_list'                 => $plural_name . ' list',
+    );
+    $args = array(
+        'labels'                     => $labels,
+        'hierarchical'               => $hierarchical,
+        'public'                     => true,
+        'show_ui'                    => true,
+        'show_admin_column'          => true,
+        'show_in_nav_menus'          => true,
+        'show_tagcloud'              => true,
+        'rewrite'                    => array('slug' => $slug, "with_front" => false),
+        'meta_box_cb'                => false,
+        'show_in_rest'               => true,
+    );
+
+    register_taxonomy($tax_name, $post_types, $args);
+}
+
+
+/**
+ * Remove Default Image Link in WordPress
+ */
+
+function kobu_imagelink_setup() {
+    $image_set = get_option( 'image_default_link_type' );
+     
+    if ($image_set !== 'none') {
+        update_option('image_default_link_type', 'none');
+    }
+}
+add_action('admin_init', 'kobu_imagelink_setup', 10);
