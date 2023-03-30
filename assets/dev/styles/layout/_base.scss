@@ -62,13 +62,10 @@ html {
 	margin-right: auto;
 
 	&:not(.small):not(.medium):not(.large) {
-		@include responsive-width("c798");
 	}
 	&.medium {
-		@include responsive-width("c569");
 	}
 	&.large {
-		@include responsive-width("c1162");
 	}
 }
 
@@ -107,13 +104,9 @@ html {
 	> .wp-block-group.alignfull .wp-block-group__inner-container > *,
 	> .wp-block-group.alignfull > *:not(.wp-block-group__inner-container) {
 		&:not(.alignwide):not(.alignfull):not(.bg-img):not(.color-overlay) {
-			@include responsive-width("c798");
-			@include responsive-width("m342", "margin-left");
 		}
 
 		&.alignwide {
-			@include responsive-width("c1162");
-			@include responsive-width("m114", "margin-left");
 		}
 
 		&.alignfull {

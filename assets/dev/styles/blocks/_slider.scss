@@ -4,13 +4,13 @@
 ================================================== */
 
 /* .keen-slider:not(.disabled-slider):not(.no-bullet) {
-	cursor: url("/files/themes/younergy/assets/images/slider_cursor.png") 50
+	cursor: url("#{$assets-path}/images/slider_cursor.png") 50
 			50,
 		auto !important;
 		
 
 	a:not(.btn):not(.read-more):not(.wp-block-button__link) {
-		cursor: url("/files/themes/younergy/assets/images/slider_cursor.png")
+		cursor: url("#{$assets-path}/images/slider_cursor.png")
 				50 50,
 			auto !important;
 
@@ -143,7 +143,7 @@
 		bottom: 0;
 		cursor: pointer;
 		@include svg-icon(
-			"/files/themes/mywptheme/assets/images/slider-arrow-right.svg",
+			"#{$assets-path}/images/slider-arrow-right.svg",
 			22px,
 			14px,
 			var(--wp--preset--color--primary)

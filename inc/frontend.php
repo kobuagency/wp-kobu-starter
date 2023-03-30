@@ -293,7 +293,7 @@ function kobu_list_terms($taxonomy_slug = 'category', $output = 'string', $link 
 	}
 
 	$taxonomy_slug = $taxonomy_slug ? $taxonomy_slug : 'category';
-	$terms = get_the_terms(get_the_ID(), $taxonomy_slug);
+	$terms = get_the_terms($post_id, $taxonomy_slug);
 
 	if ($output == 'array') {
 		return $terms;

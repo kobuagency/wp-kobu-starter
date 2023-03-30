@@ -17,6 +17,8 @@ function critical_css()
 
 	if (is_front_page()) {
 		$template = 'homepage';
+	} else {
+		$template = 'default_page';
 	}
 
 	// If not cached, load inline CSS and update cookie
@@ -39,10 +41,12 @@ add_action('wp_head', 'critical_css');
 
 function mywptheme_enqueue_script()
 {
-	if (isset($_COOKIE['csscache']) && $_COOKIE['csscache'] == MYWPTHEME_THEME_VERSION) {
-		// Cached, can load all CSS in the head
-		$style_dependencies = apply_filters('mywptheme_style_dependencies', array());
-		wp_enqueue_style('mywptheme', MYWPTHEME_THEME_URL . '/assets/dist/mywptheme.min.css', $style_dependencies, MYWPTHEME_THEME_VERSION);
+	// Theme CSS -> If cached, media="all" else media="print"
+	if (!(isset($_COOKIE['csscache']) && $_COOKIE['csscache'] == MYWPTHEME_THEME_VERSION)) {
+		wp_enqueue_style('mywptheme-preload', MYWPTHEME_THEME_URL . '/assets/dist/mywptheme.min.css', array(), MYWPTHEME_THEME_VERSION);
+		wp_enqueue_style('mywptheme-onload', MYWPTHEME_THEME_URL . '/assets/dist/mywptheme.min.css', array(), MYWPTHEME_THEME_VERSION, 'print');
+	} else {
+		wp_enqueue_style('mywptheme', MYWPTHEME_THEME_URL . '/assets/dist/mywptheme.min.css', array('kobu_custom_blocks-style-css'), MYWPTHEME_THEME_VERSION);
 	}
 
 	// Theme JS
@@ -115,12 +119,6 @@ add_action('wp_enqueue_scripts', 'mywptheme_enqueue_third_party_scripts');
 
 function mywptheme_enqueue_footer()
 {
-	if (!(isset($_COOKIE['csscache']) && $_COOKIE['csscache'] == MYWPTHEME_THEME_VERSION)) {
-		// Not cached, critical css loaded in head
-		$style_dependencies = apply_filters('mywptheme_style_dependencies', array());
-		wp_enqueue_style('mywptheme', MYWPTHEME_THEME_URL . '/assets/dist/mywptheme.min.css', $style_dependencies, MYWPTHEME_THEME_VERSION);
-	}
-
 	// Enqueue non-critical styles
 	wp_enqueue_style('wp-block-library');
 	wp_enqueue_style('kobu_custom_blocks-style-css');

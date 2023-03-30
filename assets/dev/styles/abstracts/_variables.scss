@@ -1,7 +1,7 @@
 /* Theme paths 
 ================================================== */
 
-$assets-path: "/files/themes/mywptheme";
+$assets-path: "/files/themes/mywptheme/assets";
 
 /* Fonts 
 ================================================== */
@@ -88,40 +88,4 @@ $z-indexes: (
 	"scroll-down",
 	"tablesite-content",
 	"footer"
-);
-
-/* Section widths and margins
-================================================== */
-
-$variable_width_sizes: (
-	"c1162": (
-		"null": 85,
-	),
-	"c1024": (
-		"null": 74.96,
-	),
-	"c798": (
-		"null": 58.418,
-	),
-	"c569": (
-		"null": 41.65,
-	),
-	"c342": (
-		"null": 25,
-	),
-	"m683": (
-		"null": 50,
-	),
-	"m455": (
-		"null": 33.3,
-	),
-	"m342": (
-		"null": 25,
-	),
-	"m227": (
-		"null": 16.617,
-	),
-	"m114": (
-		"null": 8.34,
-	),
 );

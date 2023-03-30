@@ -6,6 +6,16 @@
  */
 
 class Kobu_Dropdown_Walker_Nav_Menu extends Walker_Nav_Menu {
+	function display_element($element, &$children_elements, $max_depth, $depth = 0, $args, &$output)
+	{
+		$id_field = $this->db_fields['id'];
+		if (is_object($args[0])) {
+			$args[0]->has_children = !empty($children_elements[$element->$id_field]);
+		}
+		return parent::display_element($element, $children_elements, $max_depth, $depth, $args, $output);
+	}
+
+
 	function start_el(&$output, $item, $depth=0, $args=array(), $id = 0) {
     	$title = $item->title;
     	$permalink = $item->url;
@@ -15,7 +25,7 @@ class Kobu_Dropdown_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$slug = sanitize_title($title);
 		$has_children = false;
 		
-		if( !empty($item->classes) && is_array($item->classes) && in_array('menu-item-has-children', $item->classes) ){
+		if ((!empty($item->classes) && is_array($item->classes) && in_array('menu-item-has-children', $item->classes)) || $args->has_children) {
 			$has_children = true;
 		}
 

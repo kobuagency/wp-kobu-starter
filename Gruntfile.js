@@ -32,6 +32,14 @@ module.exports = function (grunt) {
 				options: {
 					livereload: true
 				}
+				/* SSL options
+				options: {
+					livereload: {
+						key: grunt.file.read('/Applications/MAMP/Library/OpenSSL/certs/www.heartgenetics.test.key'),
+						cert: grunt.file.read('/Applications/MAMP/Library/OpenSSL/certs/www.heartgenetics.test.crt'),
+					},
+				},
+				*/
 			},
 			js: { // watch js files
 				files: ['assets/dev/scripts/*.js'],
@@ -42,6 +50,14 @@ module.exports = function (grunt) {
 				options: {
 					livereload: true
 				}
+				/* SSL options
+				options: {
+					livereload: {
+						key: grunt.file.read('/Applications/MAMP/Library/OpenSSL/certs/www.heartgenetics.test.key'),
+						cert: grunt.file.read('/Applications/MAMP/Library/OpenSSL/certs/www.heartgenetics.test.crt'),
+					},
+				},
+				*/
 			},
 			svg: {
 				files: ['assets/dev/svg/**/*.svg'],
@@ -261,18 +277,22 @@ module.exports = function (grunt) {
 
 
 		critical: {
+			options: {
+				base: './',
+				css: [
+					'assets/dist/<%= pkg.functionPrefix %>.css'
+				],
+				width: 1920,
+				height: 1080
+			},
 			homepage: {
-				options: {
-					base: './',
-					css: [
-						'assets/dist/ilgaeurope.css'
-					],
-					width: 1366,
-					height: 768
-				},
 				src: '<%= pkg.localUrl %>',
-				dest: 'assets/dist/critical/ilgaeurope_critical_homepage.min.css'
-			}
+				dest: 'assets/dist/critical/<%= pkg.functionPrefix %>_critical_homepage.min.css'
+			},
+			default_page: {
+				src: '<%= pkg.localUrl %>/ilga-europe/work-with-us/',
+				dest: 'assets/dist/critical/<%= pkg.functionPrefix %>_critical_default_page.min.css'
+			},
 		}
 	});
 
